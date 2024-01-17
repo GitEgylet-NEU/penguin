@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TeamManager : MonoBehaviour
@@ -13,6 +14,7 @@ public class TeamManager : MonoBehaviour
 	[Header("Spawn options")]
 	[SerializeField] GameObject penguinPrefab;
 	public List<Penguin> penguins;
+	Dictionary<int, List<Coroutine>> penguinCoroutines;
 	[SerializeField] int spawnCount;
 	[SerializeField] float penguinDistance;
 
@@ -32,6 +34,7 @@ public class TeamManager : MonoBehaviour
 
 	private void Start()
 	{
+		penguinCoroutines = new();
 		for (int i = 0; i < spawnCount; i++)
 		{
 			GameObject obj = Instantiate(penguinPrefab);
@@ -39,7 +42,12 @@ public class TeamManager : MonoBehaviour
 			obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
 			Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
 			obj.GetComponentInChildren<SpriteRenderer>().color = col;
-			penguins.Add(obj.GetComponent<Penguin>());
+
+			Penguin penguin = obj.GetComponent<Penguin>();
+			penguin.id = i;
+			penguins.Add(penguin);
+
+			penguinCoroutines[i] = new();
 		}
 
 		cameraController.followTransform = penguins[0].transform;
@@ -51,8 +59,6 @@ public class TeamManager : MonoBehaviour
 
 	private void Update()
 	{
-
-
 		if (runMultiplier > 0)
 		{
 			runSpeed *= 1f + Time.deltaTime * (runMultiplier - 1f);
@@ -64,20 +70,16 @@ public class TeamManager : MonoBehaviour
 			if (penguin == null) continue;
 			penguin.transform.position += new Vector3(0, 0, runSpeed * Time.deltaTime);
 		}
-
-		Move();
-
-
 	}
 
 	private void LateUpdate()
 	{
-		if (Input.GetKeyDown(KeyCode.K)) RemovePenguin(0);
+		if (Input.GetKeyDown(KeyCode.K)) RemovePenguinAtPosition(0);
 	}
 
-	void Move()
+	/// <summary>Must be called in Update()</summary>
+	public void Move(float horizontal)
 	{
-		float horizontal = Input.GetAxisRaw(horizontalAxisName);
 		float amount = horizontal * horizontalSensitivity * Time.deltaTime;
 
 		int i = 0;
@@ -88,22 +90,34 @@ public class TeamManager : MonoBehaviour
 			{
 				yield return new WaitForSeconds(i * delay * .85f);
 				penguin.Move(amount);
+				penguinCoroutines[penguin.id].RemoveAt(0);
 			}
-			StartCoroutine(MoveDelay());
+			penguinCoroutines[penguin.id].Add(StartCoroutine(MoveDelay()));
 			i++;
 		}
 	}
 
-	public void RemovePenguin(int index)
+	public void RemovePenguinAtPosition(int index)
 	{
 		if (penguins.Count == 0) return;
 		RemovePenguin(penguins[index]);
+	}
+	public void RemovePenguinWithID(int id)
+	{
+		if (penguins.Count == 0) return;
+		RemovePenguin(penguins.Where(p => p.id == id).FirstOrDefault());
 	}
 	public void RemovePenguin(Penguin penguin)
 	{
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
 		{
+			foreach (Coroutine c in penguinCoroutines[penguin.id])
+			{
+				if (c != null) StopCoroutine(c);
+			}
+			penguinCoroutines.Remove(penguin.id);
+
 			int idx = penguins.IndexOf(penguin);
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
@@ -119,6 +133,7 @@ public class TeamManager : MonoBehaviour
 		{
 			Debug.Log("ur ded not big soup rice");
 			Debug.Break();
+			Application.Quit();
 		}
 	}
 }
