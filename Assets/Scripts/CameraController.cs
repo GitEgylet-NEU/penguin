@@ -5,6 +5,7 @@ public class CameraController : MonoBehaviour
 {
 	public Transform followTransform;
 	public float offset;
+	public float xLimit;
 
 	Coroutine lerpCoroutine;
 
@@ -12,7 +13,7 @@ public class CameraController : MonoBehaviour
 	{
 		if (followTransform != null)
 		{
-			transform.position = new Vector3(transform.position.x, transform.position.y, followTransform.position.z - offset);
+			transform.position = new Vector3(Mathf.Clamp(followTransform.position.x, -xLimit, xLimit), transform.position.y, followTransform.position.z - offset);
 		}
 	}
 

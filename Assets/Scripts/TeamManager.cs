@@ -23,6 +23,8 @@ public class TeamManager : MonoBehaviour
 	[SerializeField] float runMultiplier;
 	public float delay;
 	public float runSpeed;
+	[SerializeField] float runLength;
+	bool run;
 
 	[Header("Controls")]
 	[SerializeField] string horizontalAxisName;
@@ -55,20 +57,29 @@ public class TeamManager : MonoBehaviour
 
 		runSpeed = initialRunSpeed;
 		delay = penguinDistance / runSpeed;
+		run = true;
 	}
 
 	private void Update()
 	{
-		if (runMultiplier > 0)
+		if (run)
 		{
-			runSpeed *= 1f + Time.deltaTime * (runMultiplier - 1f);
-			delay = penguinDistance / runSpeed;
-		}
-
-		foreach (Penguin penguin in penguins)
-		{
-			if (penguin == null) continue;
-			penguin.transform.position += new Vector3(0, 0, runSpeed * Time.deltaTime);
+			if (runMultiplier > 0)
+			{
+				runSpeed *= 1f + Time.deltaTime * (runMultiplier - 1f);
+				delay = penguinDistance / runSpeed;
+			}
+			foreach (Penguin penguin in penguins)
+			{
+				if (penguin == null) continue;
+				penguin.transform.position += new Vector3(0, 0, runSpeed * Time.deltaTime);
+			}
+			if (penguins.FirstOrDefault().transform.position.z >= runLength)
+			{
+				Debug.Log("epic battle");
+				run = false;
+				ControlHandler.instance.canStrafe = false;
+			}
 		}
 	}
 
@@ -88,7 +99,7 @@ public class TeamManager : MonoBehaviour
 			if (penguin == null) continue;
 			IEnumerator MoveDelay()
 			{
-				yield return new WaitForSeconds(i * delay * .85f);
+				yield return new WaitForSeconds(i * delay * .95f);
 				penguin.Move(amount);
 				penguinCoroutines[penguin.id].RemoveAt(0);
 			}
@@ -135,5 +146,11 @@ public class TeamManager : MonoBehaviour
 			Debug.Break();
 			Application.Quit();
 		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(new Vector3(-cameraController.xLimit, 0, runLength), new Vector3(cameraController.xLimit, 0, runLength));
 	}
 }

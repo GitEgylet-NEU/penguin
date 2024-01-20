@@ -2,11 +2,26 @@ using UnityEngine;
 
 public class ControlHandler : MonoBehaviour
 {
+	public static ControlHandler instance;
+
+	[SerializeField] bool showTutorial;
+	[SerializeField] GameObject tutorialObject;
 	public bool handheld;
+
+	public bool canStrafe = true;
 
 	private void Awake()
 	{
-		Time.timeScale = 0f;
+		instance = this;
+		if (showTutorial)
+		{
+			tutorialObject.SetActive(true);
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			tutorialObject.SetActive(false);
+		}
 	}
 
 	void Start()
@@ -18,10 +33,10 @@ public class ControlHandler : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		HandleMovement();
+		if (canStrafe) HandleStrafe();
 	}
 
-	void HandleMovement()
+	void HandleStrafe()
 	{
 		if (Input.touchCount == 0)
 		{
