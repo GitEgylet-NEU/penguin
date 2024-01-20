@@ -10,6 +10,12 @@ public class BattleManager : MonoBehaviour
 		participants = new();
 	}
 
+	public enum Team
+	{
+		Player = 0,
+		Enemy = 1
+	}
+
 	[SerializeField] Transform battlefield;
 	[SerializeField][Min(0)] int columns;
 	[SerializeField][Min(0)] int rows;
