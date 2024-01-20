@@ -11,8 +11,10 @@ public class BattleParticipant : MonoBehaviour
 	}
 
 	public float Health { get; private set; }
-	
+
 	public BattleManager.Team team;
+	[SerializeField] bool enableHealthBar = true;
+	HealthBar healthBar;
 
 	[Header("Battle Attributes")]
 	public float maxHealth;
@@ -32,10 +34,23 @@ public class BattleParticipant : MonoBehaviour
 	{
 		BattleManager.instance.participants.Add(this);
 		Health = maxHealth;
+
+		if (enableHealthBar)
+		{
+			GameObject obj = Instantiate(BattleManager.instance.healthBarPrefab, BattleManager.instance.worldSpaceCanvas.transform);
+			obj.name = $"HealthBar ({name})";
+			healthBar = obj.GetComponent<HealthBar>();
+			healthBar.min = 0f;
+			healthBar.max = maxHealth;
+			healthBar.disappearOnZero = true;
+		}
 	}
 
 	private void Update()
 	{
+		healthBar.SetValue(Health);
+		healthBar.transform.position = (Vector2)transform.position + new Vector2(0, transform.localScale.y + .25f);
+
 		if (target == null || target.Health <= 0f)
 		{
 			target = null;
@@ -77,6 +92,19 @@ public class BattleParticipant : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	private void OnEnable()
+	{
+		if (healthBar != null) healthBar.gameObject.SetActive(true);
+	}
+	private void OnDisable()
+	{
+		if (healthBar != null) healthBar.gameObject.SetActive(false);
+	}
+	private void OnDestroy()
+	{
+		if (healthBar != null) Destroy(healthBar.gameObject);
 	}
 
 	IEnumerator HitCooldown()

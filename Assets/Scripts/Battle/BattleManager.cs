@@ -23,6 +23,8 @@ public class BattleManager : MonoBehaviour
 
 	[Header("Battle")]
 	public List<BattleParticipant> participants;
+	public Canvas worldSpaceCanvas;
+	public GameObject healthBarPrefab;
 
 	private void OnDrawGizmos()
 	{

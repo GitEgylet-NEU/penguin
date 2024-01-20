@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.noha-software.utils": {
+      "version": "https://github.com/Noha-Software/NohaSoftUtils.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "56bb7052ad0c1ba2706a004bd9ec7f039f6fbddc"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 1,
