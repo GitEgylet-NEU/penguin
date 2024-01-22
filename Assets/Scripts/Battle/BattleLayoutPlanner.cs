@@ -7,6 +7,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 	[SerializeField] Transform battlefield;
 	[SerializeField] float padding;
+	[SerializeField] GameObject penguinPrefab;
 
 	[Header("UI")]
 	[SerializeField] RectTransform characterSelection;
@@ -48,6 +49,12 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.P)) SetCharacter(1, 1, "p_peasant");
+		if (Input.GetKeyDown(KeyCode.K)) SetCharacter(1, 1, "");
+	}
+
 	public bool SetCharacter(int column, int row, string id)
 	{
 		if (column > gameData.columns || row > gameData.rows)
@@ -61,9 +68,41 @@ public class BattleLayoutPlanner : MonoBehaviour
 			return false;
 		}
 
-		if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(layout.characterIDs[column, row])) currentSize++;
-		else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(layout.characterIDs[column, row])) currentSize--;
-		layout.characterIDs[column, row] = id;
+		if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(layout.characterIDs[column, row]))
+		{
+			Debug.Log("set");
+			// set character where there wasn't any previously
+			layout.characterIDs[column, row] = id;
+
+			CharacterData data = GetCharacter(column, row);
+			var obj = Instantiate(penguinPrefab, markers[column, row]);
+			obj.name = data.name;
+			obj.transform.localPosition = Vector2.zero;
+			obj.SetActive(true);
+			obj.GetComponent<SpriteRenderer>().color = data.color;
+
+			currentSize++;
+		}
+		else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(layout.characterIDs[column, row]))
+		{
+			// remove character
+			layout.characterIDs[column, row] = string.Empty;
+
+			Destroy(markers[column, row].GetChild(0).gameObject);
+
+			currentSize--;
+		}
+		else
+		{
+			//change character
+			layout.characterIDs[column, row] = id;
+
+			CharacterData data = GetCharacter(column, row);
+			var obj = markers[column,row].GetChild(0).gameObject;
+			obj.name = data.name;
+			obj.GetComponent<SpriteRenderer>().color = data.color;
+		}
+		
 		return true;
 	}
 
