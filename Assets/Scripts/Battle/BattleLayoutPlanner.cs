@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BattleLayoutPlanner : MonoBehaviour
@@ -7,7 +8,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 	[SerializeField] Transform battlefield;
 	[SerializeField] float padding;
-	[SerializeField] GameObject penguinPrefab;
+	public GameObject penguinPrefab;
 
 	[Header("UI")]
 	[SerializeField] RectTransform characterSelection;
@@ -41,7 +42,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 				Vector2 pos = layout.GetPosition(c, r);
 				pos = new Vector2(battlefield.position.x - battlefield.localScale.x / 2f + padding + pos.x, battlefield.position.y - battlefield.localScale.y / 2f + padding + pos.y);
 				var obj = Instantiate(markerTemplate, transform);
-				obj.name = $"Marker ({c};{r})";
+				obj.name = $"{c};{r}";
 				obj.transform.position = pos;
 				obj.SetActive(true);
 				markers[c, r] = obj.transform;
@@ -49,10 +50,20 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 	}
 
+	
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.P)) SetCharacter(1, 1, "p_peasant");
 		if (Input.GetKeyDown(KeyCode.K)) SetCharacter(1, 1, "");
+	}
+
+	public Transform GetMarker(Vector2 position)
+	{
+		foreach (var m in markers)
+		{
+			if (m.GetComponentInChildren<Collider2D>().OverlapPoint(position)) return m;
+		}
+		return null;
 	}
 
 	public bool SetCharacter(int column, int row, string id)
@@ -70,7 +81,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 		if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(layout.characterIDs[column, row]))
 		{
-			Debug.Log("set");
 			// set character where there wasn't any previously
 			layout.characterIDs[column, row] = id;
 
@@ -88,7 +98,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 			// remove character
 			layout.characterIDs[column, row] = string.Empty;
 
-			Destroy(markers[column, row].GetChild(0).gameObject);
+			Destroy(markers[column, row].GetChild(1).gameObject);
 
 			currentSize--;
 		}
@@ -98,11 +108,11 @@ public class BattleLayoutPlanner : MonoBehaviour
 			layout.characterIDs[column, row] = id;
 
 			CharacterData data = GetCharacter(column, row);
-			var obj = markers[column,row].GetChild(0).gameObject;
+			var obj = markers[column,row].GetChild(1).gameObject;
 			obj.name = data.name;
 			obj.GetComponent<SpriteRenderer>().color = data.color;
 		}
-		
+		Debug.Log($"set ({column};{row}) to {id}");
 		return true;
 	}
 
@@ -119,12 +129,16 @@ public class BattleLayoutPlanner : MonoBehaviour
 			return null;
 		}
 
+		return GetCharacter(layout.characterIDs[column, row]);
+	}
+	public CharacterData GetCharacter(string id)
+	{
 		switch (layout.team)
 		{
 			case BattleManager.Team.Player:
-				return gameData.playerCharacters.GetCharacter(layout.characterIDs[column, row]);
+				return gameData.playerCharacters.GetCharacter(id);
 			case BattleManager.Team.Enemy:
-				return gameData.enemyCharacters.GetCharacter(layout.characterIDs[column, row]);
+				return gameData.enemyCharacters.GetCharacter(id);
 			default:
 				Debug.LogError("There's no character list defined for team " + layout.team);
 				return null;
