@@ -1,17 +1,26 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class BattleLayoutPlanner : MonoBehaviour
 {
+	[Header("Settings")]
 	[SerializeField] public GameData gameData;
 	[SerializeField] int teamSize;
+	[SerializeField] string layoutName = "default";
 
+	[Header("Planner Attributes")]
 	[SerializeField] Transform battlefield;
 	[SerializeField] float padding;
 	public GameObject penguinPrefab;
 
+	[SerializeField] Color availableMarker;
+	[SerializeField] Color unavailableMarker;
+
 	[Header("UI")]
-	[SerializeField] RectTransform characterSelection;
+	[SerializeField] CharacterSelection characterSelection;
+	[SerializeField] TextMeshProUGUI teamSizeText;
+	[SerializeField] RectTransform alertBox;
 
 	int currentSize;
 	BattleLayout layout;
@@ -32,9 +41,11 @@ public class BattleLayoutPlanner : MonoBehaviour
 		layout = new BattleLayout(gameData.columns, gameData.rows, BattleManager.Team.Player);
 		layout.CalculateLayout(battlefield, padding);
 
+		characterSelection.Init(gameData.playerCharacters);
+
 		//place markers
 		GameObject markerTemplate = transform.Find("MarkerTemplate").gameObject;
-		markers = new Transform[gameData.columns, gameData.rows];
+		markers = new Transform[gameData.columns, Mathf.FloorToInt(gameData.rows / 2f)];
 		for (int r = 0; r < gameData.rows; r++)
 		{
 			for (int c = 0; c < gameData.columns; c++)
@@ -44,19 +55,58 @@ public class BattleLayoutPlanner : MonoBehaviour
 				var obj = Instantiate(markerTemplate, transform);
 				obj.name = $"{c};{r}";
 				obj.transform.position = pos;
+
+				if (r < (gameData.rows / 2f))
+				{
+					//row is available for placement
+					obj.GetComponentInChildren<SpriteRenderer>().color = availableMarker;
+					markers[c, r] = obj.transform;
+				}
+				else
+				{
+					//don't add row to markers matrix so that it can't be placed upon
+					obj.GetComponentInChildren<SpriteRenderer>().color = unavailableMarker;
+				}
+
 				obj.SetActive(true);
-				markers[c, r] = obj.transform;
+			}
+		}
+
+		//try to load layout
+		if (SaveManager.instance.LoadSaveData(layoutName, out BattleLayout l))
+		{
+			layout.team = l.team;
+			for (int c = 0; c < gameData.columns; c++)
+			{
+				for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+				{
+					if (!string.IsNullOrEmpty(l.characterIDs[c, r])) SetCharacter(c, r, l.characterIDs[c, r]);
+				}
 			}
 		}
 	}
 
-	
+
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.P)) SetCharacter(1, 1, "p_peasant");
-		if (Input.GetKeyDown(KeyCode.K)) SetCharacter(1, 1, "");
+		teamSizeText.text = currentSize + " / " + teamSize;
+		teamSizeText.color = currentSize >= teamSize ? Color.red : Color.white;
 	}
 
+	public void SaveLayout()
+	{
+		if (layout == null || string.IsNullOrEmpty(layoutName) || SaveManager.instance == null)
+		{
+			Debug.LogWarning("Can't initiate save");
+			return;
+		}
+		if (SaveManager.instance.SaveLayout(layoutName, layout))
+		{
+			Debug.Log("Successfully saved layout as " + layoutName);
+		}
+	}
+
+	/// <summary>Return the first marker which the given <see cref="Vector2"/> overlaps.</summary>
 	public Transform GetMarker(Vector2 position)
 	{
 		foreach (var m in markers)
@@ -68,19 +118,21 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 	public bool SetCharacter(int column, int row, string id)
 	{
-		if (column > gameData.columns || row > gameData.rows)
+		if (column > gameData.columns || row >= layout.characterIDs.GetLength(1))
 		{
 			Debug.LogError("Coordinates out of bounds!");
-			return false;
-		}
-		if (currentSize >= teamSize)
-		{
-			Debug.LogError("Adding more characters would excess the team size limit!");
 			return false;
 		}
 
 		if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(layout.characterIDs[column, row]))
 		{
+			if (currentSize >= teamSize)
+			{
+				Debug.LogError("Adding more characters would excess the team size limit!");
+				alertBox.gameObject.SetActive(true);
+				return false;
+			}
+
 			// set character where there wasn't any previously
 			layout.characterIDs[column, row] = id;
 
@@ -108,7 +160,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 			layout.characterIDs[column, row] = id;
 
 			CharacterData data = GetCharacter(column, row);
-			var obj = markers[column,row].GetChild(1).gameObject;
+			var obj = markers[column, row].GetChild(1).gameObject;
 			obj.name = data.name;
 			obj.GetComponent<SpriteRenderer>().color = data.color;
 		}
@@ -146,6 +198,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 	}
 }
 
+[Serializable]
 public class BattleLayout
 {
 	public string[,] characterIDs; // [col,row] = [x,y]

@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,8 +11,26 @@ public class CharacterSelection : MonoBehaviour
 	[SerializeField] BattleLayoutPlanner layoutPlanner;
 	List<RaycastResult> results = new();
 
+	bool init = false;
+	public void Init(IEnumerable<CharacterData> characters)
+	{
+		GameObject prefab = transform.Find("CharacterTemplate").gameObject;
+		prefab.SetActive(false);
+		if (prefab == null) return;
+		foreach (var c in characters)
+		{
+			var obj = Instantiate(prefab, transform);
+			obj.name = c.id;
+			obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
+			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = c.name;
+			obj.SetActive(true);
+		}
+		init = true;
+	}
+
 	private void Update()
 	{
+		if (!init) return;
 		HandleDrags();
 	}
 
@@ -26,7 +44,6 @@ public class CharacterSelection : MonoBehaviour
 		if (Input.GetMouseButtonDown(0) || (!dragging && Input.touchCount == 1))
 		{
 			mouse = Input.touchCount == 0;
-			Debug.Log("start");
 			//start drag
 			id = string.Empty;
 			GraphicRaycast();
@@ -39,18 +56,21 @@ public class CharacterSelection : MonoBehaviour
 			if (string.IsNullOrEmpty(id))
 			{
 				//remove
-				Transform marker = layoutPlanner.GetMarker(mousePos);
-				if (marker != null)
+
+				try
 				{
-					var coord = marker.gameObject.name.Split(';').Select(int.Parse).ToArray();
-					layoutPlanner.SetCharacter(coord[0], coord[1], string.Empty);
+					Transform marker = layoutPlanner.GetMarker(mousePos);
+					if (marker != null)
+					{
+						var coord = marker.gameObject.name.Split(';').Select(int.Parse).ToArray();
+						layoutPlanner.SetCharacter(coord[0], coord[1], string.Empty);
+					}
 				}
+				catch { }
 				return;
 			}
 			else
 			{
-				Debug.Log(id);
-
 				CharacterData character = layoutPlanner.GetCharacter(id);
 				if (character == null) return;
 
@@ -64,13 +84,20 @@ public class CharacterSelection : MonoBehaviour
 		}
 		else if (!string.IsNullOrEmpty(id) && ((mouse && Input.GetMouseButtonUp(0)) || (dragging && !mouse && Input.touchCount == 0)))
 		{
-			Debug.Log("end");
-			Transform marker = layoutPlanner.GetMarker(mousePos);
-			if (marker != null)
+			try
 			{
-				var coord = marker.gameObject.name.Split(';').Select(int.Parse).ToArray();
-				layoutPlanner.SetCharacter(coord[0], coord[1], id);
+				Transform marker = layoutPlanner.GetMarker(mousePos);
+				if (marker != null)
+				{
+					var coord = marker.gameObject.name.Split(';').Select(int.Parse).ToArray();
+					layoutPlanner.SetCharacter(coord[0], coord[1], id);
+				}
 			}
+			catch (System.Exception e)
+			{
+				Debug.LogException(e);
+			}
+
 			Destroy(dragObj);
 
 			dragging = false;
