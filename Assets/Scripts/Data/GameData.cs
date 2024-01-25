@@ -18,4 +18,18 @@ public class GameData : ScriptableObject
 			Debug.LogWarning($"The number of rows must be an even number!");
 		}
 	}
+
+	public CharacterData GetCharacterData(string id, BattleManager.Team team)
+	{
+		switch (team)
+		{
+			case BattleManager.Team.Player:
+				return playerCharacters.GetCharacter(id);
+			case BattleManager.Team.Enemy:
+				return enemyCharacters.GetCharacter(id);
+			default:
+				Debug.LogError("There's no character list defined for team " + team);
+				return null;
+		}
+	}
 }

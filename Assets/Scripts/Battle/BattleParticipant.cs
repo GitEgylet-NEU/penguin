@@ -30,6 +30,18 @@ public class BattleParticipant : MonoBehaviour
 	[SerializeField][Tooltip("Whether the participant should move back to their desired range when their target gets too close")] bool shouldMoveBack = false;
 	bool moveBack = false;
 
+	public void Setup(CharacterData data)
+	{
+		maxHealth = data.maxHealth;
+		damagePerHit = data.damagePerHit;
+		hitsPerSecond = data.hitsPerSecond;
+		range = data.range;
+		speed = data.speed;
+		rotationSpeed = data.rotationSpeed;
+		shouldMoveBack = data.shouldMoveBack;
+	}
+
+
 	private void Start()
 	{
 		BattleManager.instance.participants.Add(this);

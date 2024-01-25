@@ -71,7 +71,7 @@ public class CharacterSelection : MonoBehaviour
 			}
 			else
 			{
-				CharacterData character = layoutPlanner.GetCharacter(id);
+				CharacterData character = layoutPlanner.gameData.GetCharacterData(id, layoutPlanner.team);
 				if (character == null) return;
 
 				dragObj = Instantiate(layoutPlanner.penguinPrefab);

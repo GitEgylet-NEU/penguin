@@ -8,6 +8,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 	[SerializeField] public GameData gameData;
 	[SerializeField] int teamSize;
 	[SerializeField] string layoutName = "default";
+	public BattleManager.Team team = BattleManager.Team.Player;
 
 	[Header("Planner Attributes")]
 	[SerializeField] Transform battlefield;
@@ -38,7 +39,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 		currentSize = 0;
 
-		layout = new BattleLayout(gameData.columns, gameData.rows, BattleManager.Team.Player);
+		layout = new BattleLayout(gameData.columns, gameData.rows, team);
 		layout.CalculateLayout(battlefield, padding);
 
 		characterSelection.Init(gameData.playerCharacters);
@@ -181,20 +182,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 			return null;
 		}
 
-		return GetCharacter(layout.characterIDs[column, row]);
-	}
-	public CharacterData GetCharacter(string id)
-	{
-		switch (layout.team)
-		{
-			case BattleManager.Team.Player:
-				return gameData.playerCharacters.GetCharacter(id);
-			case BattleManager.Team.Enemy:
-				return gameData.enemyCharacters.GetCharacter(id);
-			default:
-				Debug.LogError("There's no character list defined for team " + layout.team);
-				return null;
-		}
+		return gameData.GetCharacterData(layout.characterIDs[column, row], layout.team);
 	}
 }
 

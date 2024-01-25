@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
 		Enemy = 1
 	}
 
+	public GameData gameData;
+
 	[SerializeField] Transform battlefield;
 	[SerializeField][Min(0)] int columns;
 	[SerializeField][Min(0)] int rows;
@@ -25,6 +27,49 @@ public class BattleManager : MonoBehaviour
 	public List<BattleParticipant> participants;
 	public Canvas worldSpaceCanvas;
 	public GameObject healthBarPrefab;
+
+	[Header("Layout")]
+	[SerializeField] string layoutName = "default";
+	[SerializeField] GameObject penguinPrefab;
+
+	private void Start()
+	{
+		if (gameData == null)
+		{
+			Debug.LogError("No GameData has been set!");
+			Debug.Break();
+			Application.Quit();
+			return;
+		}
+
+		//try to load layout
+		if (SaveManager.instance.LoadSaveData(layoutName, out BattleLayout layout))
+		{
+			for (int c = 0; c < gameData.columns; c++)
+			{
+				for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+				{
+					if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
+					CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
+					if (data == null) continue;
+
+					//spawn penguin
+					Vector2 pos = layout.GetPosition(c, r);
+					pos = new Vector2(battlefield.position.x - battlefield.localScale.x / 2f + padding + pos.x, battlefield.position.y - battlefield.localScale.y / 2f + padding + pos.y);
+					var obj = Instantiate(penguinPrefab, transform);
+					obj.name = $"{data.name} ({c};{r})";
+					obj.transform.position = pos;
+
+					obj.GetComponent<SpriteRenderer>().color = data.color;
+					BattleParticipant p = obj.GetComponent<BattleParticipant>();
+					p.Setup(data);
+					p.team = layout.team;
+
+					obj.SetActive(true);
+				}
+			}
+		}
+	}
 
 	private void OnDrawGizmos()
 	{
