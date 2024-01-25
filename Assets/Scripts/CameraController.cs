@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
 	{
 		if (followTransform != null)
 		{
+			// kövesse a followTransform pozícióját, miközben az xLimiten belül marad
 			transform.position = new Vector3(Mathf.Clamp(followTransform.position.x, -xLimit, xLimit), transform.position.y, followTransform.position.z - offset);
 		}
 	}
@@ -21,6 +22,7 @@ public class CameraController : MonoBehaviour
 	{
 		if (lerp)
 		{
+			// fancy lerp cucc ami nem mûködik úgy ahogy kellene neki
 			float startZ = followTransform.position.z;
 			followTransform = null;
 

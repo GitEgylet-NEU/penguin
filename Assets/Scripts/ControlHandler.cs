@@ -30,7 +30,6 @@ public class ControlHandler : MonoBehaviour
 		if (!handheld) Debug.LogWarning("Device is not handheld");
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (canStrafe) HandleStrafe();
@@ -46,9 +45,7 @@ public class ControlHandler : MonoBehaviour
 		{
 			Touch touch = Input.GetTouch(0);
 
-			float horizontal = (touch.position.x - (Screen.width / 2f)) / (Screen.width / 2f);
-			if (horizontal < 0 && horizontal > -.5f) horizontal = -.5f;
-			else if (horizontal > 0 && horizontal < .5f) horizontal = .5f;
+			float horizontal = touch.position.x > 0f ? 1f : -1f;
 
 			TeamManager.instance.Move(horizontal);
 		}
