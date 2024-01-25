@@ -14,14 +14,14 @@ public class TeamManager : MonoBehaviour
 	[Header("Spawn options")]
 	[SerializeField] GameObject penguinPrefab;
 	public List<Penguin> penguins;
-	Dictionary<int, List<Coroutine>> penguinCoroutines;
+	Dictionary<int, List<Coroutine>> penguinCoroutines; // azon coroutine-ok listája, amiket a bizonyos pingvineken kell majd lefuttatni (késleltetett mozgás)
 	[SerializeField] int spawnCount;
-	[SerializeField] float penguinDistance;
+	[SerializeField][Tooltip("Két pingvin közötti távolság (Unity unitban)")] float penguinDistance;
 
 	[Header("Run")]
 	[SerializeField] float initialRunSpeed;
-	[SerializeField] float runMultiplier;
-	public float delay;
+	[SerializeField][Tooltip("Hányszorosára gyorsul a sebesség másodpercenként?")] float runMultiplier;
+	[Tooltip("Két pingvin közötti távolság (másodpercben)")] public float delay;
 	public float runSpeed;
 	[SerializeField] float runLength;
 	bool run;
@@ -36,6 +36,7 @@ public class TeamManager : MonoBehaviour
 
 	private void Start()
 	{
+		// pingvinek generálása
 		penguinCoroutines = new();
 		for (int i = 0; i < spawnCount; i++)
 		{
@@ -64,16 +65,21 @@ public class TeamManager : MonoBehaviour
 	{
 		if (run)
 		{
+			// sebesség gyorsítása
 			if (runMultiplier > 0)
 			{
 				runSpeed *= 1f + Time.deltaTime * (runMultiplier - 1f);
 				delay = penguinDistance / runSpeed;
 			}
+
+			// mindegyik pingvin mozgatása elõre
 			foreach (Penguin penguin in penguins)
 			{
 				if (penguin == null) continue;
 				penguin.transform.position += new Vector3(0, 0, runSpeed * Time.deltaTime);
 			}
+
+			// run leállítása, ha az elsõ pingvin a végére ér
 			if (penguins.FirstOrDefault().transform.position.z >= runLength)
 			{
 				Debug.Log("epic battle");
@@ -83,12 +89,8 @@ public class TeamManager : MonoBehaviour
 		}
 	}
 
-	private void LateUpdate()
-	{
-		if (Input.GetKeyDown(KeyCode.K)) RemovePenguinAtPosition(0);
-	}
-
-	/// <summary>Must be called in Update()</summary>
+	/// <summary>A pingvinek mozgatása oldalra egy megadott érték alapján.</summary>
+	/// <param name="horizontal">Horizontális érték, pl. <see cref="Input.GetAxisRaw(string)"/>-bõl. Negatív esetén balra, pozitív esetén jobbra mozog.</param>
 	public void Move(float horizontal)
 	{
 		float amount = horizontal * horizontalSensitivity * Time.deltaTime;
@@ -103,16 +105,18 @@ public class TeamManager : MonoBehaviour
 				penguin.Move(amount);
 				penguinCoroutines[penguin.id].RemoveAt(0);
 			}
-			penguinCoroutines[penguin.id].Add(StartCoroutine(MoveDelay()));
+			penguinCoroutines[penguin.id].Add(StartCoroutine(MoveDelay())); // hozzáadás a listához, hogy szükség esetén le lehessen állítani
 			i++;
 		}
 	}
 
+	/// <summary>Pingvin kitörlése az x. pozíción</summary>
 	public void RemovePenguinAtPosition(int index)
 	{
 		if (penguins.Count == 0) return;
 		RemovePenguin(penguins[index]);
 	}
+	/// <summary>Megadott ID-jû pingvin kitörlése</summary>
 	public void RemovePenguinWithID(int id)
 	{
 		if (penguins.Count == 0) return;
@@ -123,6 +127,7 @@ public class TeamManager : MonoBehaviour
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
 		{
+			// coroutine-ok leállítása
 			foreach (Coroutine c in penguinCoroutines[penguin.id])
 			{
 				if (c != null) StopCoroutine(c);
