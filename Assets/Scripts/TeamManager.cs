@@ -14,7 +14,6 @@ public class TeamManager : MonoBehaviour
 	[Header("Spawn options")]
 	[SerializeField] GameObject penguinPrefab;
 	public List<Penguin> penguins;
-	Dictionary<int, List<Coroutine>> penguinCoroutines; // azon coroutine-ok listája, amiket a bizonyos pingvineken kell majd lefuttatni (késleltetett mozgás)
 	[SerializeField] int spawnCount;
 	[SerializeField][Tooltip("Két pingvin közötti távolság (Unity unitban)")] float penguinDistance;
 
@@ -25,6 +24,7 @@ public class TeamManager : MonoBehaviour
 	public float runSpeed;
 	[SerializeField] float runLength;
 	bool run;
+	List<Command> moveCommands;
 
 	[Header("Controls")]
 	[SerializeField] string horizontalAxisName;
@@ -37,7 +37,6 @@ public class TeamManager : MonoBehaviour
 	private void Start()
 	{
 		// pingvinek generálása
-		penguinCoroutines = new();
 		for (int i = 0; i < spawnCount; i++)
 		{
 			GameObject obj = Instantiate(penguinPrefab);
@@ -49,8 +48,6 @@ public class TeamManager : MonoBehaviour
 			Penguin penguin = obj.GetComponent<Penguin>();
 			penguin.id = i;
 			penguins.Add(penguin);
-
-			penguinCoroutines[i] = new();
 		}
 
 		cameraController.followTransform = penguins[0].transform;
@@ -59,6 +56,8 @@ public class TeamManager : MonoBehaviour
 		runSpeed = initialRunSpeed;
 		delay = penguinDistance / runSpeed;
 		run = true;
+
+		moveCommands = new();
 	}
 
 	private void Update()
@@ -79,6 +78,12 @@ public class TeamManager : MonoBehaviour
 				penguin.transform.position += new Vector3(0, 0, runSpeed * Time.deltaTime);
 			}
 
+			if (!penguins.Any())
+			{
+				Debug.Log("big oof");
+				Debug.Break();
+				Application.Quit();
+			}
 			// run leállítása, ha az elsõ pingvin a végére ér
 			if (penguins.FirstOrDefault().transform.position.z >= runLength)
 			{
@@ -86,6 +91,17 @@ public class TeamManager : MonoBehaviour
 				run = false;
 				ControlHandler.instance.canStrafe = false;
 			}
+
+			ExecuteCommands();
+		}
+	}
+
+	void ExecuteCommands()
+	{
+		foreach (Command command in moveCommands.Where(c => Time.timeSinceLevelLoad >= c.time).ToArray())
+		{
+			GetPenguinByID(command.penguinId).Move(command.horizontal);
+			moveCommands.Remove(command);
 		}
 	}
 
@@ -99,15 +115,14 @@ public class TeamManager : MonoBehaviour
 		foreach (Penguin penguin in penguins)
 		{
 			if (penguin == null) continue;
-			IEnumerator MoveDelay()
-			{
-				yield return new WaitForSeconds(i * delay * .95f);
-				penguin.Move(amount);
-				penguinCoroutines[penguin.id].RemoveAt(0);
-			}
-			penguinCoroutines[penguin.id].Add(StartCoroutine(MoveDelay())); // hozzáadás a listához, hogy szükség esetén le lehessen állítani
+			moveCommands.Add(new(penguin.id, Time.timeSinceLevelLoad + i * delay, amount));
 			i++;
 		}
+	}
+
+	public Penguin GetPenguinByID(int id)
+	{
+		return penguins.Where(p => p.id == id).FirstOrDefault();
 	}
 
 	/// <summary>Pingvin kitörlése az x. pozíción</summary>
@@ -127,18 +142,19 @@ public class TeamManager : MonoBehaviour
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
 		{
-			// coroutine-ok leállítása
-			foreach (Coroutine c in penguinCoroutines[penguin.id])
-			{
-				if (c != null) StopCoroutine(c);
-			}
-			penguinCoroutines.Remove(penguin.id);
+			// releváns command-ok törlése
+			moveCommands.RemoveAll(c => c.penguinId == penguin.id);
+			//moveCommands.Clear();
+
 
 			int idx = penguins.IndexOf(penguin);
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
 
-			if (idx == 0) cameraController.SetTransform(penguins[0].transform, true);
+			if (idx == 0)
+			{
+				cameraController.SetTransform(penguins[0].transform, true);
+			}
 		}
 		catch
 		{
@@ -157,5 +173,19 @@ public class TeamManager : MonoBehaviour
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine(new Vector3(-cameraController.xLimit, 0, runLength), new Vector3(cameraController.xLimit, 0, runLength));
+	}
+
+	struct Command
+	{
+		public int penguinId;
+		public float time;
+		public float horizontal;
+
+		public Command(int penguinId, float time, float horizontal)
+		{
+			this.penguinId = penguinId;
+			this.time = time;
+			this.horizontal = horizontal;
+		}
 	}
 }

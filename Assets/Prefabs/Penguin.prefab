@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5469060451440854613}
   - component: {fileID: 6423065386230840907}
   - component: {fileID: -6592188564313043234}
-  - component: {fileID: -4917462443174464945}
   m_Layer: 9
   m_Name: Penguin
   m_TagString: Untagged
@@ -97,19 +96,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4917462443174464945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907333944610990537}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d7a852c62b49b478a089d6c316a3b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Section: {fileID: 5702051948169177812, guid: 8cf20c15d72f9c04c93b4f532e8f544a, type: 3}
 --- !u!1 &8299718944079415956
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,8 +123,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7575535987476749651}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -182,7 +168,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: -1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0.440121, g: 0.7127061, b: 0.735849, a: 1}
   m_FlipX: 0

@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTransform: {fileID: 0}
-  offset: 0
+  offset: 5
   xLimit: 0
 --- !u!1 &942248863
 GameObject:
