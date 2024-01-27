@@ -7,35 +7,44 @@ public class LevelSpawner : MonoBehaviour
 {
     public GameObject[] levelChunkDatas;
     public float[] lenght;
-    public GameObject Section;
-    float z = 25;
+    public GameObject Blanksection;
+    float z = 10;
     int rand = -1;
     int lastrand = -1;
 
+    //megadja hogy mennyire elõre generáljon
+    public int renderdistance = 30;
+
     public void Start()
     {
-        // elsõ blokkok generálása
-        Instantiate(Section, new Vector3(0, -0.1f, 5), Quaternion.identity);
-        Instantiate(Section, new Vector3(0, -0.1f, 15), Quaternion.identity);
-
+        
         //hosszúság bekérése
         lenght = new float[levelChunkDatas.Length];
             for (int i = 0; i < levelChunkDatas.Length; i++)
             {
                 lenght[i] = levelChunkDatas[i].transform.localScale.z;
             }
-        
+
+        // elsõ blokkok generálása
+        Instantiate(Blanksection, new Vector3(0, -0.1f, 5), Quaternion.identity);
+
+        while (z < renderdistance)
+        {
+            int id = NotSame();
+            Debug.Log("pregenerate");
+            Instantiate(levelChunkDatas[id], new Vector3(0, -0.1f, z + lenght[id]/2), Quaternion.identity);
+            z += lenght[id];
+        }
     }
 
     public void Update()
     {
         // endless generálás
-        TeamManager tam = FindObjectOfType<TeamManager>();
-        if (TeamManager.instance.penguins[0].gameObject.transform.position.z > z - 20)
+        if (TeamManager.instance.penguins[0].gameObject.transform.position.z > z - renderdistance)
         {
             int id = NotSame();
             Debug.Log("generate");
-            Instantiate(levelChunkDatas[id], new Vector3(0, -0.1f, z), Quaternion.identity);
+            Instantiate(levelChunkDatas[id], new Vector3(0, -0.1f, z + lenght[id] / 2), Quaternion.identity);
             z += lenght[id];
         }
 
@@ -48,7 +57,7 @@ public class LevelSpawner : MonoBehaviour
 
         while (lastrand == rand)
         {
-        rand = UnityEngine.Random.Range(0, 4);
+        rand = UnityEngine.Random.Range(0, levelChunkDatas.Length);
         }
         lastrand = rand;
         
