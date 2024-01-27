@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTransform: {fileID: 0}
-  offset: 0
+  offset: 5
   xLimit: 0
 --- !u!1 &682520887
 GameObject:
@@ -1410,6 +1410,7 @@ MonoBehaviour:
   penguins: []
   spawnCount: 5
   penguinDistance: 2.5
+  randomColors: 0
   initialRunSpeed: 6
   runMultiplier: 1.1
   delay: 0
@@ -1462,15 +1463,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bee8e666347624cbe9e257ef8561ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelChunkDatas:
+  levelChunkData:
   - {fileID: 5702051948169177812, guid: bf6b6b007f670d24290045a2e9d15078, type: 3}
   - {fileID: 5702051948169177812, guid: f052d34a6e53e684e8a9c8d0835cbbd8, type: 3}
   - {fileID: 5702051948169177812, guid: 38506ed46b39ca747bec36453388d934, type: 3}
   - {fileID: 5702051948169177812, guid: 47bf32907f648074e8424a681cca45f8, type: 3}
-  - {fileID: 5702051948169177812, guid: 47bf32907f648074e8424a681cca45f8, type: 3}
   - {fileID: 5702051948169177812, guid: 8bcb67bd36544f74caccb31a4ce9d5c7, type: 3}
-  lenght: []
-  Blanksection: {fileID: 2031640251}
+  length:
+  - 10
+  - 10
+  - 10
+  - 10
+  - 40
+  blankSection: {fileID: 5702051948169177812, guid: a3d239286f4339447997123a35237d51, type: 3}
   renderdistance: 30
 --- !u!1 &1815724531
 GameObject:
@@ -1702,11 +1707,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &2031640251 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5702051948169177812, guid: a3d239286f4339447997123a35237d51, type: 3}
-  m_PrefabInstance: {fileID: 1155939887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
