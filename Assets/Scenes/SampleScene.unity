@@ -851,54 +851,6 @@ MonoBehaviour:
   followTransform: {fileID: 0}
   offset: 5
   xLimit: 0
---- !u!1 &682520887
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 682520889}
-  - component: {fileID: 682520888}
-  m_Layer: 0
-  m_Name: UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &682520888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682520887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: aa13db052c35b6b488aeaf1e242a5589, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: c5c61e7b6379593459a356296d0cc443, type: 3}
-  m_SortingOrder: 0
---- !u!4 &682520889
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682520887}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: -5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &942248863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,7 +1367,7 @@ MonoBehaviour:
   runMultiplier: 1.1
   delay: 0
   runSpeed: 0
-  runLength: 100
+  runLength: 250
   horizontalAxisName: Horizontal
   horizontalSensitivity: 8
   cameraController: {fileID: 519420033}
@@ -1469,11 +1421,13 @@ MonoBehaviour:
   - {fileID: 5702051948169177812, guid: 38506ed46b39ca747bec36453388d934, type: 3}
   - {fileID: 5702051948169177812, guid: 47bf32907f648074e8424a681cca45f8, type: 3}
   - {fileID: 5702051948169177812, guid: 8bcb67bd36544f74caccb31a4ce9d5c7, type: 3}
+  - {fileID: 5702051948169177812, guid: 69e971301b8d19c4baecb6a5ecc0c7ab, type: 3}
   length:
   - 10
   - 10
   - 10
   - 10
+  - 40
   - 40
   blankSection: {fileID: 5702051948169177812, guid: a3d239286f4339447997123a35237d51, type: 3}
   renderdistance: 30
@@ -1719,4 +1673,3 @@ SceneRoots:
   - {fileID: 122062192}
   - {fileID: 942248867}
   - {fileID: 1155939887}
-  - {fileID: 682520889}
