@@ -14,13 +14,13 @@ public class LevelSpawner : MonoBehaviour
 
     public void Start()
     {
-        
+
         //hosszúság bekérése
-        //length = new float[levelChunkData.Length];
-        //for (int i = 0; i < levelChunkData.Length; i++)
-        //{
-        //    length[i] = levelChunkData[i].transform.localScale.z;
-        //}
+        length = new float[levelChunkData.Length];
+        for (int i = 0; i < levelChunkData.Length; i++)
+        {
+            length[i] = levelChunkData[i].transform.Find("ground").transform.localScale.z;
+        }
 
         // elsõ blokkok generálása
         Instantiate(blankSection, new Vector3(0, -0.1f, 5), Quaternion.identity);

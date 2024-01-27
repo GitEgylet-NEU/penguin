@@ -867,7 +867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &682520888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1469,12 +1469,7 @@ MonoBehaviour:
   - {fileID: 5702051948169177812, guid: 38506ed46b39ca747bec36453388d934, type: 3}
   - {fileID: 5702051948169177812, guid: 47bf32907f648074e8424a681cca45f8, type: 3}
   - {fileID: 5702051948169177812, guid: 8bcb67bd36544f74caccb31a4ce9d5c7, type: 3}
-  length:
-  - 10
-  - 10
-  - 10
-  - 10
-  - 40
+  length: []
   blankSection: {fileID: 5702051948169177812, guid: a3d239286f4339447997123a35237d51, type: 3}
   renderdistance: 30
 --- !u!1 &1815724531
