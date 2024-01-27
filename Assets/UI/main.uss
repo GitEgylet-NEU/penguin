@@ -1,0 +1,10 @@
+.unity-text-element {
+    font-size: 70px;
+}
+
+.unity-button {
+    width: 40%;
+    -unity-text-align: middle-center;
+    font-size: 50px;
+    align-self: center;
+}
