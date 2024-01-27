@@ -16,6 +16,7 @@ public class TeamManager : MonoBehaviour
 	public List<Penguin> penguins;
 	[SerializeField] int spawnCount;
 	[SerializeField][Tooltip("Két pingvin közötti távolság (Unity unitban)")] float penguinDistance;
+	[SerializeField] bool randomColors = true;
 
 	[Header("Run")]
 	[SerializeField] float initialRunSpeed;
@@ -42,8 +43,12 @@ public class TeamManager : MonoBehaviour
 			GameObject obj = Instantiate(penguinPrefab);
 			obj.name = "Penguin " + i;
 			obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
-			Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
-			obj.GetComponentInChildren<SpriteRenderer>().color = col;
+
+			if (randomColors)
+			{
+				Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
+				obj.GetComponentInChildren<SpriteRenderer>().color = col;
+			}
 
 			Penguin penguin = obj.GetComponent<Penguin>();
 			penguin.id = i;

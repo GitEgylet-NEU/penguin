@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
 {
-    public GameObject[] levelChunkDatas;
-    public float[] lenght;
-    public GameObject Blanksection;
+    public GameObject[] levelChunkData;
+    public float[] length;
+    public GameObject blankSection;
     float z = 10;
     int rand = -1;
     int lastrand = -1;
@@ -19,21 +16,21 @@ public class LevelSpawner : MonoBehaviour
     {
         
         //hosszúság bekérése
-        lenght = new float[levelChunkDatas.Length];
-            for (int i = 0; i < levelChunkDatas.Length; i++)
-            {
-                lenght[i] = levelChunkDatas[i].transform.localScale.z;
-            }
+        //length = new float[levelChunkData.Length];
+        //for (int i = 0; i < levelChunkData.Length; i++)
+        //{
+        //    length[i] = levelChunkData[i].transform.localScale.z;
+        //}
 
         // elsõ blokkok generálása
-        Instantiate(Blanksection, new Vector3(0, -0.1f, 5), Quaternion.identity);
+        Instantiate(blankSection, new Vector3(0, -0.1f, 5), Quaternion.identity);
 
         while (z < renderdistance)
         {
             int id = NotSame();
             Debug.Log("pregenerate");
-            Instantiate(levelChunkDatas[id], new Vector3(0, -0.1f, z + lenght[id]/2), Quaternion.identity);
-            z += lenght[id];
+            Instantiate(levelChunkData[id], new Vector3(0, -0.1f, z + length[id]/2), Quaternion.identity);
+            z += length[id];
         }
     }
 
@@ -44,8 +41,8 @@ public class LevelSpawner : MonoBehaviour
         {
             int id = NotSame();
             Debug.Log("generate");
-            Instantiate(levelChunkDatas[id], new Vector3(0, -0.1f, z + lenght[id] / 2), Quaternion.identity);
-            z += lenght[id];
+            Instantiate(levelChunkData[id], new Vector3(0, -0.1f, z + length[id] / 2), Quaternion.identity);
+            z += length[id];
         }
 
 
@@ -57,7 +54,7 @@ public class LevelSpawner : MonoBehaviour
 
         while (lastrand == rand)
         {
-        rand = UnityEngine.Random.Range(0, levelChunkDatas.Length);
+        rand = UnityEngine.Random.Range(0, levelChunkData.Length);
         }
         lastrand = rand;
         
