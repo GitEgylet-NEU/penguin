@@ -3,13 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Game Data")]
 public class GameData : ScriptableObject
 {
-	[Header("Characters")]
-	public CharacterData[] playerCharacters;
-	public CharacterData[] enemyCharacters;
-
 	[Header("Battle Settings")]
 	[Min(0)] public int columns;
 	[Min(0)] public int rows;
+	public PremadeBattleLayout[] premadeBattleLayouts;
+
+	[Space]
+	public CharacterData[] playerCharacters;
+	public CharacterData[] enemyCharacters;
 
 	private void OnValidate()
 	{

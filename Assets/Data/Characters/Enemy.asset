@@ -19,7 +19,7 @@ MonoBehaviour:
   maxHealth: 80
   hitsPerSecond: 1.2
   damagePerHit: 15
-  range: 0.5
+  range: 0.8
   speed: 1.75
   rotationSpeed: 250
   shouldMoveBack: 0

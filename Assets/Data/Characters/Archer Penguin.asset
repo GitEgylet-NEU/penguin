@@ -22,4 +22,4 @@ MonoBehaviour:
   range: 3
   speed: 2
   rotationSpeed: 250
-  shouldMoveBack: 1
+  shouldMoveBack: 0

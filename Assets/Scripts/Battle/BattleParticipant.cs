@@ -73,7 +73,7 @@ public class BattleParticipant : MonoBehaviour
 				Debug.Break();
 				return;
 			}
-			Debug.Log($"{gameObject.name}'s new target: {target.name}");
+			//Debug.Log($"{gameObject.name}'s new target: {target.name}");
 		}
 
 		//rotate towards target
@@ -99,7 +99,7 @@ public class BattleParticipant : MonoBehaviour
 				if (canHit)
 				{
 					target.ChangeHealth(-damagePerHit);
-					Debug.Log($"{gameObject.name} hit {target.name} for {damagePerHit} damage ({target.Health})");
+					//Debug.Log($"{gameObject.name} hit {target.name} for {damagePerHit} damage ({target.Health})");
 					StartCoroutine(HitCooldown());
 				}
 			}

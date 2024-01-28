@@ -947,7 +947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1214913002
 Rigidbody2D:
   serializedVersion: 4
@@ -1139,6 +1139,7 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 7390420761957466161, guid: 04440d8d245cf6241a1618f0b7215950, type: 3}
   layoutName: default
   penguinPrefab: {fileID: 7007117273524633651, guid: 0b632d07ba709bb4387115386294e073, type: 3}
+  enemyLayout: {fileID: 11400000, guid: 1127de0d30ddb964299dc145ff2e73b3, type: 2}
 --- !u!4 &1220915605
 Transform:
   m_ObjectHideFlags: 0
@@ -1186,7 +1187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1566510758
 Rigidbody2D:
   serializedVersion: 4

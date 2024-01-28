@@ -1,3 +1,4 @@
+using NohaSoftware.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,12 +59,42 @@ public class BattleManager : MonoBehaviour
 					pos = new Vector2(battlefield.position.x - battlefield.localScale.x / 2f + padding + pos.x, battlefield.position.y - battlefield.localScale.y / 2f + padding + pos.y);
 					var obj = Instantiate(penguinPrefab, transform);
 					obj.name = $"{data.name} ({c};{r})";
-					obj.transform.position = pos;
+					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, 90f));
 
 					obj.GetComponent<SpriteRenderer>().color = data.color;
 					BattleParticipant p = obj.GetComponent<BattleParticipant>();
 					p.Setup(data);
 					p.team = layout.team;
+
+					obj.SetActive(true);
+				}
+			}
+		}
+
+		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom();
+		if (enemyLayout != null)
+		{
+			Debug.Log($"Loaded {enemyLayout.name} ({enemyLayout.difficulty})");
+			var matrix = enemyLayout.GetMatrix();
+			for (int c = 0; c < matrix.GetLength(0); c++)
+			{
+				for (int r = 0; r < matrix.GetLength(1); r++)
+				{
+					if (string.IsNullOrEmpty(matrix[c, r])) continue;
+					CharacterData data = gameData.GetCharacterData(matrix[c, r], enemyLayout.team);
+					if (data == null) continue;
+
+					//spawn enemy
+					Vector2 pos = layout.GetPosition(c, r);
+					pos = new Vector2(battlefield.position.x - battlefield.localScale.x / 2f + padding + pos.x, battlefield.position.y - battlefield.localScale.y / 2f + padding + pos.y);
+					var obj = Instantiate(penguinPrefab, transform);
+					obj.name = $"{data.name} ({c};{r})";
+					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, -90f));
+
+					obj.GetComponent<SpriteRenderer>().color = data.color;
+					BattleParticipant p = obj.GetComponent<BattleParticipant>();
+					p.Setup(data);
+					p.team = enemyLayout.team;
 
 					obj.SetActive(true);
 				}

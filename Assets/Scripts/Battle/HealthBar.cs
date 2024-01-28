@@ -45,7 +45,6 @@ public class HealthBar : MonoBehaviour
 		if (newValue != Value)
 		{
 			float multiplier = Mathf.Abs(Value - newValue) / (max - min);
-			Debug.Log($"multiplier={multiplier}");
 			if (shineCoroutine != null) StopCoroutine(shineCoroutine);
 			shineCoroutine = StartCoroutine(ShineCoroutine(multiplier));
 		}
@@ -58,7 +57,6 @@ public class HealthBar : MonoBehaviour
 
 	IEnumerator ShineCoroutine(float intensity)
 	{
-		Debug.Log($"intensity: {intensity}");
 		Image sr = fill.GetComponent<Image>();
 		Color start = sr.color;
 		float t = 0f;
