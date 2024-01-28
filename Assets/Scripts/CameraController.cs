@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
 						followTransform = TeamManager.instance.penguins[0].transform;
 						yield break;
 					}
-					transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(startZ + t * TeamManager.instance.runSpeed, newTransform.position.z, t * 2f) - offset);
+					transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(startZ + t * TeamManager.instance.penguins[0].speed, newTransform.position.z, t * 2f) - offset);
 					t += Time.deltaTime;
 					yield return null;
 				}

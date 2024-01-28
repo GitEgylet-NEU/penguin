@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,21 +14,19 @@ public class TeamManager : MonoBehaviour
 	[SerializeField] GameObject penguinPrefab;
 	public List<Penguin> penguins;
 	[SerializeField] int spawnCount;
-	[SerializeField][Tooltip("Két pingvin közötti távolság (Unity unitban)")] float penguinDistance;
+	[Tooltip("Két pingvin közötti távolság (Unity unitban)")] public float penguinDistance;
 	[SerializeField] bool randomColors = true;
 
 	[Header("Run")]
-	[SerializeField] float initialRunSpeed;
-	[SerializeField][Tooltip("Hányszorosára gyorsul a sebesség másodpercenként?")] float runMultiplier;
-	[Tooltip("Két pingvin közötti távolság (másodpercben)")] public float delay;
-	public float runSpeed;
+	public float initialRunSpeed;
+	[Tooltip("Hányszorosára gyorsul a sebesség másodpercenként?")] public float runMultiplier;
 	[SerializeField] float runLength;
 	bool run;
-	List<Command> moveCommands;
+	[Tooltip("Milyen gyorsan fog elõreszaladni a pingvin, ha az elõtte lévõ meghal?")] public float penguinCatchUpSpeed = 8f;
 
 	[Header("Controls")]
 	[SerializeField] string horizontalAxisName;
-	[SerializeField] float horizontalSensitivity;
+	public float horizontalSensitivity;
 
 	[Header("Camera")]
 	[SerializeField] CameraController cameraController;
@@ -58,29 +55,18 @@ public class TeamManager : MonoBehaviour
 		cameraController.followTransform = penguins[0].transform;
 		cameraController.offset = cameraOffset;
 
-		runSpeed = initialRunSpeed;
-		delay = penguinDistance / runSpeed;
 		run = true;
-
-		moveCommands = new();
 	}
 
 	private void Update()
 	{
 		if (run)
 		{
-			// sebesség gyorsítása
-			if (runMultiplier > 0)
-			{
-				runSpeed *= 1f + Time.deltaTime * (runMultiplier - 1f);
-				delay = penguinDistance / runSpeed;
-			}
-
 			// mindegyik pingvin mozgatása elõre
 			foreach (Penguin penguin in penguins)
 			{
 				if (penguin == null) continue;
-				penguin.transform.position += new Vector3(0, 0, runSpeed * Time.deltaTime);
+				penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.deltaTime);
 			}
 
 			if (!penguins.Any())
@@ -96,18 +82,9 @@ public class TeamManager : MonoBehaviour
 				run = false;
 				ControlHandler.instance.canStrafe = false;
 			}
-
-			ExecuteCommands();
 		}
-	}
 
-	void ExecuteCommands()
-	{
-		foreach (Command command in moveCommands.Where(c => Time.timeSinceLevelLoad >= c.time).ToArray())
-		{
-			GetPenguinByID(command.penguinId).Move(command.horizontal);
-			moveCommands.Remove(command);
-		}
+		if (Input.GetKeyDown(KeyCode.K)) RemovePenguinAtPosition(1);
 	}
 
 	/// <summary>A pingvinek mozgatása oldalra egy megadott érték alapján.</summary>
@@ -120,7 +97,7 @@ public class TeamManager : MonoBehaviour
 		foreach (Penguin penguin in penguins)
 		{
 			if (penguin == null) continue;
-			moveCommands.Add(new(penguin.id, Time.timeSinceLevelLoad + i * delay, amount));
+			penguin.AddMoveCommand(penguins.First().transform.position.z, amount);
 			i++;
 		}
 	}
@@ -131,6 +108,7 @@ public class TeamManager : MonoBehaviour
 	}
 
 	/// <summary>Pingvin kitörlése az x. pozíción</summary>
+	/// <param name="index">0 = elsõ</param>
 	public void RemovePenguinAtPosition(int index)
 	{
 		if (penguins.Count == 0) return;
@@ -147,11 +125,6 @@ public class TeamManager : MonoBehaviour
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
 		{
-			// releváns command-ok törlése
-			moveCommands.RemoveAll(c => c.penguinId == penguin.id);
-			//moveCommands.Clear();
-
-
 			int idx = penguins.IndexOf(penguin);
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
@@ -159,6 +132,19 @@ public class TeamManager : MonoBehaviour
 			if (idx == 0)
 			{
 				cameraController.SetTransform(penguins[0].transform, true);
+				foreach (Penguin p in penguins)
+				{
+					if (p.id == penguins[0].id) continue;
+					p.GetBehind(penguins[0]);
+				}
+			}
+
+			Penguin previous = penguins[0];
+			foreach (Penguin p in penguins)
+			{
+				if (p.id == penguins[0].id) continue;
+				p.CatchUp(previous);
+				previous = p;
 			}
 		}
 		catch
@@ -178,19 +164,5 @@ public class TeamManager : MonoBehaviour
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine(new Vector3(-cameraController.xLimit, 0, runLength), new Vector3(cameraController.xLimit, 0, runLength));
-	}
-
-	struct Command
-	{
-		public int penguinId;
-		public float time;
-		public float horizontal;
-
-		public Command(int penguinId, float time, float horizontal)
-		{
-			this.penguinId = penguinId;
-			this.time = time;
-			this.horizontal = horizontal;
-		}
 	}
 }

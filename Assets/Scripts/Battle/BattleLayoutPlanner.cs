@@ -74,7 +74,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 
 		//try to load layout
-		if (SaveManager.instance.LoadSaveData(layoutName, out BattleLayout l))
+		if (SaveManager.instance.LoadLayout(layoutName, out BattleLayout l))
 		{
 			layout.team = l.team;
 			for (int c = 0; c < gameData.columns; c++)

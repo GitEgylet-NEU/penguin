@@ -12,7 +12,7 @@ public class SaveManager : MonoBehaviour
 
 	public string layoutSavePath = "Data/Layouts";
 
-	public bool LoadSaveData(string name, out BattleLayout layout)
+	public bool LoadLayout(string name, out BattleLayout layout)
 	{
 		layout = null;
 		string filePath = Path.Combine(Application.persistentDataPath, layoutSavePath, name + ".layout");

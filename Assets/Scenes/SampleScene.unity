@@ -1411,11 +1411,10 @@ MonoBehaviour:
   spawnCount: 5
   penguinDistance: 2.5
   randomColors: 0
-  initialRunSpeed: 6
-  runMultiplier: 1.1
-  delay: 0
-  runSpeed: 0
-  runLength: 200
+  initialRunSpeed: 8
+  runMultiplier: 1.05
+  runLength: Infinity
+  penguinCatchUpSpeed: 8
   horizontalAxisName: Horizontal
   horizontalSensitivity: 8
   cameraController: {fileID: 519420033}

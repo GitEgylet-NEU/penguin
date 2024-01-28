@@ -43,7 +43,7 @@ public class BattleManager : MonoBehaviour
 		}
 
 		//try to load layout
-		if (SaveManager.instance.LoadSaveData(layoutName, out BattleLayout layout))
+		if (SaveManager.instance.LoadLayout(layoutName, out BattleLayout layout))
 		{
 			for (int c = 0; c < gameData.columns; c++)
 			{
