@@ -1,25 +1,22 @@
+using NohaSoftware.Utilities;
 using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
 {
-    public GameObject[] levelChunkData;
-    public float[] length;
+    public LevelData levelData;
     public GameObject blankSection;
     float z = 10;
-    int rand = -1;
-    int lastrand = -1;
+    string lastLevelId;
 
     //megadja hogy mennyire elõre generáljon
     public int renderdistance = 30;
 
     public void Start()
     {
-
         //hosszúság bekérése
-        length = new float[levelChunkData.Length];
-        for (int i = 0; i < levelChunkData.Length; i++)
+        foreach (var fragment in levelData.levelFragments)
         {
-            length[i] = levelChunkData[i].transform.Find("ground").transform.localScale.z;
+            if (fragment.length == 0) fragment.length = fragment.prefab.transform.Find("ground").localScale.z;
         }
 
         // elsõ blokkok generálása
@@ -27,10 +24,11 @@ public class LevelSpawner : MonoBehaviour
 
         while (z < renderdistance)
         {
-            int id = NotSame();
+            var next = GetNextLevelFragment();
+            lastLevelId = next.id;
             Debug.Log("pregenerate");
-            Instantiate(levelChunkData[id], new Vector3(0, -0.1f, z + length[id]/2), Quaternion.identity);
-            z += length[id];
+            Instantiate(next.prefab, new Vector3(0, -0.1f, z + next.length/2), Quaternion.identity);
+            z += next.length;
         }
     }
 
@@ -39,25 +37,17 @@ public class LevelSpawner : MonoBehaviour
         // endless generálás
         if (TeamManager.instance.penguins[0].gameObject.transform.position.z > z - renderdistance)
         {
-            int id = NotSame();
-            Debug.Log("generate");
-            Instantiate(levelChunkData[id], new Vector3(0, -0.1f, z + length[id] / 2), Quaternion.identity);
-            z += length[id];
+            var next = GetNextLevelFragment();
+            lastLevelId = next.id;
+            Debug.Log("pregenerate");
+            Instantiate(next.prefab, new Vector3(0, -0.1f, z + next.length / 2), Quaternion.identity);
+            z += next.length;
         }
-
-
-
     }
 
     //különbözõ generálásának a biztosítása
-    public int NotSame() {
-
-        while (lastrand == rand)
-        {
-        rand = UnityEngine.Random.Range(0, levelChunkData.Length);
-        }
-        lastrand = rand;
-        
-        return rand;
+    public LevelData.LevelFragment GetNextLevelFragment()
+    {
+        return levelData.levelFragments.GetRandom(f => f.id != lastLevelId);
     }
 }

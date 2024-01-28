@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3cea6f7511f76488a54e628d30411f, type: 3}
+  m_Name: Level Data
+  m_EditorClassIdentifier: 
+  levelFragments:
+  - id: level0
+    prefab: {fileID: 5702051948169177812, guid: bf6b6b007f670d24290045a2e9d15078, type: 3}
+    length: 0
+  - id: level1
+    prefab: {fileID: 5702051948169177812, guid: f052d34a6e53e684e8a9c8d0835cbbd8, type: 3}
+    length: 0
+  - id: level2
+    prefab: {fileID: 5702051948169177812, guid: 38506ed46b39ca747bec36453388d934, type: 3}
+    length: 0
+  - id: level3
+    prefab: {fileID: 5702051948169177812, guid: 47bf32907f648074e8424a681cca45f8, type: 3}
+    length: 0
+  - id: level4
+    prefab: {fileID: 5702051948169177812, guid: 8bcb67bd36544f74caccb31a4ce9d5c7, type: 3}
+    length: 0
+  - id: level5
+    prefab: {fileID: 5702051948169177812, guid: 69e971301b8d19c4baecb6a5ecc0c7ab, type: 3}
+    length: 0
+  - id: level6
+    prefab: {fileID: 5702051948169177812, guid: b825305544d4e2f48ac7c1e9305571da, type: 3}
+    length: 0
