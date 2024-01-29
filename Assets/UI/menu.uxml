@@ -5,6 +5,6 @@
         <ui:VisualElement name="space" style="flex-grow: 1; height: 70%;">
             <ui:Label tabindex="-1" text="Tap to play" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: -20deg; align-self: center; width: 50%; height: 80%; -unity-text-align: lower-center;" />
         </ui:VisualElement>
-        <ui:Button text="Layout" parse-escape-sequences="true" display-tooltip-when-elided="true" name="layout" style="height: 8%;" />
+        <ui:Button text="Layout" parse-escape-sequences="true" display-tooltip-when-elided="true" name="layout" style="height: 8%; border-top-left-radius: 21px; border-top-right-radius: 21px; border-bottom-right-radius: 21px; border-bottom-left-radius: 21px;" />
     </ui:VisualElement>
 </ui:UXML>
