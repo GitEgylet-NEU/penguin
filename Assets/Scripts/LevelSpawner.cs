@@ -24,11 +24,9 @@ public class LevelSpawner : MonoBehaviour
 
         while (z < renderdistance)
         {
-            var next = GetNextLevelFragment();
-            lastLevelId = next.id;
             Debug.Log("pregenerate");
-            Instantiate(next.prefab, new Vector3(0, -0.1f, z + next.length/2), Quaternion.identity);
-            z += next.length;
+            Instantiate(blankSection, new Vector3(0, -0.1f, z + 5), Quaternion.identity);
+            z += 10;
         }
     }
 
@@ -37,11 +35,23 @@ public class LevelSpawner : MonoBehaviour
         // endless generálás
         if (TeamManager.instance.penguins[0].gameObject.transform.position.z > z - renderdistance)
         {
-            var next = GetNextLevelFragment();
-            lastLevelId = next.id;
-            Debug.Log("pregenerate");
-            Instantiate(next.prefab, new Vector3(0, -0.1f, z + next.length / 2), Quaternion.identity);
-            z += next.length;
+            
+            
+            if (UIController.instance.gameon == false)
+            {
+                Debug.Log("pregenerate");
+                Instantiate(blankSection, new Vector3(0, -0.1f, z + 5), Quaternion.identity);
+                z += 10;
+            }
+            else
+            {
+                Debug.Log("generate");
+                var next = GetNextLevelFragment();
+                lastLevelId = next.id;
+                Instantiate(next.prefab, new Vector3(0, -0.1f, z + next.length / 2), Quaternion.identity);
+                z += next.length;
+            }
+            
         }
     }
 

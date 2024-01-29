@@ -867,7 +867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &682520888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1387,7 @@ GameObject:
   - component: {fileID: 1683354754}
   - component: {fileID: 1683354752}
   - component: {fileID: 1683354755}
+  - component: {fileID: 1683354756}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1412,7 +1413,7 @@ MonoBehaviour:
   penguinDistance: 2.5
   randomColors: 0
   initialRunSpeed: 8
-  runMultiplier: 1.05
+  runMultiplier: 0
   runLength: Infinity
   penguinCatchUpSpeed: 8
   horizontalAxisName: Horizontal
@@ -1465,6 +1466,20 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: c3ff347a4069d104e9a231193e31c938, type: 2}
   blankSection: {fileID: 5702051948169177812, guid: a3d239286f4339447997123a35237d51, type: 3}
   renderdistance: 30
+--- !u!114 &1683354756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683354751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa731d66b08939488e76e10a006ef63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainDoc: {fileID: 682520888}
+  gameon: 0
 --- !u!1 &1815724531
 GameObject:
   m_ObjectHideFlags: 0

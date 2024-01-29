@@ -85,7 +85,7 @@ public class Penguin : MonoBehaviour
 				if (other == null) break;
 
 				float amount = Mathf.Min(distance - TeamManager.instance.penguinDistance, TeamManager.instance.penguinCatchUpSpeed * Time.deltaTime);
-				Debug.Log(amount);
+				//Debug.Log(amount);
 				transform.position += new Vector3(0f, 0f, amount);
 
 				distance = other.transform.position.z - transform.position.z;
