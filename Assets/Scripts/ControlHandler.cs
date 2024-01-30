@@ -4,8 +4,6 @@ public class ControlHandler : MonoBehaviour
 {
 	public static ControlHandler instance;
 
-	[SerializeField] bool showTutorial;
-	[SerializeField] GameObject tutorialObject;
 	public bool handheld;
 
 	public bool canStrafe = true;
@@ -13,15 +11,6 @@ public class ControlHandler : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
-		if (showTutorial)
-		{
-			tutorialObject.SetActive(true);
-			Time.timeScale = 0f;
-		}
-		else
-		{
-			tutorialObject.SetActive(false);
-		}
 	}
 
 	void Start()
@@ -49,10 +38,5 @@ public class ControlHandler : MonoBehaviour
 
 			TeamManager.instance.Move(horizontal);
 		}
-	}
-
-	public void StartGame()
-	{
-		Time.timeScale = 1f;
 	}
 }
