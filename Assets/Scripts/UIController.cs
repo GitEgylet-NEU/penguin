@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
@@ -15,19 +14,31 @@ public class UIController : MonoBehaviour
 
     public UIDocument mainDoc;
 
-    public Button layout;
-    public VisualElement play;
+    public Button layoutButton, manualButton, creditButton;
+    public VisualElement playelement, manualelement, creditelement;
     public bool gameon = false;
     
     void Start()
     {
         var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
 
-        layout = root.Q("layout") as Button;
-        layout.RegisterCallback<ClickEvent>(OnLayoutClicked);
+        //Visualelements
+        creditelement = root.Q("creditelement");
+        manualelement = root.Q("manualelement");
+        playelement = root.Q("space");
+        playelement.RegisterCallback<ClickEvent>(OnPlayClicked);
 
-        play = root.Q("space") as VisualElement;
-        play.RegisterCallback<ClickEvent>(OnPlayClicked);
+        //Buttons
+        layoutButton = root.Q<Button>("layout");
+        layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
+        
+        manualButton = root.Q<Button>("manual");
+        manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualelement, creditelement));
+
+        creditButton = root.Q<Button>("credit");
+        creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditelement, manualelement));
+
+        
     }
 
     void OnLayoutClicked(ClickEvent evt)
@@ -37,9 +48,22 @@ public class UIController : MonoBehaviour
     }
     private void OnPlayClicked(ClickEvent evt)
     {
-        Debug.Log("play");
         gameon = true;
         mainDoc.enabled = false;
         TeamManager.instance.runMultiplier = 1.05F;
+    }
+    public void ActivateLayer(VisualElement visual, VisualElement antivisual) 
+    {
+        if (visual.style.display != DisplayStyle.None)
+        {
+            visual.style.display = DisplayStyle.None;
+            playelement.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            visual.style.display = DisplayStyle.Flex;
+            playelement.style.display= DisplayStyle.None;
+            antivisual.style.display = DisplayStyle.None;
+        }
     }
 }
