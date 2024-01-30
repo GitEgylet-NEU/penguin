@@ -1,5 +1,6 @@
 using NohaSoftware.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -99,6 +100,19 @@ public class BattleManager : MonoBehaviour
 
 					obj.SetActive(true);
 				}
+			}
+		}
+	}
+
+	private void Update()
+	{
+		foreach (Team t in System.Enum.GetValues(typeof(Team)))
+		{
+			if (!participants.Any(p => p.team == t))
+			{
+				Debug.Log($"{t} lost!");
+				Debug.Break();
+				return;
 			}
 		}
 	}

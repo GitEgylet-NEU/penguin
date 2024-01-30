@@ -1,6 +1,5 @@
 using NohaSoftware.Utilities;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ public class BattleParticipant : MonoBehaviour
 	HealthBar abilityBar;
 
 	public BattleManager.Team team;
-	public CharacterData Data {  get; private set; }
+	public CharacterData Data { get; private set; }
 
 	BattleParticipant target;
 
@@ -74,12 +73,7 @@ public class BattleParticipant : MonoBehaviour
 		{
 			target = null;
 			target = BattleManager.instance.participants.Where(p => p.team != team).OrderBy(p => Vector2.Distance(transform.position, p.transform.position)).FirstOrDefault();
-			if (target == null)
-			{
-				Debug.Log(team + " won!!! yippie!");
-				Debug.Break();
-				return;
-			}
+			if (target == null) return;
 			//Debug.Log($"{gameObject.name}'s new target: {target.name}");
 		}
 
