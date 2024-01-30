@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Background music: Jeremy Blake - Powerup! (https://www.youtube.com/watch?v=l7SwiFWOQqM)
+//Tree hit: https://freesound.org/people/Josethehedgehog/sounds/390362/ (CC0)
 
 public class AudioManager : MonoBehaviour
 {
