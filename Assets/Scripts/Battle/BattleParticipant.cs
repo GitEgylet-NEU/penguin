@@ -1,4 +1,6 @@
+using NohaSoftware.Utilities;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -25,6 +27,10 @@ public class BattleParticipant : MonoBehaviour
 	public float speed;
 	public float rotationSpeed;
 
+	[Header("Ability")]
+	public CharacterData.Ability ability;
+	float damageSinceLastAbility;
+
 	BattleParticipant target;
 
 	[SerializeField][Tooltip("Whether the participant should move back to their desired range when their target gets too close")] bool shouldMoveBack = false;
@@ -39,6 +45,7 @@ public class BattleParticipant : MonoBehaviour
 		speed = data.speed;
 		rotationSpeed = data.rotationSpeed;
 		shouldMoveBack = data.shouldMoveBack;
+		if (data.hasAbility) ability = data.ability;
 	}
 
 
@@ -99,10 +106,16 @@ public class BattleParticipant : MonoBehaviour
 				if (canHit)
 				{
 					target.ChangeHealth(-damagePerHit);
+					damageSinceLastAbility += damagePerHit;
 					//Debug.Log($"{gameObject.name} hit {target.name} for {damagePerHit} damage ({target.Health})");
 					StartCoroutine(HitCooldown());
 				}
 			}
+		}
+
+		if (ability != null && damageSinceLastAbility >= ability.abilityCost)
+		{
+			if (CastAbility()) damageSinceLastAbility = 0;
 		}
 	}
 
@@ -138,5 +151,34 @@ public class BattleParticipant : MonoBehaviour
 		Debug.Log($"{gameObject.name} has died!");
 		BattleManager.instance.participants.Remove(this);
 		gameObject.SetActive(false);
+	}
+
+	bool CastAbility()
+	{
+
+		switch (ability.id)
+		{
+			case "targeted_heal":
+				var query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.maxHealth);
+				if (!query.Any())
+				{
+					if (Health <= maxHealth)
+					{
+						Debug.Log("cast on self");
+						ChangeHealth(ability.floats.GetElement("heal_amount").Value);
+						return true;
+					}
+				}
+				else
+				{
+					var other = query.OrderBy(p => p.Health).First();
+					Debug.Log("cast on " + other.name);
+					other.ChangeHealth(ability.floats.GetElement("heal_amount").Value);
+					return true;
+				}
+				return false;
+			default:
+				return false;
+		}
 	}
 }

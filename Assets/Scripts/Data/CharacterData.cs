@@ -1,3 +1,4 @@
+using NohaSoftware.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,6 +19,21 @@ public class CharacterData : ScriptableObject
 	public float speed;
 	public float rotationSpeed;
 	[Tooltip("Whether the participant should move back to their desired range when their target gets too close")] public bool shouldMoveBack = false;
+
+	[Header("Ability")]
+	public bool hasAbility;
+	public Ability ability;
+
+	[System.Serializable]
+	public class Ability
+	{
+		public string id;
+		public string name;
+		public string description;
+		[Tooltip("Mennyi okozott damage után használhat képességet?")] public float abilityCost;
+
+		public List<SerializableTuple<string, float>> floats;
+	}
 }
 
 public static class CharacterDataExtensions

@@ -23,3 +23,12 @@ MonoBehaviour:
   speed: 2
   rotationSpeed: 250
   shouldMoveBack: 0
+  hasAbility: 1
+  ability:
+    id: targeted_heal
+    name: Targeted heal
+    description: o ma gaa!!
+    abilityCost: 30
+    floats:
+    - Key: heal_amount
+      Value: 20
