@@ -20,10 +20,12 @@ public class BattleManager : MonoBehaviour
 
 	public GameData gameData;
 
-	[SerializeField] Transform battlefield;
-	[SerializeField][Min(0)] int columns;
-	[SerializeField][Min(0)] int rows;
 	[SerializeField][Min(0)] float padding;
+	[SerializeField] float startZ;
+	[SerializeField][Min(0)] float length;
+	[SerializeField][Min(0)] float width;
+	float distX;
+	float distZ;
 
 	[Header("Battle")]
 	public List<BattleParticipant> participants;
@@ -34,6 +36,7 @@ public class BattleManager : MonoBehaviour
 	[Header("Layout")]
 	[SerializeField] string layoutName = "default";
 	[SerializeField] GameObject penguinPrefab;
+	public bool load;
 
 	private void Start()
 	{
@@ -45,36 +48,41 @@ public class BattleManager : MonoBehaviour
 			return;
 		}
 
-		//try to load layout
+		//spawn penguins
 		if (SaveManager.instance.LoadLayout(layoutName, out BattleLayout layout))
 		{
-			for (int c = 0; c < gameData.columns; c++)
+			if (load)
 			{
-				for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+				distX = (width - padding * 2) / (gameData.columns - 1);
+				distZ = (length - padding * 2) / (gameData.rows - 1);
+				for (int c = 0; c < gameData.columns; c++)
 				{
-					if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
-					CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
-					if (data == null) continue;
+					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+					{
+						if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
+						CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
+						if (data == null) continue;
 
-					//spawn penguin
-					Vector2 pos = layout.GetPosition(c, r);
-					pos = new Vector2(battlefield.position.x - battlefield.localScale.x / 2f + padding + pos.x, battlefield.position.y - battlefield.localScale.y / 2f + padding + pos.y);
-					var obj = Instantiate(penguinPrefab, transform);
-					obj.name = $"{data.name} ({c};{r})";
-					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, 90f));
+						//spawn
+						Vector3 pos = GetPosition(c, r);
+						var obj = Instantiate(penguinPrefab, transform);
+						obj.name = $"{data.name} ({c};{r})";
+						obj.transform.position = pos;
 
-					obj.GetComponent<SpriteRenderer>().color = data.color;
-					BattleParticipant p = obj.GetComponent<BattleParticipant>();
-					p.Setup(data);
-					p.team = layout.team;
+						obj.GetComponent<SpriteRenderer>().color = data.color;
+						BattleParticipant p = obj.GetComponent<BattleParticipant>();
+						p.Setup(data);
+						p.team = layout.team;
 
-					obj.SetActive(true);
+						obj.SetActive(true);
+					}
 				}
 			}
 		}
 
+		//spawn enemies
 		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom();
-		if (enemyLayout != null)
+		if (load && enemyLayout != null)
 		{
 			Debug.Log($"Loaded {enemyLayout.name} ({enemyLayout.difficulty})");
 			var matrix = enemyLayout.GetMatrix();
@@ -86,12 +94,11 @@ public class BattleManager : MonoBehaviour
 					CharacterData data = gameData.GetCharacterData(matrix[c, r], enemyLayout.team);
 					if (data == null) continue;
 
-					//spawn enemy
-					Vector2 pos = layout.GetPosition(c, r);
-					pos = new Vector2(battlefield.position.x - battlefield.localScale.x / 2f + padding + pos.x, battlefield.position.y - battlefield.localScale.y / 2f + padding + pos.y);
+					//spawn
+					Vector3 pos = GetPosition(c, r);
 					var obj = Instantiate(penguinPrefab, transform);
 					obj.name = $"{data.name} ({c};{r})";
-					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, 0f, -90f));
+					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, -180f, 0f));
 
 					obj.GetComponent<SpriteRenderer>().color = data.color;
 					BattleParticipant p = obj.GetComponent<BattleParticipant>();
@@ -117,19 +124,26 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
+	Vector3 GetPosition(int column, int row)
 	{
-		if (battlefield == null || columns < 1 || rows < 1) return;
-		float distX = (battlefield.localScale.x - padding * 2) / (columns - 1);
-		float distY = (battlefield.localScale.y - padding * 2) / (rows - 1);
+		float x = -width / 2f + padding + column * distX;
+		float z = startZ + padding + row * distZ;
+		return new Vector3(x, 1f, z);
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		if (gameData.columns < 1 || gameData.rows < 1) return;
+		float distX = (width - padding * 2) / (gameData.columns - 1);
+		float distZ = (length - padding * 2) / (gameData.rows - 1);
 		Gizmos.color = Color.yellow;
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < gameData.rows; i++)
 		{
-			for (int j = 0; j < columns; j++)
+			for (int j = 0; j < gameData.columns; j++)
 			{
-				float x = battlefield.position.x - battlefield.localScale.x / 2f + padding + j * distX;
-				float y = battlefield.position.y - battlefield.localScale.y / 2f + padding + i * distY;
-				Gizmos.DrawSphere(new Vector2(x, y), .2f);
+				float x = -width / 2f + padding + j * distX;
+				float z = startZ + padding + i * distZ;
+				Gizmos.DrawSphere(new Vector3(x, 0f, z), .2f);
 			}
 		}
 	}

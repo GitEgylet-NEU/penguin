@@ -10,6 +10,10 @@ public class CharacterData : ScriptableObject
 	public string description;
 	public Color color;
 
+	[Header("Visuals")]
+	public Sprite frontSprite;
+	public Sprite backSprite;
+
 	[Header("Battle Attributes")]
 	[Tooltip("Whether there can be more instances of this character on the battle layout")] public bool unique;
 	public float maxHealth;

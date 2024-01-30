@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class ProgressBar : MonoBehaviour
 {
 	[SerializeField] RectTransform fill;
 	[SerializeField] RectTransform background;

@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class BattleParticipant : MonoBehaviour
 {
-	Rigidbody2D rb;
+	Vector3 Forward => transform.forward;
+	Rigidbody rb;
+	SpriteRenderer sr;
 	private void Awake()
 	{
-		rb = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody>();
+		sr = GetComponent<SpriteRenderer>();
 	}
 
 	public float Health { get; private set; }
 
 	[SerializeField] bool enableHealthBar = true;
-	HealthBar healthBar;
-	HealthBar abilityBar;
+	ProgressBar healthBar;
+	ProgressBar abilityBar;
 
 	public BattleManager.Team team;
 	public CharacterData Data { get; private set; }
@@ -35,66 +38,85 @@ public class BattleParticipant : MonoBehaviour
 
 	private void Start()
 	{
-		if (Data == null) return;
-
-		BattleManager.instance.participants.Add(this);
+		if (Data == null)
+		{
+			if (team == BattleManager.Team.Player) Setup(BattleManager.instance.gameData.GetCharacterData("p_archer", team));
+			else Setup(BattleManager.instance.gameData.GetCharacterData("e_test", team));
+		}
 
 		if (enableHealthBar)
 		{
 			GameObject obj = Instantiate(BattleManager.instance.healthBarPrefab, BattleManager.instance.worldSpaceCanvas.transform);
 			obj.name = $"HealthBar ({name})";
-			healthBar = obj.GetComponent<HealthBar>();
+			healthBar = obj.GetComponent<ProgressBar>();
 			healthBar.min = 0f;
 			healthBar.max = Data.maxHealth;
 			healthBar.disappearOnZero = true;
+			obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 		}
 		if (Data.hasAbility && Data.ability.abilityCost >= 0f)
 		{
 			GameObject obj = Instantiate(BattleManager.instance.abilityBarPrefab, BattleManager.instance.worldSpaceCanvas.transform);
 			obj.name = $"AbilityBar ({name})";
-			abilityBar = obj.GetComponent<HealthBar>();
+			abilityBar = obj.GetComponent<ProgressBar>();
 			abilityBar.min = 0f;
 			abilityBar.max = Data.ability.abilityCost;
 			abilityBar.disappearOnZero = false;
+			obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 		}
+
+		BattleManager.instance.participants.Add(this);
 	}
 
 	private void Update()
 	{
-		healthBar.SetValue(Health);
-		healthBar.transform.position = (Vector2)transform.position + new Vector2(0, transform.localScale.y + .25f);
+		if (healthBar != null)
+		{
+			healthBar.SetValue(Health);
+			healthBar.transform.position = transform.position + new Vector3(0f, transform.localScale.y / 2f + .35f, 0f);
+		}
 		if (abilityBar != null)
 		{
 			abilityBar.SetValue(damageSinceLastAbility);
-			abilityBar.transform.position = (Vector2)transform.position + new Vector2(0, transform.localScale.y + .15f);
+			abilityBar.transform.position = transform.position + new Vector3(0f, transform.localScale.y / 2f + .15f, 0f);
 		}
 
 		if (target == null || target.Health <= 0f)
 		{
 			target = null;
-			target = BattleManager.instance.participants.Where(p => p.team != team).OrderBy(p => Vector2.Distance(transform.position, p.transform.position)).FirstOrDefault();
+			target = BattleManager.instance.participants.Where(p => p.team != team).OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
 			if (target == null) return;
 			//Debug.Log($"{gameObject.name}'s new target: {target.name}");
 		}
 
 		//rotate towards target
-		float deltaAngle = Vector2.SignedAngle(transform.right, target.transform.position - transform.position);
-		if (deltaAngle > 0f) rb.rotation += Mathf.Min(Data.rotationSpeed * Time.deltaTime, deltaAngle);
-		else rb.rotation += Mathf.Max(-Data.rotationSpeed * Time.deltaTime, deltaAngle);
+		float deltaAngle = Vector3.SignedAngle(Forward, (target.transform.position - transform.position).normalized, Vector3.up);
+		float y;
+		if (deltaAngle > 0f)
+		{
+			y = Mathf.Min(Data.rotationSpeed * Time.deltaTime, deltaAngle);
+			if (y < 0f) y = 0f;
+		}
+		else
+		{
+			y = Mathf.Max(-Data.rotationSpeed * Time.deltaTime, deltaAngle);
+			if (y > 0f) y = 0f;
+		}
+		rb.rotation = Quaternion.Euler(0f, rb.rotation.eulerAngles.y + y, 0f);
 
 		//move into range
-		float distance = Vector2.Distance(transform.position, target.transform.position);
+		float distance = Vector3.Distance(transform.position, target.transform.position);
 		if (Data.shouldMoveBack && isMovingBack && Mathf.Abs(Data.range - distance) <= .2f) isMovingBack = false;
 		if (Mathf.Abs(deltaAngle) <= 5f) //is looking at target?
 		{
-			if (distance > Data.range) rb.MovePosition((Vector2)transform.position + Data.speed * Time.deltaTime * (Vector2)transform.right);
+			if (distance > Data.range) rb.MovePosition(transform.position + Data.speed * Time.deltaTime * Forward);
 			else
 			{
 				// move back
 				if (Data.shouldMoveBack)
 				{
 					if (distance < Data.range * .6f) isMovingBack = true;
-					if (isMovingBack) rb.MovePosition((Vector2)transform.position - Data.speed * Time.deltaTime * (Vector2)transform.right);
+					if (isMovingBack) rb.MovePosition(transform.position - Data.speed * Time.deltaTime * Forward);
 				}
 				// hit
 				if (canHit)
@@ -110,6 +132,18 @@ public class BattleParticipant : MonoBehaviour
 		if (Data.hasAbility && damageSinceLastAbility >= Data.ability.abilityCost)
 		{
 			if (CastAbility()) damageSinceLastAbility = 0;
+		}
+	}
+
+	private void LateUpdate()
+	{
+		if ((transform.rotation.eulerAngles.y > 90f && transform.rotation.eulerAngles.y < 270f) || (transform.rotation.eulerAngles.y < -90f && transform.rotation.eulerAngles.y > -270f))
+		{
+			sr.sprite = Data.frontSprite;
+		}
+		else
+		{
+			sr.sprite = Data.backSprite;
 		}
 	}
 
@@ -139,7 +173,6 @@ public class BattleParticipant : MonoBehaviour
 		if (Health <= 0) Die();
 		else if (Health > Data.maxHealth) Health = Data.maxHealth;
 	}
-
 	void Die()
 	{
 		Debug.Log($"{gameObject.name} has died!");
