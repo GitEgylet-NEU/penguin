@@ -18,17 +18,21 @@ MonoBehaviour:
   frontSprite: {fileID: 21300000, guid: 6a78790343710bc4ca2843d48c1da688, type: 3}
   backSprite: {fileID: 21300000, guid: 867d897a206418742908cf5dfdabf208, type: 3}
   unique: 0
-  maxHealth: 150
-  hitsPerSecond: 0.8
+  maxHealth: 300
+  hitsPerSecond: 0.5
   damagePerHit: 15
   range: 1.6
   speed: 2
   rotationSpeed: 175
   shouldMoveBack: 0
-  hasAbility: 0
+  hasAbility: 1
   ability:
-    id: 
+    id: area_damage
     name: 
     description: 
-    abilityCost: 0
-    floats: []
+    abilityCost: 30
+    floats:
+    - Key: damage
+      Value: 20
+    - Key: range
+      Value: 2.5

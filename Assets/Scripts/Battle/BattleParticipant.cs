@@ -1,5 +1,6 @@
 using NohaSoftware.Utilities;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -177,16 +178,17 @@ public class BattleParticipant : MonoBehaviour
 	{
 		Debug.Log($"{gameObject.name} has died!");
 		BattleManager.instance.participants.Remove(this);
-		gameObject.SetActive(false);
+		if (abilityBar != null) Destroy(abilityBar.gameObject);
+		Destroy(gameObject);
 	}
 
 	bool CastAbility()
 	{
-
+		IEnumerable<BattleParticipant> query;
 		switch (Data.ability.id)
 		{
 			case "targeted_heal":
-				var query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.Data.maxHealth);
+				query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.Data.maxHealth);
 				if (!query.Any())
 				{
 					if (Health <= Data.maxHealth)
@@ -204,6 +206,15 @@ public class BattleParticipant : MonoBehaviour
 					return true;
 				}
 				return false;
+			case "area_damage":
+				float range = Data.ability.floats.GetElement("range").Value;
+				query = BattleManager.instance.participants.Where(p => p.team != team && Vector3.Distance(transform.position, p.transform.position) <= range);
+				if (!query.Any()) return false;
+				foreach (var target in query)
+				{
+					target.ChangeHealth(-Data.ability.floats.GetElement("damage").Value);
+				}
+				return true;
 			default:
 				return false;
 		}
