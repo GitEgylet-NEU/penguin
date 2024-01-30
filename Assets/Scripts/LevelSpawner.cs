@@ -1,7 +1,6 @@
 using NohaSoftware.Utilities;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
@@ -36,6 +35,8 @@ public class LevelSpawner : MonoBehaviour
             z += 10;
             sections.Add(obj);
         }
+
+        trees = new();
     }
 
     public void Update()
