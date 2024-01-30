@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
 	Coroutine lerpCoroutine;
 
-	void Update()
+	void LateUpdate()
 	{
 		if (followTransform != null)
 		{
