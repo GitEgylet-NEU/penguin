@@ -498,7 +498,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &329866673
 RectTransform:
@@ -1022,15 +1022,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea29d60046a51f47a8dfe86dbc7b529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
   enableHealthBar: 1
-  maxHealth: 100
-  damagePerHit: 20
-  hitsPerSecond: 0.5
-  range: 1
-  speed: 1.5
-  rotationSpeed: 200
-  shouldMoveBack: 0
+  team: 1
 --- !u!212 &1214913005
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1137,9 +1130,9 @@ MonoBehaviour:
   participants: []
   worldSpaceCanvas: {fileID: 329866672}
   healthBarPrefab: {fileID: 7390420761957466161, guid: 04440d8d245cf6241a1618f0b7215950, type: 3}
+  abilityBarPrefab: {fileID: 7390420761957466161, guid: 2d3ed740e0d739646b32a6022da7731c, type: 3}
   layoutName: default
   penguinPrefab: {fileID: 7007117273524633651, guid: 0b632d07ba709bb4387115386294e073, type: 3}
-  enemyLayout: {fileID: 11400000, guid: 1127de0d30ddb964299dc145ff2e73b3, type: 2}
 --- !u!4 &1220915605
 Transform:
   m_ObjectHideFlags: 0
@@ -1262,15 +1255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea29d60046a51f47a8dfe86dbc7b529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
   enableHealthBar: 1
-  maxHealth: 100
-  damagePerHit: 20
-  hitsPerSecond: 0.5
-  range: 1
-  speed: 1.5
-  rotationSpeed: 200
-  shouldMoveBack: 0
+  team: 1
 --- !u!212 &1566510761
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -14,45 +14,31 @@ public class BattleParticipant : MonoBehaviour
 
 	public float Health { get; private set; }
 
-	public BattleManager.Team team;
 	[SerializeField] bool enableHealthBar = true;
 	HealthBar healthBar;
+	HealthBar abilityBar;
 
-	[Header("Battle Attributes")]
-	public float maxHealth;
-	public float damagePerHit;
-	public float hitsPerSecond;
-	bool canHit = true;
-	public float range;
-	public float speed;
-	public float rotationSpeed;
-
-	[Header("Ability")]
-	public CharacterData.Ability ability;
-	float damageSinceLastAbility;
+	public BattleManager.Team team;
+	public CharacterData Data {  get; private set; }
 
 	BattleParticipant target;
 
-	[SerializeField][Tooltip("Whether the participant should move back to their desired range when their target gets too close")] bool shouldMoveBack = false;
-	bool moveBack = false;
+	bool canHit = true;
+	bool isMovingBack = false;
+	float damageSinceLastAbility;
 
 	public void Setup(CharacterData data)
 	{
-		maxHealth = data.maxHealth;
-		damagePerHit = data.damagePerHit;
-		hitsPerSecond = data.hitsPerSecond;
-		range = data.range;
-		speed = data.speed;
-		rotationSpeed = data.rotationSpeed;
-		shouldMoveBack = data.shouldMoveBack;
-		if (data.hasAbility) ability = data.ability;
+		this.Data = data;
+		Health = data.maxHealth;
 	}
 
 
 	private void Start()
 	{
+		if (Data == null) return;
+
 		BattleManager.instance.participants.Add(this);
-		Health = maxHealth;
 
 		if (enableHealthBar)
 		{
@@ -60,8 +46,17 @@ public class BattleParticipant : MonoBehaviour
 			obj.name = $"HealthBar ({name})";
 			healthBar = obj.GetComponent<HealthBar>();
 			healthBar.min = 0f;
-			healthBar.max = maxHealth;
+			healthBar.max = Data.maxHealth;
 			healthBar.disappearOnZero = true;
+		}
+		if (Data.hasAbility && Data.ability.abilityCost >= 0f)
+		{
+			GameObject obj = Instantiate(BattleManager.instance.abilityBarPrefab, BattleManager.instance.worldSpaceCanvas.transform);
+			obj.name = $"AbilityBar ({name})";
+			abilityBar = obj.GetComponent<HealthBar>();
+			abilityBar.min = 0f;
+			abilityBar.max = Data.ability.abilityCost;
+			abilityBar.disappearOnZero = false;
 		}
 	}
 
@@ -69,6 +64,11 @@ public class BattleParticipant : MonoBehaviour
 	{
 		healthBar.SetValue(Health);
 		healthBar.transform.position = (Vector2)transform.position + new Vector2(0, transform.localScale.y + .25f);
+		if (abilityBar != null)
+		{
+			abilityBar.SetValue(damageSinceLastAbility);
+			abilityBar.transform.position = (Vector2)transform.position + new Vector2(0, transform.localScale.y + .15f);
+		}
 
 		if (target == null || target.Health <= 0f)
 		{
@@ -85,35 +85,35 @@ public class BattleParticipant : MonoBehaviour
 
 		//rotate towards target
 		float deltaAngle = Vector2.SignedAngle(transform.right, target.transform.position - transform.position);
-		if (deltaAngle > 0f) rb.rotation += Mathf.Min(rotationSpeed * Time.deltaTime, deltaAngle);
-		else rb.rotation += Mathf.Max(-rotationSpeed * Time.deltaTime, deltaAngle);
+		if (deltaAngle > 0f) rb.rotation += Mathf.Min(Data.rotationSpeed * Time.deltaTime, deltaAngle);
+		else rb.rotation += Mathf.Max(-Data.rotationSpeed * Time.deltaTime, deltaAngle);
 
 		//move into range
 		float distance = Vector2.Distance(transform.position, target.transform.position);
-		if (shouldMoveBack && moveBack && Mathf.Abs(range - distance) <= .2f) moveBack = false;
+		if (Data.shouldMoveBack && isMovingBack && Mathf.Abs(Data.range - distance) <= .2f) isMovingBack = false;
 		if (Mathf.Abs(deltaAngle) <= 5f) //is looking at target?
 		{
-			if (distance > range) rb.MovePosition((Vector2)transform.position + speed * Time.deltaTime * (Vector2)transform.right);
+			if (distance > Data.range) rb.MovePosition((Vector2)transform.position + Data.speed * Time.deltaTime * (Vector2)transform.right);
 			else
 			{
-				//handle moving back
-				if (shouldMoveBack)
+				// move back
+				if (Data.shouldMoveBack)
 				{
-					if (distance < range * .6f) moveBack = true;
-					if (moveBack) rb.MovePosition((Vector2)transform.position - speed * Time.deltaTime * (Vector2)transform.right);
+					if (distance < Data.range * .6f) isMovingBack = true;
+					if (isMovingBack) rb.MovePosition((Vector2)transform.position - Data.speed * Time.deltaTime * (Vector2)transform.right);
 				}
-				//handle hits
+				// hit
 				if (canHit)
 				{
-					target.ChangeHealth(-damagePerHit);
-					damageSinceLastAbility += damagePerHit;
+					target.ChangeHealth(-Data.damagePerHit);
+					if (Data.hasAbility) damageSinceLastAbility += Data.damagePerHit;
 					//Debug.Log($"{gameObject.name} hit {target.name} for {damagePerHit} damage ({target.Health})");
 					StartCoroutine(HitCooldown());
 				}
 			}
 		}
 
-		if (ability != null && damageSinceLastAbility >= ability.abilityCost)
+		if (Data.hasAbility && damageSinceLastAbility >= Data.ability.abilityCost)
 		{
 			if (CastAbility()) damageSinceLastAbility = 0;
 		}
@@ -135,7 +135,7 @@ public class BattleParticipant : MonoBehaviour
 	IEnumerator HitCooldown()
 	{
 		canHit = false;
-		yield return new WaitForSeconds(1f / hitsPerSecond);
+		yield return new WaitForSeconds(1f / Data.hitsPerSecond);
 		canHit = true;
 	}
 
@@ -143,7 +143,7 @@ public class BattleParticipant : MonoBehaviour
 	{
 		Health += amount;
 		if (Health <= 0) Die();
-		else if (Health > maxHealth) Health = maxHealth;
+		else if (Health > Data.maxHealth) Health = Data.maxHealth;
 	}
 
 	void Die()
@@ -156,16 +156,16 @@ public class BattleParticipant : MonoBehaviour
 	bool CastAbility()
 	{
 
-		switch (ability.id)
+		switch (Data.ability.id)
 		{
 			case "targeted_heal":
-				var query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.maxHealth);
+				var query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.Data.maxHealth);
 				if (!query.Any())
 				{
-					if (Health <= maxHealth)
+					if (Health <= Data.maxHealth)
 					{
 						Debug.Log("cast on self");
-						ChangeHealth(ability.floats.GetElement("heal_amount").Value);
+						ChangeHealth(Data.ability.floats.GetElement("heal_amount").Value);
 						return true;
 					}
 				}
@@ -173,7 +173,7 @@ public class BattleParticipant : MonoBehaviour
 				{
 					var other = query.OrderBy(p => p.Health).First();
 					Debug.Log("cast on " + other.name);
-					other.ChangeHealth(ability.floats.GetElement("heal_amount").Value);
+					other.ChangeHealth(Data.ability.floats.GetElement("heal_amount").Value);
 					return true;
 				}
 				return false;

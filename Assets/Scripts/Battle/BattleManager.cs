@@ -28,6 +28,7 @@ public class BattleManager : MonoBehaviour
 	public List<BattleParticipant> participants;
 	public Canvas worldSpaceCanvas;
 	public GameObject healthBarPrefab;
+	public GameObject abilityBarPrefab;
 
 	[Header("Layout")]
 	[SerializeField] string layoutName = "default";
