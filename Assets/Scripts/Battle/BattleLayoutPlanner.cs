@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleLayoutPlanner : MonoBehaviour
 {
@@ -22,10 +23,12 @@ public class BattleLayoutPlanner : MonoBehaviour
 	[SerializeField] CharacterSelection characterSelection;
 	[SerializeField] TextMeshProUGUI teamSizeText;
 	[SerializeField] RectTransform alertBox;
+	[SerializeField] RectTransform modalWindow;
 
 	int currentSize;
 	BattleLayout layout;
 	Transform[,] markers;
+	bool changed = false;
 
 	void Start()
 	{
@@ -104,6 +107,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 		if (SaveManager.instance.SaveLayout(layoutName, layout))
 		{
 			Debug.Log("Successfully saved layout as " + layoutName);
+			changed = false;
 		}
 	}
 
@@ -166,6 +170,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 			obj.GetComponent<SpriteRenderer>().color = data.color;
 		}
 		Debug.Log($"set ({column};{row}) to {id}");
+		changed = true;
 		return true;
 	}
 
@@ -183,6 +188,19 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 
 		return gameData.GetCharacterData(layout.characterIDs[column, row], layout.team);
+	}
+
+	public void ReturnToMenu(bool confirm = false)
+	{
+		if (!confirm && changed)
+		{
+			modalWindow.gameObject.SetActive(true);
+			//wait for user input
+		}
+		else
+		{
+			SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+		}
 	}
 }
 
