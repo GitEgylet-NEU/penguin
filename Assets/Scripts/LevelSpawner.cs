@@ -60,24 +60,25 @@ public class LevelSpawner : MonoBehaviour
             }
             
         }
+        //fa generálása
         if (trees.Last().transform.position.z < TeamManager.instance.penguins[0].transform.position.z + renderdistance)
         {
 
-            //int counter = treespace;
             while (trees.Last().transform.position.z < TeamManager.instance.penguins[0].transform.position.z + renderdistance)
             {
                 trees.Add(Instantiate(tree, new Vector3(6, 3, trees.Last().transform.position.z + Random.Range(2,5)), Quaternion.Euler(new Vector3(0,Random.Range(-30,30),0))));
                 trees.Add(Instantiate(tree, new Vector3(-6, 3, trees.Last().transform.position.z + Random.Range(2, 5)), Quaternion.Euler(new Vector3(0, Random.Range(-30, 30), 0))));
-                //counter+= treespace;
             }
         }
+
+        //objectek törlése (fa + section)
         if (trees[0].transform.position.z < TeamManager.instance.penguins[0].transform.position.z - renderdistance/2)
         {
-            DestroySection(trees, 0);
+            DestroyObject(trees, 0);
         }
         if ((sections[0].transform.position.z + (sections[0].transform.Find("ground").localScale.z / 2) + 10) < TeamManager.instance.penguins.Last().transform.position.z )
         {
-            DestroySection(sections, 0);
+            DestroyObject(sections, 0);
         }
     }
 
@@ -87,7 +88,8 @@ public class LevelSpawner : MonoBehaviour
         return levelData.levelFragments.GetRandom(f => f.id != lastLevelId);
     }
 
-    public void DestroySection(List<GameObject> list ,int id)
+    //törlés
+    public void DestroyObject(List<GameObject> list ,int id)
     {
         var obj = list[id];
         list.RemoveAt(id);

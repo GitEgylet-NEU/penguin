@@ -1186,7 +1186,7 @@ MonoBehaviour:
   gameData: {fileID: 11400000, guid: 7a5bb1c0abf809f41b832ff0c05b0b69, type: 2}
   penguinPrefab: {fileID: 907333944610990537, guid: c03da1344e3344d4f9853e7255039e84, type: 3}
   penguins: []
-  spawnCount: 1
+  spawnCount: 5
   penguinDistance: 2.5
   randomColors: 0
   initialRunSpeed: 8
