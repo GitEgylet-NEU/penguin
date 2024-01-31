@@ -62,7 +62,7 @@ public class LevelSpawner : MonoBehaviour
             }
             
         }
-        if (trees.Last().transform.position.z < TeamManager.instance.penguins[0].transform.position.z + renderdistance)
+        if (trees.Any() && trees.Last().transform.position.z < TeamManager.instance.penguins[0].transform.position.z + renderdistance)
         {
 
             int counter = 0;
