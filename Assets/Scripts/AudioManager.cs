@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Background music: Jeremy Blake - Powerup! (https://www.youtube.com/watch?v=l7SwiFWOQqM)
-//Tree hit: https://freesound.org/people/Josethehedgehog/sounds/390362/ (CC0)
+//Tree hit and Game over: Freesound (CC0)
 
 public class AudioManager : MonoBehaviour
 {
@@ -20,12 +20,29 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-		BM = gameObject.AddComponent<AudioSource>();
-		BM.clip = LoadClip("Jeremy Blake - Powerup!");
-		BM.volume = volume;
-		BM.loop = true;
-		BM.Play();
+		StartBM();
+    }
+
+    public void StartBM()
+    {
+		if (BM == null)
+        {
+			BM = gameObject.AddComponent<AudioSource>();
+			BM.clip = LoadClip("Jeremy Blake - Powerup!");
+			BM.volume = volume;
+			BM.loop = true;
+			BM.Play();
+		}
 	}
+
+	public void StopBM()
+    {
+		if (BM != null)
+        {
+			BM.Stop();
+			Destroy(BM);
+		}
+    }
 
     public void PlaySound(string name)
 	{

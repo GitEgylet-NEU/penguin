@@ -101,7 +101,6 @@ public class Penguin : MonoBehaviour
 	{
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
 		{
-			AudioManager.instance.PlaySound("treehit");
 			TeamManager.instance.RemovePenguin(this);
 		}
 	}
