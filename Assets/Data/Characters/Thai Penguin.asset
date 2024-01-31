@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Peasant Penguin
+  m_Name: Thai Penguin
   m_EditorClassIdentifier: 
-  id: p_peasant
+  id: p_thai
   description: angry partisan
   color: {r: 0.6981973, g: 0.7264151, b: 0.2706924, a: 1}
   xpYield: 0
-  frontSprite: {fileID: 21300000, guid: 6a78790343710bc4ca2843d48c1da688, type: 3}
-  backSprite: {fileID: 21300000, guid: 867d897a206418742908cf5dfdabf208, type: 3}
+  frontSprite: {fileID: 21300000, guid: b106026689fc75b4c94e8fee37e2db18, type: 3}
+  backSprite: {fileID: 21300000, guid: d15eb7ea3c52b824ab4d08a84ebf1b30, type: 3}
   maxNumber: 2
   maxHealth: 50
   hitsPerSecond: 2.5
