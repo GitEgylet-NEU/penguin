@@ -73,13 +73,13 @@ public class Penguin : MonoBehaviour
 	public void CatchUp(Penguin other)
 	{
 		if (catchUpCoroutine != null) StopCoroutine(catchUpCoroutine);
-		Debug.Log($"{name} catch up with {other.name}");
+		//Debug.Log($"{name} catch up with {other.name}");
 		IEnumerator Follow()
 		{
 			float t = 0f;
 
 			float distance = other.transform.position.z - transform.position.z;
-			Debug.Log($"{distance} > {TeamManager.instance.penguinDistance}");
+			//Debug.Log($"{distance} > {TeamManager.instance.penguinDistance}");
 			while (distance > TeamManager.instance.penguinDistance || t < .4f)
 			{
 				if (other == null) break;
