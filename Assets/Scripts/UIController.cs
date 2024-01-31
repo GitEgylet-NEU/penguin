@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
     {
         gameon = true;
         mainDoc.enabled = false;
-        TeamManager.instance.runMultiplier = 1.05F;
+        TeamManager.instance.StartGame();
     }
     public void ActivateLayer(VisualElement visual, VisualElement antivisual) 
     {

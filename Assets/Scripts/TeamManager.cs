@@ -112,6 +112,12 @@ public class TeamManager : MonoBehaviour
 		SaveManager.instance.SaveProgress();
 	}
 
+	public void StartGame()
+	{
+		runMultiplier = 1.05f;
+		xpBar.gameObject.SetActive(false);
+	}
+
 	/// <summary>A pingvinek mozgatása oldalra egy megadott érték alapján.</summary>
 	/// <param name="horizontal">Horizontális érték, pl. <see cref="Input.GetAxisRaw(string)"/>-bõl. Negatív esetén balra, pozitív esetén jobbra mozog.</param>
 	public void Move(float horizontal)
