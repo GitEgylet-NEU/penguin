@@ -11,14 +11,29 @@ public class SaveManager : MonoBehaviour
 	}
 
 	public string layoutSavePath = "Data/Layouts";
+	public string progressSavePath = "Data/progress.data";
 
-	public bool LoadLayout(string name, out BattleLayout layout)
+	public ProgressData progressData;
+
+	public void LoadProgress()
 	{
-		layout = null;
-		string filePath = Path.Combine(Application.persistentDataPath, layoutSavePath, name + ".layout");
+		if (!LoadObject(progressSavePath, out progressData))
+		{
+			progressData = new ProgressData();
+		}
+	}
+	public void SaveProgress()
+	{
+		SaveObject(progressSavePath, progressData);
+	}
+
+	public bool LoadObject(string path, out object result)
+	{
+		result = null;
+		string filePath = Path.Combine(Application.persistentDataPath, path);
 		if (!File.Exists(filePath))
 		{
-			Debug.LogWarning($"Couldn't load BattleLayout at {filePath}");
+			Debug.LogWarning($"Couldn't load from {filePath}");
 			return false;
 		}
 
@@ -29,36 +44,64 @@ public class SaveManager : MonoBehaviour
 
 		try
 		{
-			layout = bf.Deserialize(file) as BattleLayout;
+			result = bf.Deserialize(file);
 			file.Close();
 			return true;
 		}
 		catch (System.Exception)
 		{
-			Debug.LogError($"Couldn't deserialize BattleLayout ({name})");
+			Debug.LogError($"Couldn't deserialize {path}");
 			file.Close();
 			return false;
 		}
 	}
-	public bool SaveLayout(string name, BattleLayout layout)
+	public bool LoadObject<T>(string path, out T result) where T : class
 	{
-		string directory = Path.Combine(Application.persistentDataPath, layoutSavePath);
+		result = null;
+		string filePath = Path.Combine(Application.persistentDataPath, path);
+		if (!File.Exists(filePath))
+		{
+			Debug.LogWarning($"Couldn't load from {filePath}");
+			return false;
+		}
+
+		FileStream file = File.OpenRead(filePath);
+
+		BinaryFormatter bf = new BinaryFormatter();
+		//TODO: surrogates
+
+		try
+		{
+			result = bf.Deserialize(file) as T;
+			file.Close();
+			return true;
+		}
+		catch (System.Exception)
+		{
+			Debug.LogError($"Couldn't deserialize {path}");
+			file.Close();
+			return false;
+		}
+	}
+	public bool SaveObject(string path, object obj)
+	{
+		string directory = Path.GetDirectoryName(Path.Combine(Application.persistentDataPath, path));
 		if (!Directory.Exists(directory))
 		{
 			Directory.CreateDirectory(directory);
 		}
 
-		string filePath = Path.Combine(directory, name + ".layout");
+		string filePath = Path.Combine(Application.persistentDataPath, path);
 		FileStream file = File.Open(filePath, FileMode.Create, FileAccess.Write);
 		BinaryFormatter bf = new BinaryFormatter();
 
 		try
 		{
-			bf.Serialize(file, layout);
+			bf.Serialize(file, obj);
 		}
 		catch (System.Exception e)
 		{
-			Debug.LogError($"Couldn't save layout to {filePath}");
+			Debug.LogError($"Couldn't save object to {filePath}");
 			Debug.LogException(e);
 			file.Close();
 			return false;

@@ -1,5 +1,6 @@
 using NohaSoftware.Utilities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -49,34 +50,44 @@ public class BattleManager : MonoBehaviour
 		}
 
 		//spawn penguins
-		if (SaveManager.instance.LoadLayout(layoutName, out BattleLayout layout))
+		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, layoutName), out object o))
 		{
 			if (load)
 			{
-				distX = (width - padding * 2) / (gameData.columns - 1);
-				distZ = (length - padding * 2) / (gameData.rows - 1);
-				for (int c = 0; c < gameData.columns; c++)
+				try
 				{
-					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+					BattleLayout layout = o as BattleLayout;
+
+					distX = (width - padding * 2) / (gameData.columns - 1);
+					distZ = (length - padding * 2) / (gameData.rows - 1);
+					for (int c = 0; c < gameData.columns; c++)
 					{
-						if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
-						CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
-						if (data == null) continue;
+						for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+						{
+							if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
+							CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
+							if (data == null) continue;
 
-						//spawn
-						Vector3 pos = GetPosition(c, r);
-						var obj = Instantiate(penguinPrefab, transform);
-						obj.name = $"{data.name} ({c};{r})";
-						obj.transform.position = pos;
+							//spawn
+							Vector3 pos = GetPosition(c, r);
+							var obj = Instantiate(penguinPrefab, transform);
+							obj.name = $"{data.name} ({c};{r})";
+							obj.transform.position = pos;
 
-						obj.GetComponent<SpriteRenderer>().color = data.color;
-						BattleParticipant p = obj.GetComponent<BattleParticipant>();
-						p.Setup(data);
-						p.team = layout.team;
+							obj.GetComponent<SpriteRenderer>().color = data.color;
+							BattleParticipant p = obj.GetComponent<BattleParticipant>();
+							p.Setup(data);
+							p.team = layout.team;
 
-						obj.SetActive(true);
+							obj.SetActive(true);
+						}
 					}
 				}
+				catch (System.Exception e)
+				{
+					Debug.LogException(e);
+				}
+				
 			}
 		}
 

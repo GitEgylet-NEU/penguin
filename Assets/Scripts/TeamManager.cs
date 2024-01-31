@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class TeamManager : MonoBehaviour
@@ -9,6 +11,8 @@ public class TeamManager : MonoBehaviour
 	{
 		instance = this;
 	}
+
+	public GameData gameData;
 
 	[Header("Spawn options")]
 	[SerializeField] GameObject penguinPrefab;
@@ -31,6 +35,10 @@ public class TeamManager : MonoBehaviour
 	[Header("Camera")]
 	[SerializeField] CameraController cameraController;
 	[SerializeField] float cameraOffset = 20f;
+
+	[Header("UI")]
+	[SerializeField] ProgressBar xpBar;
+	[SerializeField] TextMeshProUGUI xpText, levelText;
 
 	private void Start()
 	{
@@ -55,11 +63,23 @@ public class TeamManager : MonoBehaviour
 		cameraController.followTransform = penguins[0].transform;
 		cameraController.offset = cameraOffset;
 
+		SaveManager.instance.LoadProgress();
+		xpBar.min = SaveManager.instance.progressData.level >= 1 ? gameData.levelXPCosts[SaveManager.instance.progressData.level - 1] + 1 : 0f;
+		xpBar.max = SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 ? gameData.levelXPCosts[SaveManager.instance.progressData.level + 1] : gameData.levelXPCosts[SaveManager.instance.progressData.level] + 1;
+		xpBar.disappearOnZero = false;
+
 		run = true;
 	}
 
 	private void Update()
 	{
+		xpBar.SetValue(SaveManager.instance.progressData.xp);
+		levelText.text = $"{SaveManager.instance.progressData.level + 1}. szint";
+		if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1)
+			xpText.text = $"{SaveManager.instance.progressData.xp} / {gameData.levelXPCosts[SaveManager.instance.progressData.level + 1]}";
+		else
+			xpText.text = string.Empty;
+
 		if (run)
 		{
 			// mindegyik pingvin mozgatása elõre
@@ -85,6 +105,11 @@ public class TeamManager : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown(KeyCode.K)) RemovePenguinAtPosition(1);
+	}
+
+	private void OnDestroy()
+	{
+		SaveManager.instance.SaveProgress();
 	}
 
 	/// <summary>A pingvinek mozgatása oldalra egy megadott érték alapján.</summary>

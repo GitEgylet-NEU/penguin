@@ -37,7 +37,7 @@ public class ProgressBar : MonoBehaviour
 	{
 		if (disappearOnZero && Value == min) gameObject.SetActive(false);
 
-		fill.SetWidth(Value / (max - min) * background.rect.width);
+		fill.SetWidth((Value - min) / (max - min) * background.rect.width);
 	}
 
 	public void SetValue(float newValue)
