@@ -18,7 +18,7 @@ public class CharacterData : ScriptableObject
 	public Sprite backSprite;
 
 	[Header("Battle Attributes")]
-	[Tooltip("Whether there can be more instances of this character on the battle layout")] public bool unique;
+	[Tooltip("How many instances are allowed at once?")][Min(1)] public float maxNumber;
 	public float maxHealth;
 	public float hitsPerSecond;
 	public float damagePerHit;

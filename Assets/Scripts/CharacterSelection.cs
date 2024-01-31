@@ -10,13 +10,19 @@ public class CharacterSelection : MonoBehaviour
 	[SerializeField] GraphicRaycaster raycaster;
 	[SerializeField] BattleLayoutPlanner layoutPlanner;
 	List<RaycastResult> results = new();
+	Dictionary<string, bool> canSelect;
+	Dictionary<string, GameObject> buttons;
 
 	bool init = false;
 	public void Init(IEnumerable<CharacterData> characters)
 	{
+		canSelect = new Dictionary<string, bool>();
+
 		GameObject prefab = transform.Find("CharacterTemplate").gameObject;
 		prefab.SetActive(false);
 		if (prefab == null) return;
+
+		buttons = new();
 		foreach (var c in characters)
 		{
 			var obj = Instantiate(prefab, transform);
@@ -24,6 +30,8 @@ public class CharacterSelection : MonoBehaviour
 			obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
 			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = c.name;
 			obj.SetActive(true);
+			canSelect.Add(c.id, true);
+			buttons.Add(c.id, obj);
 		}
 		init = true;
 	}
@@ -32,6 +40,12 @@ public class CharacterSelection : MonoBehaviour
 	{
 		if (!init) return;
 		HandleDrags();
+
+		foreach (var c in layoutPlanner.gameData.playerCharacters)
+		{
+			canSelect[c.id] = layoutPlanner.Count(c.id) < c.maxNumber;
+			buttons[c.id].GetComponent<Image>().color = canSelect[c.id] ? Color.white : Color.gray;
+		}
 	}
 
 	bool dragging = false;
@@ -73,6 +87,7 @@ public class CharacterSelection : MonoBehaviour
 			{
 				CharacterData character = layoutPlanner.gameData.GetCharacterData(id, layoutPlanner.team);
 				if (character == null) return;
+				if (!canSelect[character.id]) return;
 
 				dragObj = Instantiate(layoutPlanner.penguinPrefab);
 				dragObj.name = "drag " + character.id;

@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 public class BattleLayoutPlanner : MonoBehaviour
 {
 	[Header("Settings")]
-	[SerializeField] public GameData gameData;
-	[SerializeField] int teamSize;
+	public GameData gameData;
 	[SerializeField] string layoutName = "default";
 	public BattleManager.Team team = BattleManager.Team.Player;
 
@@ -22,11 +21,8 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 	[Header("UI")]
 	[SerializeField] CharacterSelection characterSelection;
-	[SerializeField] TextMeshProUGUI teamSizeText;
-	[SerializeField] RectTransform alertBox;
 	[SerializeField] RectTransform modalWindow;
 
-	int currentSize;
 	BattleLayout layout;
 	Transform[,] markers;
 	bool changed = false;
@@ -40,8 +36,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 			Application.Quit();
 			return;
 		}
-
-		currentSize = 0;
 
 		layout = new BattleLayout(gameData.columns, gameData.rows, team);
 		layout.CalculateLayout(battlefield, padding);
@@ -100,13 +94,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 	}
 
-
-	private void Update()
-	{
-		teamSizeText.text = currentSize + " / " + teamSize;
-		teamSizeText.color = currentSize >= teamSize ? Color.red : Color.white;
-	}
-
 	public void SaveLayout()
 	{
 		if (layout == null || string.IsNullOrEmpty(layoutName) || SaveManager.instance == null)
@@ -141,13 +128,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 
 		if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(layout.characterIDs[column, row]))
 		{
-			if (currentSize >= teamSize)
-			{
-				Debug.LogError("Adding more characters would excess the team size limit!");
-				alertBox.gameObject.SetActive(true);
-				return false;
-			}
-
 			// set character where there wasn't any previously
 			layout.characterIDs[column, row] = id;
 
@@ -157,8 +137,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 			obj.transform.localPosition = Vector2.zero;
 			obj.SetActive(true);
 			obj.GetComponent<SpriteRenderer>().color = data.color;
-
-			currentSize++;
 		}
 		else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(layout.characterIDs[column, row]))
 		{
@@ -166,8 +144,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 			layout.characterIDs[column, row] = string.Empty;
 
 			Destroy(markers[column, row].GetChild(1).gameObject);
-
-			currentSize--;
 		}
 		else
 		{
@@ -212,6 +188,8 @@ public class BattleLayoutPlanner : MonoBehaviour
 			SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
 		}
 	}
+
+	public int Count(string id) => layout.Count(id);
 }
 
 [Serializable]
@@ -245,5 +223,18 @@ public class BattleLayout
 		float x = column * distX;
 		float y = row * distY;
 		return new Vector2(x, y);
+	}
+
+	public int Count(string id)
+	{
+		int i = 0;
+		for (int col = 0; col < characterIDs.GetLength(0); col++)
+		{
+			for (int row = 0; row < characterIDs.GetLength(1); row++)
+			{
+				if (characterIDs[col, row] == id) i++;
+			}
+		}
+		return i;
 	}
 }

@@ -1887,7 +1887,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 7a5bb1c0abf809f41b832ff0c05b0b69, type: 2}
-  battlefield: {fileID: 231524228}
   padding: 1.5
   startZ: -8.5
   length: 17
@@ -1896,7 +1895,7 @@ MonoBehaviour:
   worldSpaceCanvas: {fileID: 329866672}
   healthBarPrefab: {fileID: 7390420761957466161, guid: 04440d8d245cf6241a1618f0b7215950, type: 3}
   abilityBarPrefab: {fileID: 7390420761957466161, guid: 2d3ed740e0d739646b32a6022da7731c, type: 3}
-  layoutName: default
+  layoutName: default.layout
   penguinPrefab: {fileID: 9002858633847985833, guid: 84549e4b47f1f9f4b896cfb0e89931f3, type: 3}
   load: 1
 --- !u!4 &1220915605
@@ -1927,6 +1926,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layoutSavePath: Data/Layouts
+  progressSavePath: Data/progress.data
+  progressData:
+    level: 0
+    xp: 0
 --- !u!1 &1247330712
 GameObject:
   m_ObjectHideFlags: 0

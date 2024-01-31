@@ -18,6 +18,7 @@ public class CharacterInfoPanel : MonoBehaviour
 	[Header("Info Panel")]
 	[SerializeField] RectTransform infoPanel;
 	public TextMeshProUGUI nameText;
+	public TextMeshProUGUI maxNumberText;
 	public TextMeshProUGUI hpText;
 	public TextMeshProUGUI hpsText;
 	public TextMeshProUGUI damageText;
@@ -61,6 +62,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		}
 		infoPanel.gameObject.SetActive(true);
 		nameText.text = characterData.name;
+		maxNumberText.text = characterData.maxNumber + " db";
 		hpText.text = characterData.maxHealth.ToString();
 		hpsText.text = characterData.hitsPerSecond.ToString();
 		damageText.text = characterData.damagePerHit.ToString();
@@ -68,7 +70,9 @@ public class CharacterInfoPanel : MonoBehaviour
 		speedText.text = characterData.speed.ToString();
 		kiteText.text = characterData.shouldMoveBack ? "igen" : "nem";
 		descriptionText.text = characterData.description;
-		descriptionText.GetComponent<RectTransform>().SetHeight(descriptionText.GetPreferredValues(characterData.description).y);
+		descriptionText.GetComponent<RectTransform>().SetHeight(descriptionText.preferredHeight);
 		icon.color = characterData.color;
+
+		infoPanel.GetChild(0).GetChild(0).GetComponent<RectTransform>().SetHeight(Mathf.Abs(descriptionText.rectTransform.localPosition.y) + descriptionText.rectTransform.rect.height + 250f);
 	}
 }
