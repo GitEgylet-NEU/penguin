@@ -54,7 +54,9 @@ public class UIController : MonoBehaviour
     }
     public void ActivateLayer(VisualElement visual, VisualElement antivisual) 
     {
-        if (visual.style.display != DisplayStyle.None)
+        Debug.Log("activatelayer");
+        Debug.Log(visual.style.display);
+        if (visual.style.display == DisplayStyle.Flex)
         {
             visual.style.display = DisplayStyle.None;
             playelement.style.display = DisplayStyle.Flex;
