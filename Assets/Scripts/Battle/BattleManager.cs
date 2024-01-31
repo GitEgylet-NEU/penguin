@@ -21,10 +21,10 @@ public class BattleManager : MonoBehaviour
 
 	public GameData gameData;
 
-	[SerializeField][Min(0)] float padding;
-	[SerializeField] float startZ;
-	[SerializeField][Min(0)] float length;
-	[SerializeField][Min(0)] float width;
+	[Min(0)] public float padding;
+	public float startZ;
+	[Min(0)] public float length;
+	[Min(0)] public float width;
 	float distX;
 	float distZ;
 
@@ -38,6 +38,7 @@ public class BattleManager : MonoBehaviour
 	[SerializeField] string layoutName = "default";
 	[SerializeField] GameObject penguinPrefab;
 	public bool load;
+	bool init = false;
 
 	private void Start()
 	{
@@ -51,51 +52,52 @@ public class BattleManager : MonoBehaviour
 
 		SaveManager.instance.LoadProgress();
 
+		if (load) Initialize();
+	}
+
+	public void Initialize()
+	{
 		//spawn penguins
 		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, layoutName), out object o))
 		{
-			if (load)
+			try
 			{
-				try
+				BattleLayout layout = o as BattleLayout;
+
+				distX = (width - padding * 2) / (gameData.columns - 1);
+				distZ = (length - padding * 2) / (gameData.rows - 1);
+				for (int c = 0; c < gameData.columns; c++)
 				{
-					BattleLayout layout = o as BattleLayout;
-
-					distX = (width - padding * 2) / (gameData.columns - 1);
-					distZ = (length - padding * 2) / (gameData.rows - 1);
-					for (int c = 0; c < gameData.columns; c++)
+					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
 					{
-						for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
-						{
-							if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
-							CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
-							if (data == null) continue;
+						if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
+						CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
+						if (data == null) continue;
 
-							//spawn
-							Vector3 pos = GetPosition(c, r);
-							var obj = Instantiate(penguinPrefab, transform);
-							obj.name = $"{data.name} ({c};{r})";
-							obj.transform.position = pos;
+						//spawn
+						Vector3 pos = GetPosition(c, r);
+						var obj = Instantiate(penguinPrefab, transform);
+						obj.name = $"{data.name} ({c};{r})";
+						obj.transform.position = pos;
 
-							//obj.GetComponent<SpriteRenderer>().color = data.color;
-							BattleParticipant p = obj.GetComponent<BattleParticipant>();
-							p.Setup(data);
-							p.team = layout.team;
+						//obj.GetComponent<SpriteRenderer>().color = data.color;
+						BattleParticipant p = obj.GetComponent<BattleParticipant>();
+						p.Setup(data);
+						p.team = layout.team;
 
-							obj.SetActive(true);
-						}
+						obj.SetActive(true);
 					}
 				}
-				catch (System.Exception e)
-				{
-					Debug.LogException(e);
-				}
-				
+			}
+			catch (System.Exception e)
+			{
+				Debug.LogException(e);
 			}
 		}
 
 		//spawn enemies
 		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom();
-		if (load && enemyLayout != null)
+		if (enemyLayout != null)
 		{
 			Debug.Log($"Loaded {enemyLayout.name} ({enemyLayout.difficulty})");
 			var matrix = enemyLayout.GetMatrix();
@@ -126,6 +128,7 @@ public class BattleManager : MonoBehaviour
 
 	private void Update()
 	{
+		if (!init) return;
 		foreach (Team t in System.Enum.GetValues(typeof(Team)))
 		{
 			if (!participants.Any(p => p.team == t))

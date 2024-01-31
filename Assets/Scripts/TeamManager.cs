@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class TeamManager : MonoBehaviour
@@ -25,6 +24,7 @@ public class TeamManager : MonoBehaviour
 	public float initialRunSpeed;
 	[Tooltip("Hányszorosára gyorsul a sebesség másodpercenként?")] public float runMultiplier = 0;
 	[SerializeField] float runLength;
+	float runStartZ = float.PositiveInfinity;
 	bool run;
 	[Tooltip("Milyen gyorsan fog elõreszaladni a pingvin, ha az elõtte lévõ meghal?")] public float penguinCatchUpSpeed = 8f;
 
@@ -97,11 +97,18 @@ public class TeamManager : MonoBehaviour
 				Application.Quit();
 			}
 			// run leállítása, ha az elsõ pingvin a végére ér
-			if (penguins.FirstOrDefault().transform.position.z >= runLength)
+			if (penguins.FirstOrDefault().transform.position.z >= runStartZ + runLength)
 			{
 				Debug.Log("epic battle");
 				run = false;
 				ControlHandler.instance.canStrafe = false;
+
+				BattleManager.instance.startZ = penguins.FirstOrDefault().transform.position.z - BattleManager.instance.length / 2f;
+				BattleManager.instance.Initialize();
+				foreach (var penguin in penguins)
+				{
+					penguin.gameObject.SetActive(false);
+				}
 			}
 		}
 
@@ -117,6 +124,7 @@ public class TeamManager : MonoBehaviour
 	{
 		runMultiplier = 1.05f;
 		xpBar.gameObject.SetActive(false);
+		runStartZ = penguins.First().transform.position.z;
 	}
 
 	/// <summary>A pingvinek mozgatása oldalra egy megadott érték alapján.</summary>
@@ -156,7 +164,7 @@ public class TeamManager : MonoBehaviour
 	{
 		if (penguins.Count == 1)
 		{
-            GetComponent<LevelSpawner>().enabled = false;
+			GetComponent<LevelSpawner>().enabled = false;
 			AudioManager.instance.StopBM();
 			AudioManager.instance.PlaySound("gameover");
 			UIController.instance.GameOverOn();
@@ -194,7 +202,7 @@ public class TeamManager : MonoBehaviour
 			Debug.LogError("Can't remove Penguin");
 			return;
 		}
-		
+
 	}
 
 	private void OnDrawGizmos()
