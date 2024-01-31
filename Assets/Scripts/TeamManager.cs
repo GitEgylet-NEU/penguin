@@ -60,6 +60,7 @@ public class TeamManager : MonoBehaviour
 			penguins.Add(penguin);
 		}
 
+		AudioManager.instance.StartBM();
 		cameraController.followTransform = penguins[0].transform;
 		cameraController.offset = cameraOffset;
 
@@ -156,6 +157,8 @@ public class TeamManager : MonoBehaviour
 		if (penguins.Count == 1)
 		{
             GetComponent<LevelSpawner>().enabled = false;
+			AudioManager.instance.StopBM();
+			AudioManager.instance.PlaySound("gameover");
 			UIController.instance.GameOverOn();
 			GetComponent<TeamManager>().enabled = false;
 			return;
@@ -166,6 +169,7 @@ public class TeamManager : MonoBehaviour
 			int idx = penguins.IndexOf(penguin);
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
+			AudioManager.instance.PlaySound("treehit");
 
 			if (idx == 0 && penguins.Any())
 			{
