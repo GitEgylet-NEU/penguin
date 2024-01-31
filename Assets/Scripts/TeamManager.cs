@@ -153,6 +153,13 @@ public class TeamManager : MonoBehaviour
 	}
 	public void RemovePenguin(Penguin penguin)
 	{
+		if (penguins.Count == 1)
+		{
+            GetComponent<LevelSpawner>().enabled = false;
+			UIController.instance.GameOverOn();
+			GetComponent<TeamManager>().enabled = false;
+			return;
+		}
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
 		{
@@ -160,7 +167,7 @@ public class TeamManager : MonoBehaviour
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
 
-			if (idx == 0)
+			if (idx == 0 && penguins.Any())
 			{
 				cameraController.SetTransform(penguins[0].transform, true);
 				foreach (Penguin p in penguins)
@@ -183,12 +190,7 @@ public class TeamManager : MonoBehaviour
 			Debug.LogError("Can't remove Penguin");
 			return;
 		}
-		if (penguins.Count == 0)
-		{
-			Debug.Log("ur ded not big soup rice");
-			Debug.Break();
-			Application.Quit();
-		}
+		
 	}
 
 	private void OnDrawGizmos()

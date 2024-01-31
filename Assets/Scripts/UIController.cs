@@ -13,14 +13,20 @@ public class UIController : MonoBehaviour
     }
 
     public UIDocument mainDoc;
+    public UIDocument GameOverDoc;
 
-    public Button layoutButton, manualButton, creditButton;
+    public Button layoutButton, manualButton, creditButton, restartButton;
     public VisualElement playelement, manualelement, creditelement;
     public bool gameon = false;
     
     void Start()
     {
+        mainDoc.enabled = true;
+
+        var gameroot = GameOverDoc.GetComponent<UIDocument>().rootVisualElement;
         var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
+        
+        GameOverDoc.enabled = false;
 
         //Visualelements
         creditelement = root.Q("creditelement");
@@ -37,6 +43,9 @@ public class UIController : MonoBehaviour
 
         creditButton = root.Q<Button>("credit");
         creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditelement, manualelement));
+
+        restartButton = gameroot.Q<Button>("restart");
+        restartButton.RegisterCallback<ClickEvent>(RestartGame);
 
         
     }
@@ -67,5 +76,13 @@ public class UIController : MonoBehaviour
             playelement.style.display= DisplayStyle.None;
             antivisual.style.display = DisplayStyle.None;
         }
+    }
+    public void RestartGame(ClickEvent evt)
+    {
+        SceneManager.LoadScene("Samplescene");
+    }
+    public void GameOverOn() 
+    {
+        GameOverDoc.enabled = true;
     }
 }
