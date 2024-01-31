@@ -179,6 +179,9 @@ public class BattleParticipant : MonoBehaviour
 		Debug.Log($"{gameObject.name} has died!");
 		BattleManager.instance.participants.Remove(this);
 		if (abilityBar != null) Destroy(abilityBar.gameObject);
+
+		if (Data.xpYield != 0f) BattleManager.instance.AddXP(Data.xpYield);
+
 		Destroy(gameObject);
 	}
 

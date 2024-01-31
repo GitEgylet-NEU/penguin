@@ -49,6 +49,8 @@ public class BattleManager : MonoBehaviour
 			return;
 		}
 
+		SaveManager.instance.LoadProgress();
+
 		//spawn penguins
 		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, layoutName), out object o))
 		{
@@ -132,6 +134,20 @@ public class BattleManager : MonoBehaviour
 				Debug.Break();
 				return;
 			}
+		}
+	}
+
+	private void OnDestroy()
+	{
+		SaveManager.instance.SaveProgress();
+	}
+
+	public void AddXP(float amount)
+	{
+		SaveManager.instance.progressData.xp += amount;
+		if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 && SaveManager.instance.progressData.xp >= gameData.levelXPCosts[SaveManager.instance.progressData.level + 1])
+		{
+			SaveManager.instance.progressData.level++;
 		}
 	}
 
