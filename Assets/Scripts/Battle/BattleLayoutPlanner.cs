@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -77,15 +78,24 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 
 		//try to load layout
-		if (SaveManager.instance.LoadLayout(layoutName, out BattleLayout l))
+		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, layoutName), out object o))
 		{
-			layout.team = l.team;
-			for (int c = 0; c < gameData.columns; c++)
+			try
 			{
-				for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+				BattleLayout l = o as BattleLayout;
+				layout.team = l.team;
+				for (int c = 0; c < gameData.columns; c++)
 				{
-					if (!string.IsNullOrEmpty(l.characterIDs[c, r])) SetCharacter(c, r, l.characterIDs[c, r]);
+					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+					{
+						if (!string.IsNullOrEmpty(l.characterIDs[c, r])) SetCharacter(c, r, l.characterIDs[c, r]);
+					}
 				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogException(e);
+				throw;
 			}
 		}
 	}
@@ -104,7 +114,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 			Debug.LogWarning("Can't initiate save");
 			return;
 		}
-		if (SaveManager.instance.SaveLayout(layoutName, layout))
+		if (SaveManager.instance.SaveObject(Path.Combine(SaveManager.instance.layoutSavePath, layoutName), layout))
 		{
 			Debug.Log("Successfully saved layout as " + layoutName);
 			changed = false;

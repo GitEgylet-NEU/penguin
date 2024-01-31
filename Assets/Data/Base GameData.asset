@@ -24,3 +24,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc67b65d0c591854ea48c2ba4890e926, type: 2}
   enemyCharacters:
   - {fileID: 11400000, guid: 9442b13e2ae1510459d3b4921796dbec, type: 2}
+  levelXPCosts:
+  - 10
+  - 25
+  - 50
+  - 100
+  - 200

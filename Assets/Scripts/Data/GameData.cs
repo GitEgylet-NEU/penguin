@@ -12,6 +12,9 @@ public class GameData : ScriptableObject
 	public CharacterData[] playerCharacters;
 	public CharacterData[] enemyCharacters;
 
+	[Header("Player Progress")]
+	public float[] levelXPCosts;
+
 	private void OnValidate()
 	{
 		if (rows > 0 && rows % 2 != 0)

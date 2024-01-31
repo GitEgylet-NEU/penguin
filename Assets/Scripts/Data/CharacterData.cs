@@ -10,6 +10,9 @@ public class CharacterData : ScriptableObject
 	public string description;
 	public Color color;
 
+	[Space]
+	public float xpYield;
+
 	[Header("Visuals")]
 	public Sprite frontSprite;
 	public Sprite backSprite;
