@@ -71,7 +71,7 @@ public class LevelSpawner : MonoBehaviour
                 //counter+= treespace;
             }
         }
-        if (trees[0].transform.position.z < TeamManager.instance.penguins.Last().transform.position.z - renderdistance)
+        if (trees[0].transform.position.z < TeamManager.instance.penguins[0].transform.position.z - renderdistance/2)
         {
             DestroySection(trees, 0);
         }

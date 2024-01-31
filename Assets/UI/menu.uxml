@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/main.uss?fileID=7433441132597879392&amp;guid=ee14eaaf81f14f947a7b1c7a9d35eaf5&amp;type=3#main" />
     <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 7%; margin-right: 10px; margin-bottom: 7%; margin-left: 10px;">
-        <ui:Label tabindex="-1" text="Epic&#10;Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="maintitle" style="-unity-text-align: upper-center; height: 8%; -unity-font: url(&apos;project://database/Assets/Fonts/Blox2.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox2&apos;); -unity-font-definition: initial; font-size: 280px; -unity-font-style: normal;" />
-        <ui:VisualElement name="space" style="flex-grow: 1; height: 70%; display: flex;">
-            <ui:Label tabindex="-1" text="Tap to play" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: -20deg; align-self: center; width: 50%; height: 80%; -unity-text-align: lower-center;" />
+        <ui:Label tabindex="-1" text="EPICgame" parse-escape-sequences="true" display-tooltip-when-elided="true" name="maintitle" style="-unity-text-align: upper-center; height: 8%; -unity-font: url(&apos;project://database/Assets/Fonts/Blox.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox&apos;); -unity-font-definition: initial; -unity-font-style: normal; font-size: 90px;" />
+        <ui:VisualElement name="space" style="flex-grow: 1; height: 70%; display: flex; flex-direction: column;">
+            <ui:Label tabindex="-1" text="Tap to play" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: -20deg; align-self: center; width: 50%; height: 9%; -unity-text-align: upper-center; justify-content: flex-start; flex-direction: row; position: absolute; left: 6%; top: 20%;" />
         </ui:VisualElement>
         <ui:VisualElement name="creditelement" style="flex-grow: 1; height: 70%; display: none;">
             <ui:Label tabindex="-1" text="Készítette:&#10;Csuhai Hunor&#10;Mocsári Márton&#10;Gyönki Dominik&#10;Perczel Patrik" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: 0; align-self: center; width: 50%; height: 80%; -unity-text-align: middle-center;" />

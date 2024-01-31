@@ -7,4 +7,13 @@
     -unity-text-align: middle-center;
     font-size: 65px;
     align-self: center;
+    background-color: rgb(255, 255, 255);
+    border-top-width: 11px;
+    border-right-width: 11px;
+    border-bottom-width: 11px;
+    border-left-width: 11px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
 }
