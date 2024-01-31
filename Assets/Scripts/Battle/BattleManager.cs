@@ -76,7 +76,7 @@ public class BattleManager : MonoBehaviour
 							obj.name = $"{data.name} ({c};{r})";
 							obj.transform.position = pos;
 
-							obj.GetComponent<SpriteRenderer>().color = data.color;
+							//obj.GetComponent<SpriteRenderer>().color = data.color;
 							BattleParticipant p = obj.GetComponent<BattleParticipant>();
 							p.Setup(data);
 							p.team = layout.team;
