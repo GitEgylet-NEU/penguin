@@ -172,7 +172,7 @@ public class TeamManager : MonoBehaviour
 			AudioManager.instance.PlaySound("gameover");
 			UIController.instance.onOff(UIController.instance.gameOverDoc,true);
 			GetComponent<TeamManager>().enabled = false;
-			return;
+			//return;
 		}
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
