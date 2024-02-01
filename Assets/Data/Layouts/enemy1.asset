@@ -16,6 +16,6 @@ MonoBehaviour:
   difficulty: 1
   characters:
   - Key: {x: 0, y: 3}
-    Value: e_test
+    Value: e_lemming
   - Key: {x: 3, y: 4}
-    Value: e_test
+    Value: e_lemming
