@@ -167,7 +167,7 @@ public class TeamManager : MonoBehaviour
 			GetComponent<LevelSpawner>().enabled = false;
 			AudioManager.instance.StopBM();
 			AudioManager.instance.PlaySound("gameover");
-			UIController.instance.GameOverOn();
+			UIController.instance.onOff(UIController.instance.gameOverDoc,true);
 			GetComponent<TeamManager>().enabled = false;
 			return;
 		}

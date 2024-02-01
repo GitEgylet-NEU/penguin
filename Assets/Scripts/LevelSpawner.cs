@@ -6,15 +6,13 @@ using UnityEngine;
 public class LevelSpawner : MonoBehaviour
 {
 	public LevelData levelData;
-	public GameObject blankSection;
-	public GameObject tree;
-	public List<GameObject> sections;
-	public List<GameObject> trees;
+	public GameObject blankSection, tree;
+	public List<GameObject> sections, trees;
 	float z = 0;
 	string lastLevelId;
 
 	//megadja hogy mennyire elõre generáljon
-	public int renderdistance = 30;
+	public int renderDistance = 30;
 
 	public void Start()
 	{
@@ -29,7 +27,7 @@ public class LevelSpawner : MonoBehaviour
 		trees.Add(Instantiate(tree, new Vector3(6, 3, 1), Quaternion.identity));
 		trees.Add(Instantiate(tree, new Vector3(-6, 3, 1), Quaternion.identity));
 
-		while (z < renderdistance)
+		while (z < renderDistance)
 		{
 			Debug.Log("pregenerate");
 			sections.Add(Instantiate(blankSection, new Vector3(0, -0.1f, z + 5), Quaternion.identity));
@@ -40,11 +38,11 @@ public class LevelSpawner : MonoBehaviour
 	public void Update()
 	{
 		// endless generálás
-		if (TeamManager.instance.penguins[0].gameObject.transform.position.z > z - renderdistance)
+		if (TeamManager.instance.penguins[0].gameObject.transform.position.z > z - renderDistance)
 		{
 			
 			//elindult e már a játék elenõrzése
-			if (UIController.instance.gameon == false)
+			if (UIController.instance.gameOn == false)
 			{
 				sections.Add(Instantiate(blankSection, new Vector3(0, -0.1f, z + 5), Quaternion.identity));
 				z += 10;
@@ -54,7 +52,7 @@ public class LevelSpawner : MonoBehaviour
 				if ((TeamManager.instance.runStartZ + TeamManager.instance.runLength) - (sections.Last().transform.position.z + (sections.Last().transform.Find("ground").localScale.z / 2) ) <= 10)
 				{
 					Debug.Log("battle");
-					UIController.instance.gameon = false;
+					UIController.instance.gameOn = false;
 				}
 				else
 				{
@@ -68,14 +66,14 @@ public class LevelSpawner : MonoBehaviour
 			
 		}
 		//fa generálása
-			while (trees.Last().transform.position.z < TeamManager.instance.penguins[0].transform.position.z + renderdistance)
+			while (trees.Last().transform.position.z < TeamManager.instance.penguins[0].transform.position.z + renderDistance)
 			{
 				trees.Add(Instantiate(tree, new Vector3(6, 3, trees.Last().transform.position.z + Random.Range(2,5)), Quaternion.Euler(new Vector3(0,Random.Range(-30,30),0))));
 				trees.Add(Instantiate(tree, new Vector3(-6, 3, trees.Last().transform.position.z + Random.Range(2, 5)), Quaternion.Euler(new Vector3(0, Random.Range(-30, 30), 0))));
 			}
 
 		//objectek törlése (fa + section)
-		if (trees[0].transform.position.z < TeamManager.instance.penguins[0].transform.position.z - renderdistance/2)
+		if (trees[0].transform.position.z < TeamManager.instance.penguins[0].transform.position.z - renderDistance/2)
 		{
 			DestroyObject(trees, 0);
 		}
