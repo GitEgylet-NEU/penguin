@@ -96,7 +96,7 @@ public class TeamManager : MonoBehaviour
 
 			int upPoints = 0;
 			//leveled up
-			for (int i = SaveManager.instance.progressData.lastCheckedLevel+1; i <= SaveManager.instance.progressData.level; i++)
+			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i <= SaveManager.instance.progressData.level; i++)
 			{
 				Debug.Log(i);
 				upPoints += gameData.levelUpgradePointRewards[i];
@@ -141,12 +141,6 @@ public class TeamManager : MonoBehaviour
 				penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.deltaTime);
 			}
 
-			if (!penguins.Any())
-			{
-				Debug.Log("big oof");
-				Debug.Break();
-				Application.Quit();
-			}
 			// run leállítása, ha az elsõ pingvin a végére ér
 			if (penguins.FirstOrDefault().transform.position.z >= runStartZ + runLength)
 			{
@@ -216,7 +210,8 @@ public class TeamManager : MonoBehaviour
 			GetComponent<LevelSpawner>().enabled = false;
 			AudioManager.instance.StopBM();
 			AudioManager.instance.PlaySound("gameover");
-			UIController.instance.onOff(UIController.instance.gameOverDoc,true);
+			//UIController.instance.onOff(UIController.instance.gameOverDoc,true);
+			UIController.instance.EndGame(false);
 			GetComponent<TeamManager>().enabled = false;
 			//return;
 		}

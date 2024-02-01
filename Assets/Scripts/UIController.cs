@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
-using System.Data;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -20,6 +18,10 @@ public class UIController : MonoBehaviour
 	public Image icon;
 	public Label popupText, popupTitle, gameoverTitle;
 	public bool gameOn = false;
+
+	[Space]
+	public UnityEngine.UI.Button unityRestartButton;
+	public TextMeshProUGUI unityGameOverText;
 	
 	void Start()
 	{
@@ -48,7 +50,7 @@ public class UIController : MonoBehaviour
 
 				//gameover/win
 				restartButton = gameRoot.Q<Button>("restart");
-				restartButton.RegisterCallback<ClickEvent>(RestartGame);
+				restartButton.RegisterCallback<ClickEvent>((_) => RestartGame());
 
 				//popup
 				okButton = root.Q<Button>("ok");
@@ -90,9 +92,16 @@ public class UIController : MonoBehaviour
 
 		}
 	}
-	public void RestartGame(ClickEvent evt)
+	public void RestartGame()
 	{
 		SceneManager.LoadScene("Samplescene");
+	}
+	public void EndGame(bool won)
+	{
+		unityGameOverText.text = won ? "YOU won" : "YOU lost";
+		unityGameOverText.gameObject.SetActive(true);
+		unityRestartButton.GetComponentInChildren<TextMeshProUGUI>().text = won ? "Hurrá!" : "Újrakezdés";
+		unityRestartButton.gameObject.SetActive(true);
 	}
 
 	//dokumentumok ki/be kapcsolása
