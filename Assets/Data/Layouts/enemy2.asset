@@ -13,15 +13,11 @@ MonoBehaviour:
   m_Name: enemy2
   m_EditorClassIdentifier: 
   team: 1
-  difficulty: 3
+  difficulty: 2
   characters:
-  - Key: {x: 1, y: 4}
-    Value: e_lemming
-  - Key: {x: 3, y: 4}
-    Value: e_lemming
-  - Key: {x: 2, y: 3}
-    Value: e_lemming
   - Key: {x: 0, y: 5}
-    Value: e_lemming
+    Value: e_thug
   - Key: {x: 4, y: 5}
+    Value: e_seal
+  - Key: {x: 2, y: 5}
     Value: e_lemming

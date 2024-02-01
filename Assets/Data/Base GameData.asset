@@ -16,8 +16,15 @@ MonoBehaviour:
   rows: 6
   premadeBattleLayouts:
   - {fileID: 11400000, guid: 1127de0d30ddb964299dc145ff2e73b3, type: 2}
-  - {fileID: 11400000, guid: 8a2aec876b4ef9c498351ca0aa34f475, type: 2}
+  - {fileID: 11400000, guid: 3a312844955990a4b96ee80f792542d5, type: 2}
   - {fileID: 11400000, guid: 096c646da88249b42bc591c9c1a959a2, type: 2}
+  - {fileID: 11400000, guid: 1f01be8158f52c44ebfa972c00f755eb, type: 2}
+  - {fileID: 11400000, guid: f32540e2555f9de45a5ae02f312ba733, type: 2}
+  - {fileID: 11400000, guid: 446d5899322088c4c939538a442b5eee, type: 2}
+  - {fileID: 11400000, guid: 76e933fd946df9d469cc467fe86f0159, type: 2}
+  - {fileID: 11400000, guid: 4c05f9f361126a345a5028dcdcd7431d, type: 2}
+  - {fileID: 11400000, guid: 990a7e4fc2f29bc4eb2934f7a2334dbd, type: 2}
+  - {fileID: 11400000, guid: b7315591e18b17c4794efc74c4a5d7c7, type: 2}
   playerCharacters:
   - {fileID: 11400000, guid: 1d32ccab8336f794db2c5b496a801e09, type: 2}
   - {fileID: 11400000, guid: c5f8a7540c3cfad44974718d8a278ee8, type: 2}
