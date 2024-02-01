@@ -13,19 +13,45 @@ MonoBehaviour:
   m_Name: Thai Penguin
   m_EditorClassIdentifier: 
   id: p_thai
-  description: angry partisan
+  description: angry muay thaier partisan
   color: {r: 0.6981973, g: 0.7264151, b: 0.2706924, a: 1}
   xpYield: 0
   frontSprite: {fileID: 21300000, guid: b106026689fc75b4c94e8fee37e2db18, type: 3}
   backSprite: {fileID: 21300000, guid: d15eb7ea3c52b824ab4d08a84ebf1b30, type: 3}
   levels:
   - maxNumber: 1
-    maxHealth: 100
-    hitsPerSecond: 1
-    damagePerHit: 20
-    range: 5
-    speed: 3
-    rotationSpeed: 250
+    maxHealth: 50
+    hitsPerSecond: 2.5
+    damagePerHit: 5
+    range: 1.6
+    speed: 7
+    rotationSpeed: 300
+    shouldMoveBack: 0
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []
+  - maxNumber: 1
+    maxHealth: 65
+    hitsPerSecond: 3.5
+    damagePerHit: 5
+    range: 1.8
+    speed: 8
+    rotationSpeed: 325
+    shouldMoveBack: 0
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []
+  - maxNumber: 1
+    maxHealth: 90
+    hitsPerSecond: 4.5
+    damagePerHit: 5
+    range: 2.5
+    speed: 10
+    rotationSpeed: 375
     shouldMoveBack: 0
     hasAbility: 0
     ability:
