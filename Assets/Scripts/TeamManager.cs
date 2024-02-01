@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TeamManager : MonoBehaviour
 {
@@ -67,6 +68,11 @@ public class TeamManager : MonoBehaviour
 				i++;
 			}
 		}
+		else
+		{
+			SceneManager.LoadScene("LayoutPlanning");
+			return;
+		}
 
 		AudioManager.instance.StartBM();
 		cameraController.followTransform = penguins[0].transform;
@@ -90,14 +96,14 @@ public class TeamManager : MonoBehaviour
 
 			int upPoints = 0;
 			//leveled up
-			for (int i = SaveManager.instance.progressData.lastCheckedLevel; i < SaveManager.instance.progressData.level; i++)
+			for (int i = SaveManager.instance.progressData.lastCheckedLevel+1; i <= SaveManager.instance.progressData.level; i++)
 			{
 				Debug.Log(i);
 				upPoints += gameData.levelUpgradePointRewards[i];
-				continue;
-				if (!string.IsNullOrEmpty(gameData.levelUpgradeCharacterRewards[i])) continue;
-				popupText.Add($"Feloldottad {gameData.GetCharacterData(gameData.levelUpgradeCharacterRewards[i], BattleManager.Team.Player).name}-t");
-				
+				string id = gameData.levelUpgradeCharacterRewards[i];
+				if (!string.IsNullOrEmpty(id)) continue;
+				popupText.Add($"Feloldottad {gameData.GetCharacterData(id, BattleManager.Team.Player).name}-t");
+				SaveManager.instance.progressData.characterLevels.GetElement(id).Value = 0;
 			}
 			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
 			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level;
@@ -105,6 +111,7 @@ public class TeamManager : MonoBehaviour
 			if (popupText.Any())
 			{
 				Debug.Log(string.Join("\n", popupText));
+				return;
 				UIController.instance.setPopup("Szintlépés!", string.Join("\n", popupText), false);
 				UIController.instance.ActivateLayer(UIController.instance.popupElement, UIController.instance.manualElement, UIController.instance.creditElement);
 			}

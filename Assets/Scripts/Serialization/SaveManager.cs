@@ -1,3 +1,4 @@
+using NohaSoftware.Utilities;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -32,6 +33,8 @@ public class SaveManager : MonoBehaviour
 		{
 			progressData = new ProgressData();
 			progressData.InitCharacterLevels(gameData.playerCharacters);
+			progressData.lastCheckedLevel = -1;
+			progressData.characterLevels.GetElement(gameData.levelUpgradeCharacterRewards[0]).Value = 0;
 		}
 		else
 		{

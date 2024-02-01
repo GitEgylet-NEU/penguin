@@ -4,6 +4,7 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleLayoutPlanner : MonoBehaviour
 {
@@ -23,10 +24,12 @@ public class BattleLayoutPlanner : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] CharacterSelection characterSelection;
 	[SerializeField] RectTransform modalWindow;
+	[SerializeField] Button backButton;
 
 	BattleLayout layout;
 	Transform[,] markers;
 	bool changed = false;
+	int size;
 
 	void Start()
 	{
@@ -37,6 +40,8 @@ public class BattleLayoutPlanner : MonoBehaviour
 			Application.Quit();
 			return;
 		}
+
+		size = 0;
 
 		layout = new BattleLayout(gameData.columns, gameData.rows, team);
 		layout.CalculateLayout(battlefield, padding);
@@ -87,6 +92,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 						if (!string.IsNullOrEmpty(l.characterIDs[c, r])) try
 							{
 								SetCharacter(c, r, l.characterIDs[c, r]);
+								size++;
 							} catch
 							{
 								SetCharacter(c, r, string.Empty);
@@ -100,6 +106,11 @@ public class BattleLayoutPlanner : MonoBehaviour
 				throw;
 			}
 		}
+	}
+
+	private void Update()
+	{
+		backButton.gameObject.SetActive(size > 0);
 	}
 
 	private void OnDestroy()
@@ -143,6 +154,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 		{
 			// set character where there wasn't any previously
 			layout.characterIDs[column, row] = id;
+			size++;
 
 			CharacterData data = GetCharacter(column, row);
 			var obj = Instantiate(penguinPrefab, markers[column, row]);
@@ -156,6 +168,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 		{
 			// remove character
 			layout.characterIDs[column, row] = string.Empty;
+			size--;
 
 			Destroy(markers[column, row].GetChild(1).gameObject);
 		}
