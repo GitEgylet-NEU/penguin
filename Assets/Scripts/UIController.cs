@@ -13,7 +13,7 @@ public class UIController : MonoBehaviour
 		instance = this;
 	}
 
-	public UIDocument mainDoc, gameOverDoc, popupDoc;
+	public UIDocument mainDoc, gameOverDoc;
 
 	public Button layoutButton, manualButton, creditButton, restartButton, okButton;
 	public VisualElement playElement, manualElement, creditElement, popupElement;
@@ -27,10 +27,8 @@ public class UIController : MonoBehaviour
 
 		var gameRoot = gameOverDoc.GetComponent<UIDocument>().rootVisualElement;
 		var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
-		//var popupRoot = popupDoc.GetComponent<UIDocument>().rootVisualElement;
 		
 		gameOverDoc.enabled = false;
-		//popupDoc.enabled = false;
 
 		//Visualelements
 		creditElement = root.Q("creditelement");

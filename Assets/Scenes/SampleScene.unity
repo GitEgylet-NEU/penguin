@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: c3ff347a4069d104e9a231193e31c938, type: 2}
   blankSection: {fileID: 5702051948169177812, guid: a3d239286f4339447997123a35237d51, type: 3}
-  tree: {fileID: 3074471952967708580, guid: 5f589de84133654419a4dcbb38e8b4cd, type: 3}
+  tree: {fileID: 3074471952967708580, guid: 8f1bc47deef214449b5bfbdd553eeb9a, type: 3}
   sections: []
   trees: []
   renderDistance: 40
@@ -1562,7 +1562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainDoc: {fileID: 682520888}
   gameOverDoc: {fileID: 1257519206}
-  popupDoc: {fileID: 0}
   gameOn: 0
 --- !u!114 &1683354757
 MonoBehaviour:
