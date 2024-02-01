@@ -7,6 +7,7 @@ public class ControlHandler : MonoBehaviour
 	public bool handheld;
 
 	public bool canStrafe = true;
+	public float sensitivity = .75f;
 
 	private void Awake()
 	{
@@ -34,7 +35,7 @@ public class ControlHandler : MonoBehaviour
 		{
 			Touch touch = Input.GetTouch(0);
 
-			float horizontal = touch.position.x > 0f ? 1f : -1f;
+			float horizontal = touch.position.x > Screen.width / 2f ? sensitivity : -sensitivity;
 
 			TeamManager.instance.Move(horizontal);
 		}

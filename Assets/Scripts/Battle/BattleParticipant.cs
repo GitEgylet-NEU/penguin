@@ -2,7 +2,6 @@ using NohaSoftware.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class BattleParticipant : MonoBehaviour
