@@ -22,8 +22,6 @@ public class CharacterData : ScriptableObject
 	[Serializable]
 	public class Level
 	{
-		[Tooltip("How much upgrade points does it cost to upgrade to the next level?")] public int upgradeCost;
-
 		[Header("Battle Attributes")]
 		[Tooltip("How many instances are allowed at once?")][Min(1)] public float maxNumber;
 		public float maxHealth;

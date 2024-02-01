@@ -60,9 +60,9 @@ public class CharacterInfoPanel : MonoBehaviour
 
 	public void UpgradeCharacter()
 	{
-		if (levelIdx < characterData.levels.Length - 1 && SaveManager.instance.progressData.upgradePoints >= level.upgradeCost)
+		if (levelIdx < characterData.levels.Length - 1 && SaveManager.instance.progressData.upgradePoints >= gameData.characterUpgradeCosts[levelIdx])
 		{
-			SaveManager.instance.progressData.upgradePoints -= level.upgradeCost;
+			SaveManager.instance.progressData.upgradePoints -= gameData.characterUpgradeCosts[levelIdx];
 			SaveManager.instance.progressData.characterLevels.GetElement(characterData.id).Value++;
 			UpdateUI();
 		}
@@ -93,7 +93,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		levelText.text = (levelIdx+1).ToString();
 		if (levelIdx < characterData.levels.Length - 1)
 		{
-			upgradeCostText.text = level.upgradeCost.ToString();
+			upgradeCostText.text = gameData.characterUpgradeCosts[levelIdx].ToString();
 			upgradeCostText.gameObject.SetActive(true);
 			upgradeButton.interactable = true;
 		}
