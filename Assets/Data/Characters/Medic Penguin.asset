@@ -12,10 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
   m_Name: Medic Penguin
   m_EditorClassIdentifier: 
-  id: 
-  description: 
+  id: p_medic
+  description: medical officer by profession
   color: {r: 0, g: 0, b: 0, a: 0}
   xpYield: 0
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
-  levels: []
+  frontSprite: {fileID: 21300000, guid: 7ecb8aa95103ce44d911b4c66ca3e6aa, type: 3}
+  backSprite: {fileID: 21300000, guid: 874551bb9fe2b384ba45c89aa9bdd056, type: 3}
+  levels:
+  - maxNumber: 1
+    maxHealth: 40
+    hitsPerSecond: 1
+    damagePerHit: 0
+    range: 3
+    speed: 13
+    rotationSpeed: 300
+    shouldMoveBack: 1
+    hasAbility: 1
+    ability:
+      id: targeted_heal
+      abilityCost: 45
+      floats: []
+  - maxNumber: 1
+    maxHealth: 45
+    hitsPerSecond: 2
+    damagePerHit: 0
+    range: 6
+    speed: 16
+    rotationSpeed: 325
+    shouldMoveBack: 1
+    hasAbility: 1
+    ability:
+      id: targeted_heal
+      abilityCost: 45
+      floats: []
+  - maxNumber: 1
+    maxHealth: 50
+    hitsPerSecond: 4
+    damagePerHit: 0
+    range: 12
+    speed: 20
+    rotationSpeed: 375
+    shouldMoveBack: 1
+    hasAbility: 1
+    ability:
+      id: targeted_heal
+      abilityCost: 45
+      floats: []

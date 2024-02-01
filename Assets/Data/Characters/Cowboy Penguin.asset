@@ -12,10 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
   m_Name: Cowboy Penguin
   m_EditorClassIdentifier: 
-  id: 
-  description: 
+  id: p_cowboy
+  description: i am a cowboy
   color: {r: 0, g: 0, b: 0, a: 0}
   xpYield: 0
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
-  levels: []
+  frontSprite: {fileID: 21300000, guid: 3bcd6f4c9110d6147ba38b326fcea302, type: 3}
+  backSprite: {fileID: 21300000, guid: 2f555eac2bc76354a9b1200757a580b1, type: 3}
+  levels:
+  - maxNumber: 1
+    maxHealth: 50
+    hitsPerSecond: 0.5
+    damagePerHit: 8
+    range: 6
+    speed: 7
+    rotationSpeed: 250
+    shouldMoveBack: 1
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []
+  - maxNumber: 1
+    maxHealth: 80
+    hitsPerSecond: 1.5
+    damagePerHit: 6
+    range: 7
+    speed: 7
+    rotationSpeed: 275
+    shouldMoveBack: 1
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []
+  - maxNumber: 1
+    maxHealth: 110
+    hitsPerSecond: 2
+    damagePerHit: 8
+    range: 7.5
+    speed: 8.5
+    rotationSpeed: 350
+    shouldMoveBack: 1
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []

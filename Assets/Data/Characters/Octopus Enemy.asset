@@ -12,10 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
   m_Name: Octopus Enemy
   m_EditorClassIdentifier: 
-  id: 
-  description: 
+  id: e_octopus
+  description: eight arms of death
   color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 0
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
-  levels: []
+  xpYield: 15
+  frontSprite: {fileID: 21300000, guid: 7036b7f4b38328c47a619d13c3260a4d, type: 3}
+  backSprite: {fileID: 21300000, guid: 9e3c615f937c43441bda19da6a47d329, type: 3}
+  levels:
+  - maxNumber: 1
+    maxHealth: 300
+    hitsPerSecond: 2
+    damagePerHit: 5
+    range: 8
+    speed: 4
+    rotationSpeed: 250
+    shouldMoveBack: 0
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []

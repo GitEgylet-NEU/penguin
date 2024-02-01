@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Crusader Penguin
   m_EditorClassIdentifier: 
   id: p_crusader
-  description: 
+  description: ready to go to the holy land
   color: {r: 0, g: 0, b: 0, a: 0}
   xpYield: 0
   frontSprite: {fileID: 21300000, guid: 162fa3c91265bea4e9d182a591ad7e5a, type: 3}
   backSprite: {fileID: 21300000, guid: 3a932fcc331065848a625384ef79910d, type: 3}
   levels:
-  - upgradeCost: 1
-    maxNumber: 1
+  - maxNumber: 1
     maxHealth: 300
     hitsPerSecond: 0.5
     damagePerHit: 15
@@ -33,8 +32,7 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
-  - upgradeCost: 2
-    maxNumber: 1
+  - maxNumber: 1
     maxHealth: 400
     hitsPerSecond: 1
     damagePerHit: 12
@@ -47,8 +45,7 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
-  - upgradeCost: 0
-    maxNumber: 1
+  - maxNumber: 1
     maxHealth: 450
     hitsPerSecond: 1.5
     damagePerHit: 12

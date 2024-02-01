@@ -115,7 +115,6 @@ public class BattleManager : MonoBehaviour
 					obj.name = $"{data.name} ({c};{r})";
 					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, -180f, 0f));
 
-					obj.GetComponent<SpriteRenderer>().color = data.color;
 					BattleParticipant p = obj.GetComponent<BattleParticipant>();
 					p.team = enemyLayout.team;
 					p.Setup(data);
