@@ -35,7 +35,7 @@ public class BattleManager : MonoBehaviour
 	public GameObject abilityBarPrefab;
 
 	[Header("Layout")]
-	[SerializeField] string layoutName = "default";
+	public string layoutName = "default";
 	[SerializeField] GameObject penguinPrefab;
 	public bool load;
 	bool init = false;
@@ -71,6 +71,7 @@ public class BattleManager : MonoBehaviour
 					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
 					{
 						if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
+						if (!TeamManager.instance.penguins.Any(p => p.gameObject.name == layout.characterIDs[c, r])) continue;
 						CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
 						if (data == null) continue;
 

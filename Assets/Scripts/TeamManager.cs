@@ -1,6 +1,9 @@
+using NohaSoftware.Utilities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class TeamManager : MonoBehaviour
@@ -16,7 +19,6 @@ public class TeamManager : MonoBehaviour
 	[Header("Spawn options")]
 	[SerializeField] GameObject penguinPrefab;
 	public List<Penguin> penguins;
-	[SerializeField] int spawnCount;
 	[Tooltip("Két pingvin közötti távolság (Unity unitban)")] public float penguinDistance;
 	[SerializeField] bool randomColors = true;
 
@@ -43,21 +45,27 @@ public class TeamManager : MonoBehaviour
 	private void Start()
 	{
 		// pingvinek generálása
-		for (int i = 0; i < spawnCount; i++)
+		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, BattleManager.instance.layoutName), out BattleLayout layout))
 		{
-			GameObject obj = Instantiate(penguinPrefab);
-			obj.name = "Penguin " + i;
-			obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
-
-			if (randomColors)
+			int i = 0;
+			foreach (var c in layout.GetCharacters().Shuffle().Select(x => gameData.GetCharacterData(x, BattleManager.Team.Player)))
 			{
-				Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
-				obj.GetComponentInChildren<SpriteRenderer>().color = col;
-			}
+				GameObject obj = Instantiate(penguinPrefab);
+				obj.name = c.id;
+				obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
 
-			Penguin penguin = obj.GetComponent<Penguin>();
-			penguin.id = i;
-			penguins.Add(penguin);
+				if (randomColors)
+				{
+					Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
+					obj.GetComponentInChildren<SpriteRenderer>().color = col;
+				}
+
+				Penguin penguin = obj.GetComponent<Penguin>();
+				penguin.id = i;
+				penguins.Add(penguin);
+
+				i++;
+			}
 		}
 
 		AudioManager.instance.StartBM();
