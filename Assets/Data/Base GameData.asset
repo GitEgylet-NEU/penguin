@@ -20,9 +20,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 096c646da88249b42bc591c9c1a959a2, type: 2}
   playerCharacters:
   - {fileID: 11400000, guid: 1d32ccab8336f794db2c5b496a801e09, type: 2}
-  - {fileID: 11400000, guid: 9171fff3ed915fa439457e40ca48474e, type: 2}
+  - {fileID: 11400000, guid: c5f8a7540c3cfad44974718d8a278ee8, type: 2}
   - {fileID: 11400000, guid: 2b1e90f4fc9afdd4c9af56bcfdeca1e4, type: 2}
+  - {fileID: 11400000, guid: 7dbd79162e978e549bcffbc68e23c338, type: 2}
+  - {fileID: 11400000, guid: f9a6ed258a43fec49b4c5b16f0c7fdb5, type: 2}
+  - {fileID: 11400000, guid: 806f863f870c37c489e2d3cbf2263150, type: 2}
+  - {fileID: 11400000, guid: 20d78ff345f0ef34ea89b53255e19f13, type: 2}
+  - {fileID: 11400000, guid: 9171fff3ed915fa439457e40ca48474e, type: 2}
   enemyCharacters:
+  - {fileID: 11400000, guid: 1e31a4b18bca4904c8106a16f48f5201, type: 2}
+  - {fileID: 11400000, guid: 92dda87ed9b21e2469b7b3620d0fb553, type: 2}
+  - {fileID: 11400000, guid: a66b8d7d3a81cd649ba77cf9442fc576, type: 2}
+  - {fileID: 11400000, guid: 7022b43b50963cf4987d8661bc6cadd6, type: 2}
   - {fileID: 11400000, guid: 9442b13e2ae1510459d3b4921796dbec, type: 2}
   levelXPCosts:
   - 10
