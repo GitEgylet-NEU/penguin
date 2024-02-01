@@ -27,10 +27,10 @@ public class UIController : MonoBehaviour
 
 		var gameRoot = gameOverDoc.GetComponent<UIDocument>().rootVisualElement;
 		var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
-		var popupRoot = popupDoc.GetComponent<UIDocument>().rootVisualElement;
+		//var popupRoot = popupDoc.GetComponent<UIDocument>().rootVisualElement;
 		
 		gameOverDoc.enabled = false;
-		popupDoc.enabled = false;
+		//popupDoc.enabled = false;
 
 		//Visualelements
 		creditElement = root.Q("creditelement");

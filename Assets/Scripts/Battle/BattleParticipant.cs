@@ -31,12 +31,15 @@ public class BattleParticipant : MonoBehaviour
 	//bool isMovingBack = false;
 	float damageSinceLastAbility;
 
+	bool run = false;
+
 	public void Setup(CharacterData data)
 	{
 		this.Data = data;
 		if (team == BattleManager.Team.Player) Level = data.levels[SaveManager.instance.progressData.characterLevels.GetElement(data.id).Value];
 		else Level = data.levels[0];
 		Health = Level.maxHealth;
+		run = true;
 	}
 
 
@@ -72,8 +75,17 @@ public class BattleParticipant : MonoBehaviour
 		BattleManager.instance.participants.Add(this);
 	}
 
+	public void DisableParticipant()
+	{
+		run = false;
+		rb.velocity = Vector3.zero;
+		rb.angularVelocity = Vector3.zero;
+	}
+
 	private void Update()
 	{
+		if (!run) return;
+
 		if (healthBar != null)
 		{
 			healthBar.SetValue(Health);
@@ -141,6 +153,7 @@ public class BattleParticipant : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		if (!run) return;
 		if ((transform.rotation.eulerAngles.y > 90f && transform.rotation.eulerAngles.y < 270f) || (transform.rotation.eulerAngles.y < -90f && transform.rotation.eulerAngles.y > -270f))
 		{
 			sr.sprite = Data.frontSprite;

@@ -134,12 +134,14 @@ public class BattleManager : MonoBehaviour
 		{
 			Debug.Log("you lose");
 			UIController.instance.onOff(UIController.instance.gameOverDoc, true);
+			foreach (var participant in participants) participant.DisableParticipant();
 			return;
 		}
 		if (!participants.Any(p => p.team == Team.Enemy))
 		{
 			Debug.Log("you win");
 			UIController.instance.setWin();
+			foreach (var participant in participants) participant.DisableParticipant();
 			return;
 		}
 	}

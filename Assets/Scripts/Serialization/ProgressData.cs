@@ -27,11 +27,18 @@ public class ProgressData
 		Debug.Log("update charlevels");
 		foreach (var c in characters)
 		{
-			if (c == null) continue;
+			if (c == null || string.IsNullOrEmpty(c.id)) continue;
 			if (characterLevels == null) characterLevels = new();
 			if (!characterLevels.ContainsKey(c.id))
 			{
 				characterLevels.Add(new(c.id, 0));
+			}
+		}
+		foreach (var x in characterLevels.ToArray())
+		{
+			if (!characters.Any(c => c.id == x.Key))
+			{
+				characterLevels.RemoveAll(c => c.Key == x.Key);
 			}
 		}
 	}
