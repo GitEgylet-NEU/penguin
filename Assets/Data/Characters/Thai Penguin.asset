@@ -16,8 +16,8 @@ MonoBehaviour:
   description: angry muay thaier partisan
   color: {r: 0.6981973, g: 0.7264151, b: 0.2706924, a: 1}
   xpYield: 0
-  frontSprite: {fileID: 21300000, guid: b106026689fc75b4c94e8fee37e2db18, type: 3}
-  backSprite: {fileID: 21300000, guid: d15eb7ea3c52b824ab4d08a84ebf1b30, type: 3}
+  frontSprite: {fileID: 21300000, guid: 61cfda5e06c8d9e40b4dfffca77389d6, type: 3}
+  backSprite: {fileID: 21300000, guid: 74df80f378499dd4eab37cb1a34045ec, type: 3}
   levels:
   - maxNumber: 1
     maxHealth: 50
