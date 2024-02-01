@@ -26,6 +26,7 @@ public class CharacterSelection : MonoBehaviour
 		buttons = new();
 		foreach (var c in characters)
 		{
+			if (SaveManager.instance.progressData.characterLevels.GetElement(c.id).Value == -1) continue; //not unlocked
 			var obj = Instantiate(prefab, transform);
 			obj.name = c.id;
 			//obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
@@ -36,6 +37,8 @@ public class CharacterSelection : MonoBehaviour
 			buttons.Add(c.id, obj);
 		}
 
+		GetComponent<RectTransform>().SetWidth(50f + (transform.childCount-1) * 190f + (transform.childCount - 2) * 25f);
+
 		init = true;
 	}
 
@@ -44,8 +47,11 @@ public class CharacterSelection : MonoBehaviour
 		if (!init) return;
 		HandleDrags();
 
-		foreach (var c in layoutPlanner.gameData.playerCharacters)
+		foreach (Transform t in transform)
 		{
+			if (t.gameObject.name == "CharacterTemplate") continue;
+			var c = layoutPlanner.gameData.GetCharacterData(t.gameObject.name, BattleManager.Team.Player);
+			if (c == null) continue;
 			canSelect[c.id] = layoutPlanner.Count(c.id) < c.levels[SaveManager.instance.progressData.characterLevels.GetElement(c.id).Value].maxNumber;
 			buttons[c.id].GetComponent<Image>().color = canSelect[c.id] ? Color.white : Color.gray;
 		}

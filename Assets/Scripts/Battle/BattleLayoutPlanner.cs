@@ -41,6 +41,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 		layout = new BattleLayout(gameData.columns, gameData.rows, team);
 		layout.CalculateLayout(battlefield, padding);
 
+		SaveManager.instance.LoadProgress();
 		characterSelection.Init(gameData.playerCharacters);
 
 		//place markers

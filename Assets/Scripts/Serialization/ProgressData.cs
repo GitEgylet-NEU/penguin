@@ -16,7 +16,7 @@ public class ProgressData
 	public void InitCharacterLevels(IEnumerable<CharacterData> characters)
 	{
 		Debug.Log("init charlevels");
-		characterLevels = characters.Select(c => new SerializableTuple<string, int>(c.id, 0)).ToList();
+		characterLevels = characters.Select(c => new SerializableTuple<string, int>(c.id, -1)).ToList();
 	}
 
 	public void UpdateCharacterLevels(IEnumerable<CharacterData> characters)
@@ -32,7 +32,7 @@ public class ProgressData
 			if (characterLevels == null) characterLevels = new();
 			if (!characterLevels.ContainsKey(c.id))
 			{
-				characterLevels.Add(new(c.id, 0));
+				characterLevels.Add(new(c.id, -1));
 			}
 		}
 		foreach (var x in characterLevels.ToArray())
