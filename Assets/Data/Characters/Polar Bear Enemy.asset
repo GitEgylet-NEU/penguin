@@ -15,18 +15,17 @@ MonoBehaviour:
   id: e_polarbear
   description: polar bear goes rawr
   color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 20
+  xpYield: 35
   frontSprite: {fileID: 21300000, guid: 330dde0ab58dd8947b810d4abcc6f652, type: 3}
   backSprite: {fileID: 21300000, guid: 98cb530dcc43be84e9637ab2a184ba51, type: 3}
   levels:
   - maxNumber: 1
-    maxHealth: 400
+    maxHealth: 350
     hitsPerSecond: 1.5
     damagePerHit: 11
-    range: 10
-    speed: 5
-    rotationSpeed: 250
-    shouldMoveBack: 0
+    range: 8
+    speed: 6
+    rotationSpeed: 300
     hasAbility: 0
     ability:
       id: 

@@ -26,12 +26,15 @@ MonoBehaviour:
     range: 1.6
     speed: 7
     rotationSpeed: 300
-    shouldMoveBack: 0
-    hasAbility: 0
+    hasAbility: 1
     ability:
-      id: 
-      abilityCost: 0
-      floats: []
+      id: area_damage
+      abilityCost: 30
+      floats:
+      - Key: damage
+        Value: 20
+      - Key: range
+        Value: 2.5
   - maxNumber: 1
     maxHealth: 400
     hitsPerSecond: 1
@@ -39,7 +42,6 @@ MonoBehaviour:
     range: 1.8
     speed: 2
     rotationSpeed: 150
-    shouldMoveBack: 0
     hasAbility: 0
     ability:
       id: 
@@ -52,7 +54,6 @@ MonoBehaviour:
     range: 3
     speed: 2.5
     rotationSpeed: 200
-    shouldMoveBack: 0
     hasAbility: 0
     ability:
       id: 

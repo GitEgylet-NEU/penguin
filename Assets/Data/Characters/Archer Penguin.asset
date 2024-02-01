@@ -26,7 +26,6 @@ MonoBehaviour:
     range: 6
     speed: 4
     rotationSpeed: 250
-    shouldMoveBack: 0
     hasAbility: 0
     ability:
       id: 
@@ -39,7 +38,6 @@ MonoBehaviour:
     range: 7
     speed: 5
     rotationSpeed: 275
-    shouldMoveBack: 0
     hasAbility: 0
     ability:
       id: 
@@ -52,7 +50,6 @@ MonoBehaviour:
     range: 9
     speed: 6
     rotationSpeed: 325
-    shouldMoveBack: 0
     hasAbility: 0
     ability:
       id: 
