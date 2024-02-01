@@ -2,6 +2,7 @@ using NohaSoftware.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class BattleParticipant : MonoBehaviour
@@ -23,6 +24,7 @@ public class BattleParticipant : MonoBehaviour
 
 	public BattleManager.Team team;
 	public CharacterData Data { get; private set; }
+	public CharacterData.Level Level { get; private set; }
 
 	BattleParticipant target;
 
@@ -33,7 +35,9 @@ public class BattleParticipant : MonoBehaviour
 	public void Setup(CharacterData data)
 	{
 		this.Data = data;
-		Health = data.maxHealth;
+		if (team == BattleManager.Team.Player) Level = data.levels[SaveManager.instance.progressData.characterLevels.GetElement(data.id).Value];
+		else Level = data.levels[0];
+		Health = Level.maxHealth;
 	}
 
 
@@ -51,17 +55,17 @@ public class BattleParticipant : MonoBehaviour
 			obj.name = $"HealthBar ({name})";
 			healthBar = obj.GetComponent<ProgressBar>();
 			healthBar.min = 0f;
-			healthBar.max = Data.maxHealth;
+			healthBar.max = Level.maxHealth;
 			healthBar.disappearOnZero = true;
 			obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 		}
-		if (Data.hasAbility && Data.ability.abilityCost >= 0f)
+		if (Level.hasAbility && Level.ability.abilityCost >= 0f)
 		{
 			GameObject obj = Instantiate(BattleManager.instance.abilityBarPrefab, BattleManager.instance.worldSpaceCanvas.transform);
 			obj.name = $"AbilityBar ({name})";
 			abilityBar = obj.GetComponent<ProgressBar>();
 			abilityBar.min = 0f;
-			abilityBar.max = Data.ability.abilityCost;
+			abilityBar.max = Level.ability.abilityCost;
 			abilityBar.disappearOnZero = false;
 			obj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 		}
@@ -95,42 +99,42 @@ public class BattleParticipant : MonoBehaviour
 		float y;
 		if (deltaAngle > 0f)
 		{
-			y = Mathf.Min(Data.rotationSpeed * Time.deltaTime, deltaAngle);
+			y = Mathf.Min(Level.rotationSpeed * Time.deltaTime, deltaAngle);
 			if (y < 0f) y = 0f;
 		}
 		else
 		{
-			y = Mathf.Max(-Data.rotationSpeed * Time.deltaTime, deltaAngle);
+			y = Mathf.Max(-Level.rotationSpeed * Time.deltaTime, deltaAngle);
 			if (y > 0f) y = 0f;
 		}
 		rb.rotation = Quaternion.Euler(0f, rb.rotation.eulerAngles.y + y, 0f);
 
 		//move into range
 		float distance = Vector3.Distance(transform.position, target.transform.position);
-		if (Data.shouldMoveBack && isMovingBack && Mathf.Abs(Data.range - distance) <= .2f) isMovingBack = false;
+		if (Level.shouldMoveBack && isMovingBack && Mathf.Abs(Level.range - distance) <= .2f) isMovingBack = false;
 		if (Mathf.Abs(deltaAngle) <= 5f) //is looking at target?
 		{
-			if (distance > Data.range) rb.MovePosition(transform.position + Data.speed * Time.deltaTime * Forward);
+			if (distance > Level.range) rb.MovePosition(transform.position + Level.speed * Time.deltaTime * Forward);
 			else
 			{
 				// move back
-				if (Data.shouldMoveBack)
+				if (Level.shouldMoveBack)
 				{
-					if (distance < Data.range * .6f) isMovingBack = true;
-					if (isMovingBack) rb.MovePosition(transform.position - Data.speed * Time.deltaTime * Forward);
+					if (distance < Level.range * .6f) isMovingBack = true;
+					if (isMovingBack) rb.MovePosition(transform.position - Level.speed * Time.deltaTime * Forward);
 				}
 				// hit
 				if (canHit)
 				{
-					target.ChangeHealth(-Data.damagePerHit);
-					if (Data.hasAbility) damageSinceLastAbility += Data.damagePerHit;
+					target.ChangeHealth(-Level.damagePerHit);
+					if (Level.hasAbility) damageSinceLastAbility += Level.damagePerHit;
 					//Debug.Log($"{gameObject.name} hit {target.name} for {damagePerHit} damage ({target.Health})");
 					StartCoroutine(HitCooldown());
 				}
 			}
 		}
 
-		if (Data.hasAbility && damageSinceLastAbility >= Data.ability.abilityCost)
+		if (Level.hasAbility && damageSinceLastAbility >= Level.ability.abilityCost)
 		{
 			if (CastAbility()) damageSinceLastAbility = 0;
 		}
@@ -164,7 +168,7 @@ public class BattleParticipant : MonoBehaviour
 	IEnumerator HitCooldown()
 	{
 		canHit = false;
-		yield return new WaitForSeconds(1f / Data.hitsPerSecond);
+		yield return new WaitForSeconds(1f / Level.hitsPerSecond);
 		canHit = true;
 	}
 
@@ -172,7 +176,7 @@ public class BattleParticipant : MonoBehaviour
 	{
 		Health += amount;
 		if (Health <= 0) Die();
-		else if (Health > Data.maxHealth) Health = Data.maxHealth;
+		else if (Health > Level.maxHealth) Health = Level.maxHealth;
 	}
 	void Die()
 	{
@@ -188,16 +192,16 @@ public class BattleParticipant : MonoBehaviour
 	bool CastAbility()
 	{
 		IEnumerable<BattleParticipant> query;
-		switch (Data.ability.id)
+		switch (Level.ability.id)
 		{
 			case "targeted_heal":
-				query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.Data.maxHealth);
+				query = BattleManager.instance.participants.Where(p => p != this && p.team == team && p.Health <= p.Level.maxHealth);
 				if (!query.Any())
 				{
-					if (Health <= Data.maxHealth)
+					if (Health <= Level.maxHealth)
 					{
 						Debug.Log("cast on self");
-						ChangeHealth(Data.ability.floats.GetElement("heal_amount").Value);
+						ChangeHealth(Level.ability.floats.GetElement("heal_amount").Value);
 						return true;
 					}
 				}
@@ -205,17 +209,17 @@ public class BattleParticipant : MonoBehaviour
 				{
 					var other = query.OrderBy(p => p.Health).First();
 					Debug.Log("cast on " + other.name);
-					other.ChangeHealth(Data.ability.floats.GetElement("heal_amount").Value);
+					other.ChangeHealth(Level.ability.floats.GetElement("heal_amount").Value);
 					return true;
 				}
 				return false;
 			case "area_damage":
-				float range = Data.ability.floats.GetElement("range").Value;
+				float range = Level.ability.floats.GetElement("range").Value;
 				query = BattleManager.instance.participants.Where(p => p.team != team && Vector3.Distance(transform.position, p.transform.position) <= range);
 				if (!query.Any()) return false;
 				foreach (var target in query)
 				{
-					target.ChangeHealth(-Data.ability.floats.GetElement("damage").Value);
+					target.ChangeHealth(-Level.ability.floats.GetElement("damage").Value);
 				}
 				return true;
 			default:

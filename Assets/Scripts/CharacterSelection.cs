@@ -1,3 +1,4 @@
+using NohaSoftware.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -27,7 +28,8 @@ public class CharacterSelection : MonoBehaviour
 		{
 			var obj = Instantiate(prefab, transform);
 			obj.name = c.id;
-			obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
+			//obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
+			obj.transform.Find("Icon").GetComponent<Image>().sprite = c.frontSprite;
 			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = c.name;
 			obj.SetActive(true);
 			canSelect.Add(c.id, true);
@@ -43,7 +45,7 @@ public class CharacterSelection : MonoBehaviour
 
 		foreach (var c in layoutPlanner.gameData.playerCharacters)
 		{
-			canSelect[c.id] = layoutPlanner.Count(c.id) < c.maxNumber;
+			canSelect[c.id] = layoutPlanner.Count(c.id) < c.levels[SaveManager.instance.progressData.characterLevels.GetElement(c.id).Value].maxNumber;
 			buttons[c.id].GetComponent<Image>().color = canSelect[c.id] ? Color.white : Color.gray;
 		}
 	}
@@ -91,7 +93,7 @@ public class CharacterSelection : MonoBehaviour
 
 				dragObj = Instantiate(layoutPlanner.penguinPrefab);
 				dragObj.name = "drag " + character.id;
-				dragObj.GetComponent<SpriteRenderer>().color = character.color;
+				dragObj.GetComponent<SpriteRenderer>().sprite = character.frontSprite;
 				dragObj.SetActive(true);
 
 				dragging = true;

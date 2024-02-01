@@ -1,4 +1,5 @@
 using NohaSoftware.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,36 +10,38 @@ public class CharacterData : ScriptableObject
 	public string id;
 	public string description;
 	public Color color;
-
-	[Space]
 	public float xpYield;
 
 	[Header("Visuals")]
 	public Sprite frontSprite;
 	public Sprite backSprite;
 
-	[Header("Battle Attributes")]
-	[Tooltip("How many instances are allowed at once?")][Min(1)] public float maxNumber;
-	public float maxHealth;
-	public float hitsPerSecond;
-	public float damagePerHit;
-	public float range;
-	public float speed;
-	public float rotationSpeed;
-	[Tooltip("Whether the participant should move back to their desired range when their target gets too close")] public bool shouldMoveBack = false;
+	[Header("Level Data")]
+	public Level[] levels;
 
-	[Header("Ability")]
-	public bool hasAbility;
-	public Ability ability;
+	[Serializable]
+	public class Level
+	{
+		[Header("Battle Attributes")]
+		[Tooltip("How many instances are allowed at once?")][Min(1)] public float maxNumber;
+		public float maxHealth;
+		public float hitsPerSecond;
+		public float damagePerHit;
+		public float range;
+		public float speed;
+		public float rotationSpeed;
+		[Tooltip("Whether the participant should move back to their desired range when their target gets too close")] public bool shouldMoveBack = false;
 
-	[System.Serializable]
+		[Header("Ability")]
+		public bool hasAbility;
+		public Ability ability;
+	}
+
+	[Serializable]
 	public class Ability
 	{
 		public string id;
-		public string name;
-		public string description;
 		[Tooltip("Mennyi okozott damage után használhat képességet?")] public float abilityCost;
-
 		public List<SerializableTuple<string, float>> floats;
 	}
 }

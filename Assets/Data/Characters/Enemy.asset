@@ -18,18 +18,17 @@ MonoBehaviour:
   xpYield: 10
   frontSprite: {fileID: 21300000, guid: 6a78790343710bc4ca2843d48c1da688, type: 3}
   backSprite: {fileID: 21300000, guid: 867d897a206418742908cf5dfdabf208, type: 3}
-  unique: 0
-  maxHealth: 80
-  hitsPerSecond: 1.2
-  damagePerHit: 15
-  range: 1.6
-  speed: 3.5
-  rotationSpeed: 250
-  shouldMoveBack: 0
-  hasAbility: 0
-  ability:
-    id: 
-    name: 
-    description: 
-    abilityCost: 0
-    floats: []
+  levels:
+  - maxNumber: 1
+    maxHealth: 100
+    hitsPerSecond: 1
+    damagePerHit: 20
+    range: 5
+    speed: 3
+    rotationSpeed: 250
+    shouldMoveBack: 0
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []

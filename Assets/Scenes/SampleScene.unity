@@ -1432,11 +1432,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314124b2461c19546bbee85ea681a20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: 7a5bb1c0abf809f41b832ff0c05b0b69, type: 2}
   layoutSavePath: Data/Layouts
   progressSavePath: Data/progress.data
   progressData:
     level: 0
     xp: 0
+    characterLevels: []
 --- !u!1 &1799414612
 GameObject:
   m_ObjectHideFlags: 0

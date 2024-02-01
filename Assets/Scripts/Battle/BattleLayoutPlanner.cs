@@ -136,7 +136,8 @@ public class BattleLayoutPlanner : MonoBehaviour
 			obj.name = data.name;
 			obj.transform.localPosition = Vector2.zero;
 			obj.SetActive(true);
-			obj.GetComponent<SpriteRenderer>().color = data.color;
+			//obj.GetComponent<SpriteRenderer>().color = data.color;
+			obj.GetComponent<SpriteRenderer>().sprite = data.frontSprite;
 		}
 		else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(layout.characterIDs[column, row]))
 		{

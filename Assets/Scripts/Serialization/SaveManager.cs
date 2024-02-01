@@ -10,16 +10,32 @@ public class SaveManager : MonoBehaviour
 		instance = this;
 	}
 
+	public GameData gameData;
+
 	public string layoutSavePath = "Data/Layouts";
 	public string progressSavePath = "Data/progress.data";
 
 	public ProgressData progressData;
+
+	private void Start()
+	{
+		LoadProgress();
+	}
+	private void OnDestroy()
+	{
+		SaveProgress();
+	}
 
 	public void LoadProgress()
 	{
 		if (!LoadObject(progressSavePath, out progressData))
 		{
 			progressData = new ProgressData();
+			progressData.InitCharacterLevels(gameData.playerCharacters);
+		}
+		else
+		{
+			progressData.UpdateCharacterLevels(gameData.playerCharacters);
 		}
 	}
 	public void SaveProgress()

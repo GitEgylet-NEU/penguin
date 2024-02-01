@@ -19,20 +19,17 @@ MonoBehaviour:
   xpYield: 0
   frontSprite: {fileID: 21300000, guid: d861917d7bae067419a906c78044bb75, type: 3}
   backSprite: {fileID: 21300000, guid: e7735b1f824df5d42ba04436bf728484, type: 3}
-  maxNumber: 1
-  maxHealth: 80
-  hitsPerSecond: 1.5
-  damagePerHit: 10
-  range: 6
-  speed: 4
-  rotationSpeed: 250
-  shouldMoveBack: 0
-  hasAbility: 1
-  ability:
-    id: targeted_heal
-    name: Targeted heal
-    description: o ma gaa!!
-    abilityCost: 45
-    floats:
-    - Key: heal_amount
-      Value: 20
+  levels:
+  - maxNumber: 1
+    maxHealth: 100
+    hitsPerSecond: 1
+    damagePerHit: 20
+    range: 5
+    speed: 3
+    rotationSpeed: 250
+    shouldMoveBack: 0
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []

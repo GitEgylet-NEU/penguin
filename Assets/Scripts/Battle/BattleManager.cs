@@ -117,8 +117,8 @@ public class BattleManager : MonoBehaviour
 
 					obj.GetComponent<SpriteRenderer>().color = data.color;
 					BattleParticipant p = obj.GetComponent<BattleParticipant>();
-					p.Setup(data);
 					p.team = enemyLayout.team;
+					p.Setup(data);
 
 					obj.SetActive(true);
 				}
