@@ -23,8 +23,8 @@ public class TeamManager : MonoBehaviour
 	[Header("Run")]
 	public float initialRunSpeed;
 	[Tooltip("Hányszorosára gyorsul a sebesség másodpercenként?")] public float runMultiplier = 0;
-	[SerializeField] float runLength;
-	float runStartZ = float.PositiveInfinity;
+	[SerializeField] public float runLength;
+	public float runStartZ = float.PositiveInfinity;
 	bool run;
 	[Tooltip("Milyen gyorsan fog elõreszaladni a pingvin, ha az elõtte lévõ meghal?")] public float penguinCatchUpSpeed = 8f;
 

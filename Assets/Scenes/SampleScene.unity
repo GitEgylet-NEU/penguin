@@ -1348,7 +1348,8 @@ MonoBehaviour:
   randomColors: 0
   initialRunSpeed: 8
   runMultiplier: 0
-  runLength: 100
+  runLength: 200
+  runStartZ: Infinity
   penguinCatchUpSpeed: 8
   horizontalAxisName: Horizontal
   horizontalSensitivity: 8
@@ -1403,7 +1404,6 @@ MonoBehaviour:
   tree: {fileID: 3074471952967708580, guid: 5f589de84133654419a4dcbb38e8b4cd, type: 3}
   sections: []
   trees: []
-  treespace: 10
   renderdistance: 30
 --- !u!114 &1683354756
 MonoBehaviour:
