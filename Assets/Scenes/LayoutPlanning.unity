@@ -934,7 +934,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 874457924}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2381,7 +2381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &575241627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4077,7 +4077,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 0}
   level:
-    upgradeCost: 0
     maxNumber: 0
     maxHealth: 0
     hitsPerSecond: 0
@@ -4085,7 +4084,6 @@ MonoBehaviour:
     range: 0
     speed: 0
     rotationSpeed: 0
-    shouldMoveBack: 0
     hasAbility: 0
     ability:
       id: 

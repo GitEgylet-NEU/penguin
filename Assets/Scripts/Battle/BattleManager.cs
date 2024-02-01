@@ -123,6 +123,7 @@ public class BattleManager : MonoBehaviour
 				}
 			}
 		}
+		init = true;
 	}
 
 	private void Update()
@@ -133,12 +134,13 @@ public class BattleManager : MonoBehaviour
 		{
 			Debug.Log("you lose");
 			UIController.instance.onOff(UIController.instance.gameOverDoc, true);
-			
+			return;
 		}
-		else if (!participants.Any(p => p.team == Team.Enemy))
+		if (!participants.Any(p => p.team == Team.Enemy))
 		{
 			Debug.Log("you win");
 			UIController.instance.setWin();
+			return;
 		}
 	}
 

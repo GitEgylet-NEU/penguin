@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/main.uss?fileID=7433441132597879392&amp;guid=ee14eaaf81f14f947a7b1c7a9d35eaf5&amp;type=3#main" />
     <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 20%; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
-        <ui:Label tabindex="-1" text="gameOVER" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font: url(&apos;project://database/Assets/Fonts/Blox.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox&apos;); -unity-font-definition: initial; -unity-text-align: upper-center; font-size: 160px; -unity-text-outline-width: 4px; -unity-text-outline-color: rgb(102, 54, 102);" />
+        <ui:Label tabindex="-1" text="gameOVER" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" style="-unity-font: url(&apos;project://database/Assets/Fonts/Blox.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox&apos;); -unity-font-definition: initial; -unity-text-align: upper-center; font-size: 160px; -unity-text-outline-width: 4px; -unity-text-outline-color: rgb(102, 54, 102);" />
         <ui:Button text="Újrakezdés" parse-escape-sequences="true" display-tooltip-when-elided="true" name="restart" style="margin-top: 40%; width: 60%; font-size: 70px;" />
     </ui:VisualElement>
 </ui:UXML>

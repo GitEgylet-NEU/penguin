@@ -26,12 +26,13 @@ MonoBehaviour:
     range: 3
     speed: 13
     rotationSpeed: 300
-    shouldMoveBack: 1
     hasAbility: 1
     ability:
       id: targeted_heal
       abilityCost: 45
-      floats: []
+      floats:
+      - Key: heal_amount
+        Value: 10
   - maxNumber: 1
     maxHealth: 45
     hitsPerSecond: 2
@@ -39,12 +40,13 @@ MonoBehaviour:
     range: 6
     speed: 16
     rotationSpeed: 325
-    shouldMoveBack: 1
     hasAbility: 1
     ability:
       id: targeted_heal
       abilityCost: 45
-      floats: []
+      floats:
+      - Key: heal_amount
+        Value: 10
   - maxNumber: 1
     maxHealth: 50
     hitsPerSecond: 4
@@ -52,9 +54,10 @@ MonoBehaviour:
     range: 12
     speed: 20
     rotationSpeed: 375
-    shouldMoveBack: 1
     hasAbility: 1
     ability:
       id: targeted_heal
       abilityCost: 45
-      floats: []
+      floats:
+      - Key: heal_amount
+        Value: 10

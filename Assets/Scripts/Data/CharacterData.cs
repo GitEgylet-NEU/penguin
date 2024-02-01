@@ -30,7 +30,7 @@ public class CharacterData : ScriptableObject
 		public float range;
 		public float speed;
 		public float rotationSpeed;
-		[Tooltip("Whether the participant should move back to their desired range when their target gets too close")] public bool shouldMoveBack = false;
+		//[Tooltip("Whether the participant should move back to their desired range when their target gets too close")] public bool shouldMoveBack = false;
 
 		[Header("Ability")]
 		public bool hasAbility;

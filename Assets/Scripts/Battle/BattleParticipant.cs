@@ -28,7 +28,7 @@ public class BattleParticipant : MonoBehaviour
 	BattleParticipant target;
 
 	bool canHit = true;
-	bool isMovingBack = false;
+	//bool isMovingBack = false;
 	float damageSinceLastAbility;
 
 	public void Setup(CharacterData data)
@@ -110,18 +110,18 @@ public class BattleParticipant : MonoBehaviour
 
 		//move into range
 		float distance = Vector3.Distance(transform.position, target.transform.position);
-		if (Level.shouldMoveBack && isMovingBack && Mathf.Abs(Level.range - distance) <= .2f) isMovingBack = false;
+		//if (Level.shouldMoveBack && isMovingBack && Mathf.Abs(Level.range - distance) <= .2f) isMovingBack = false;
 		if (Mathf.Abs(deltaAngle) <= 5f) //is looking at target?
 		{
 			if (distance > Level.range) rb.MovePosition(transform.position + Level.speed * Time.deltaTime * Forward);
 			else
 			{
 				// move back
-				if (Level.shouldMoveBack)
-				{
-					if (distance < Level.range * .6f) isMovingBack = true;
-					if (isMovingBack) rb.MovePosition(transform.position - Level.speed * Time.deltaTime * Forward);
-				}
+				//if (Level.shouldMoveBack)
+				//{
+				//	if (distance < Level.range * .6f) isMovingBack = true;
+				//	if (isMovingBack) rb.MovePosition(transform.position - Level.speed * Time.deltaTime * Forward);
+				//}
 				// hit
 				if (canHit)
 				{
