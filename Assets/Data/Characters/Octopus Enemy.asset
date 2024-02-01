@@ -15,18 +15,17 @@ MonoBehaviour:
   id: e_octopus
   description: eight arms of death
   color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 15
+  xpYield: 26
   frontSprite: {fileID: 21300000, guid: 7036b7f4b38328c47a619d13c3260a4d, type: 3}
   backSprite: {fileID: 21300000, guid: 9e3c615f937c43441bda19da6a47d329, type: 3}
   levels:
   - maxNumber: 1
-    maxHealth: 300
-    hitsPerSecond: 2
-    damagePerHit: 5
-    range: 8
-    speed: 4
-    rotationSpeed: 250
-    shouldMoveBack: 0
+    maxHealth: 275
+    hitsPerSecond: 1.5
+    damagePerHit: 10
+    range: 7
+    speed: 6
+    rotationSpeed: 300
     hasAbility: 0
     ability:
       id: 

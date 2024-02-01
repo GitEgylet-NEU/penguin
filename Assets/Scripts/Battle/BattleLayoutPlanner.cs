@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -248,5 +249,18 @@ public class BattleLayout
 			}
 		}
 		return i;
+	}
+
+	public string[] GetCharacters()
+	{
+		List<string> results = new();
+		for (int col = 0; col < characterIDs.GetLength(0); col++)
+		{
+			for (int row = 0; row < characterIDs.GetLength(1); row++)
+			{
+				if (!string.IsNullOrEmpty(characterIDs[col, row])) results.Add(characterIDs[col, row]);
+			}
+		}
+		return results.ToArray();
 	}
 }
