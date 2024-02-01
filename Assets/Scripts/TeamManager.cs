@@ -77,7 +77,38 @@ public class TeamManager : MonoBehaviour
 		xpBar.max = SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 ? gameData.levelXPCosts[SaveManager.instance.progressData.level + 1] : gameData.levelXPCosts[SaveManager.instance.progressData.level] + 1;
 		xpBar.disappearOnZero = false;
 
+		CheckLevels();
+
 		run = true;
+	}
+
+	void CheckLevels()
+	{
+		if (SaveManager.instance.progressData.lastCheckedLevel != SaveManager.instance.progressData.level)
+		{
+			List<string> popupText = new();
+
+			int upPoints = 0;
+			//leveled up
+			for (int i = SaveManager.instance.progressData.lastCheckedLevel; i < SaveManager.instance.progressData.level; i++)
+			{
+				Debug.Log(i);
+				upPoints += gameData.levelUpgradePointRewards[i];
+				continue;
+				if (!string.IsNullOrEmpty(gameData.levelUpgradeCharacterRewards[i])) continue;
+				popupText.Add($"Feloldottad {gameData.GetCharacterData(gameData.levelUpgradeCharacterRewards[i], BattleManager.Team.Player).name}-t");
+				
+			}
+			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
+			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level;
+
+			if (popupText.Any())
+			{
+				Debug.Log(string.Join("\n", popupText));
+				UIController.instance.setPopup("Szintlépés!", string.Join("\n", popupText), false);
+				UIController.instance.ActivateLayer(UIController.instance.popupElement, UIController.instance.manualElement, UIController.instance.creditElement);
+			}
+		}
 	}
 
 	private void Update()

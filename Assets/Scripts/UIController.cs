@@ -41,10 +41,10 @@ public class UIController : MonoBehaviour
 			layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
 		
 			manualButton = root.Q<Button>("manual");
-			manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement));
+			manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement, popupElement));
 
 			creditButton = root.Q<Button>("credit");
-			creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement));
+			creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement, popupElement));
 
 				//gameover/win
 				restartButton = gameRoot.Q<Button>("restart");
@@ -73,7 +73,7 @@ public class UIController : MonoBehaviour
 		mainDoc.enabled = false;
 		TeamManager.instance.StartGame();
 	}
-	public void ActivateLayer(VisualElement visual, VisualElement antivisual) 
+	public void ActivateLayer(VisualElement visual, params VisualElement[] antivisual) 
 	{
 		Debug.Log("activatelayer");
 		Debug.Log(visual.style.display);
@@ -86,7 +86,8 @@ public class UIController : MonoBehaviour
 		{
 			visual.style.display = DisplayStyle.Flex;
 			playElement.style.display= DisplayStyle.None;
-			antivisual.style.display = DisplayStyle.None;
+			foreach (var av in antivisual) av.style.display = DisplayStyle.None;
+
 		}
 	}
 	public void RestartGame(ClickEvent evt)

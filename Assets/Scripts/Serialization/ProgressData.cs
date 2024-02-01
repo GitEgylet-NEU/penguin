@@ -9,6 +9,7 @@ public class ProgressData
 	public int level;
 	public float xp;
 	public int upgradePoints;
+	public int lastCheckedLevel;
 
 	public List<SerializableTuple<string, int>> characterLevels;
 
