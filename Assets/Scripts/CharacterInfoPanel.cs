@@ -15,6 +15,7 @@ public class CharacterInfoPanel : MonoBehaviour
 
 	[Header("Info Panel")]
 	[SerializeField] RectTransform infoPanel;
+	public TextMeshProUGUI upgradePointText;
 	public TextMeshProUGUI nameText;
 	public TextMeshProUGUI maxNumberText;
 	public TextMeshProUGUI hpText;
@@ -54,6 +55,8 @@ public class CharacterInfoPanel : MonoBehaviour
 
 	public void UpdateUI()
 	{
+		upgradePointText.text = "Fejlesztési pontok: " + SaveManager.instance.progressData.upgradePoints;
+
 		if (characterData == null)
 		{
 			infoPanel.gameObject.SetActive(false);

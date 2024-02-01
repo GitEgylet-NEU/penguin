@@ -38,7 +38,7 @@ public class TeamManager : MonoBehaviour
 
 	[Header("UI")]
 	[SerializeField] ProgressBar xpBar;
-	[SerializeField] TextMeshProUGUI xpText, levelText;
+	[SerializeField] TextMeshProUGUI xpText, levelText, upgradePointText;
 
 	private void Start()
 	{
@@ -74,12 +74,17 @@ public class TeamManager : MonoBehaviour
 
 	private void Update()
 	{
-		xpBar.SetValue(SaveManager.instance.progressData.xp);
-		levelText.text = $"{SaveManager.instance.progressData.level + 1}. szint";
-		if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1)
-			xpText.text = $"{SaveManager.instance.progressData.xp} / {gameData.levelXPCosts[SaveManager.instance.progressData.level + 1]}";
-		else
-			xpText.text = string.Empty;
+		if (xpBar.isActiveAndEnabled)
+		{
+			xpBar.SetValue(SaveManager.instance.progressData.xp);
+			levelText.text = $"{SaveManager.instance.progressData.level + 1}. szint";
+			upgradePointText.text = $"Fejlesztési pontok: {SaveManager.instance.progressData.upgradePoints}";
+
+			if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1)
+				xpText.text = $"{SaveManager.instance.progressData.xp} / {gameData.levelXPCosts[SaveManager.instance.progressData.level + 1]}";
+			else
+				xpText.text = string.Empty;
+		}
 
 		if (run)
 		{
@@ -111,8 +116,6 @@ public class TeamManager : MonoBehaviour
 				}
 			}
 		}
-
-		if (Input.GetKeyDown(KeyCode.K)) RemovePenguinAtPosition(1);
 	}
 
 	private void OnDestroy()

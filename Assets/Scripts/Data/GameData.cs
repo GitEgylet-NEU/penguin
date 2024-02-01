@@ -14,6 +14,7 @@ public class GameData : ScriptableObject
 
 	[Header("Player Progress")]
 	public float[] levelXPCosts;
+	public int[] levelUpgradePointRewards;
 
 	private void OnValidate()
 	{
