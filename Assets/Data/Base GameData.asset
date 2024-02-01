@@ -36,12 +36,22 @@ MonoBehaviour:
   levelXPCosts:
   - 20
   - 40
-  - 60
-  - 80
-  - 110
-  - 150
-  - 200
-  - 275
-  - 350
-  levelUpgradePointRewards: 000000000100000001000000020000000300000004000000050000000600000007000000
+  - 70
+  - 90
+  - 120
+  - 160
+  - 220
+  - 300
+  - 400
+  levelUpgradePointRewards: 000000000100000002000000030000000400000005000000060000000700000008000000
+  levelUpgradeCharacterRewards:
+  - p_regular
+  - p_archer
+  - p_cowboy
+  - p_medic
+  - p_thai
+  - p_crusader
+  - p_samurai
+  - p_techno
+  - 
   characterUpgradeCosts: 01000000020000000300000003000000
