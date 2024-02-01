@@ -18,6 +18,7 @@ MonoBehaviour:
   xpYield: 0
   frontSprite: {fileID: 21300000, guid: 6d3287fa2fc16cd4d99df4b23d768ff3, type: 3}
   backSprite: {fileID: 21300000, guid: 1a41bfd329e24624893fda67f5ae2899, type: 3}
+  slideSprite: {fileID: 21300000, guid: a88bab0e5e5d9864b9cfa0287b1f64a5, type: 3}
   levels:
   - maxNumber: 1
     maxHealth: 60
@@ -26,7 +27,6 @@ MonoBehaviour:
     range: 1.2
     speed: 9
     rotationSpeed: 150
-    shouldMoveBack: 1
     hasAbility: 0
     ability:
       id: 
@@ -39,7 +39,6 @@ MonoBehaviour:
     range: 1.5
     speed: 10
     rotationSpeed: 175
-    shouldMoveBack: 1
     hasAbility: 0
     ability:
       id: 
@@ -52,7 +51,6 @@ MonoBehaviour:
     range: 3
     speed: 13
     rotationSpeed: 225
-    shouldMoveBack: 1
     hasAbility: 0
     ability:
       id: 

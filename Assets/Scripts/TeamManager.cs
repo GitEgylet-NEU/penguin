@@ -53,6 +53,7 @@ public class TeamManager : MonoBehaviour
 				GameObject obj = Instantiate(penguinPrefab);
 				obj.name = c.id;
 				obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
+				if (c.slideSprite != null) obj.GetComponentInChildren<SpriteRenderer>().sprite = c.slideSprite;
 
 				if (randomColors)
 				{

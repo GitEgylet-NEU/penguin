@@ -15,6 +15,7 @@ public class CharacterData : ScriptableObject
 	[Header("Visuals")]
 	public Sprite frontSprite;
 	public Sprite backSprite;
+	public Sprite slideSprite;
 
 	[Header("Level Data")]
 	public Level[] levels;
