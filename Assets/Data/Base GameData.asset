@@ -21,7 +21,7 @@ MonoBehaviour:
   playerCharacters:
   - {fileID: 11400000, guid: 1d32ccab8336f794db2c5b496a801e09, type: 2}
   - {fileID: 11400000, guid: 9171fff3ed915fa439457e40ca48474e, type: 2}
-  - {fileID: 11400000, guid: dc67b65d0c591854ea48c2ba4890e926, type: 2}
+  - {fileID: 11400000, guid: 2b1e90f4fc9afdd4c9af56bcfdeca1e4, type: 2}
   enemyCharacters:
   - {fileID: 11400000, guid: 9442b13e2ae1510459d3b4921796dbec, type: 2}
   levelXPCosts:
@@ -30,9 +30,4 @@ MonoBehaviour:
   - 50
   - 100
   - 200
-  levelUpgradePointRewards:
-  - 0
-  - 1
-  - 1
-  - 2
-  - 3
+  levelUpgradePointRewards: 0000000001000000010000000200000003000000

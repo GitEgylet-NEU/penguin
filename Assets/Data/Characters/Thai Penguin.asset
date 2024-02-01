@@ -19,7 +19,8 @@ MonoBehaviour:
   frontSprite: {fileID: 21300000, guid: b106026689fc75b4c94e8fee37e2db18, type: 3}
   backSprite: {fileID: 21300000, guid: d15eb7ea3c52b824ab4d08a84ebf1b30, type: 3}
   levels:
-  - maxNumber: 1
+  - upgradeCost: 1
+    maxNumber: 1
     maxHealth: 50
     hitsPerSecond: 2.5
     damagePerHit: 5
@@ -32,7 +33,8 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
-  - maxNumber: 1
+  - upgradeCost: 2
+    maxNumber: 1
     maxHealth: 65
     hitsPerSecond: 3.5
     damagePerHit: 5
@@ -45,7 +47,8 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
-  - maxNumber: 1
+  - upgradeCost: 0
+    maxNumber: 1
     maxHealth: 90
     hitsPerSecond: 4.5
     damagePerHit: 5

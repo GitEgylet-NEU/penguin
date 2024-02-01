@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class CharacterInfoPanel : MonoBehaviour
 {
 	[HideInInspector] public CharacterData characterData;
+	[HideInInspector] public CharacterData.Level level;
+	int levelIdx;
 
 	public GameData gameData;
 
@@ -25,6 +27,9 @@ public class CharacterInfoPanel : MonoBehaviour
 	public TextMeshProUGUI speedText;
 	public TextMeshProUGUI kiteText;
 	public TextMeshProUGUI descriptionText;
+	public TextMeshProUGUI levelText;
+	public TextMeshProUGUI upgradeCostText;
+	public Button upgradeButton;
 	public Image icon;
 
 	private void OnEnable()
@@ -53,6 +58,16 @@ public class CharacterInfoPanel : MonoBehaviour
 		UpdateUI();
 	}
 
+	public void UpgradeCharacter()
+	{
+		if (levelIdx < characterData.levels.Length - 1 && SaveManager.instance.progressData.upgradePoints >= level.upgradeCost)
+		{
+			SaveManager.instance.progressData.upgradePoints -= level.upgradeCost;
+			SaveManager.instance.progressData.characterLevels.GetElement(characterData.id).Value++;
+			UpdateUI();
+		}
+	}
+
 	public void UpdateUI()
 	{
 		upgradePointText.text = "Fejlesztési pontok: " + SaveManager.instance.progressData.upgradePoints;
@@ -62,7 +77,8 @@ public class CharacterInfoPanel : MonoBehaviour
 			infoPanel.gameObject.SetActive(false);
 			return;
 		}
-		CharacterData.Level level = characterData.levels[SaveManager.instance.progressData.characterLevels.GetElement(characterData.id).Value];
+		levelIdx = SaveManager.instance.progressData.characterLevels.GetElement(characterData.id).Value;
+		level = characterData.levels[levelIdx];
 
 		infoPanel.gameObject.SetActive(true);
 		nameText.text = characterData.name;
@@ -73,6 +89,20 @@ public class CharacterInfoPanel : MonoBehaviour
 		rangeText.text = level.range.ToString();
 		speedText.text = level.speed.ToString();
 		kiteText.text = level.shouldMoveBack ? "igen" : "nem";
+
+		levelText.text = (levelIdx+1).ToString();
+		if (levelIdx < characterData.levels.Length - 1)
+		{
+			upgradeCostText.text = level.upgradeCost.ToString();
+			upgradeCostText.gameObject.SetActive(true);
+			upgradeButton.interactable = true;
+		}
+		else
+		{
+			upgradeCostText.gameObject.SetActive(false);
+			upgradeButton.interactable = false;
+		}
+
 		descriptionText.text = characterData.description;
 		descriptionText.GetComponent<RectTransform>().SetHeight(descriptionText.preferredHeight);
 

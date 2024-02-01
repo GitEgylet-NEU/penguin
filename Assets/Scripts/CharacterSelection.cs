@@ -35,6 +35,7 @@ public class CharacterSelection : MonoBehaviour
 			canSelect.Add(c.id, true);
 			buttons.Add(c.id, obj);
 		}
+
 		init = true;
 	}
 
@@ -54,8 +55,12 @@ public class CharacterSelection : MonoBehaviour
 	bool mouse;
 	GameObject dragObj;
 	string id;
+
+	public void InfoPanelActive(bool set) => infoPanelActive = set;
+	public bool infoPanelActive;
 	void HandleDrags()
 	{
+		if (infoPanelActive) return;
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		if (Input.GetMouseButtonDown(0) || (!dragging && Input.touchCount == 1))
 		{

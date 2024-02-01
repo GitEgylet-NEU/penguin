@@ -82,7 +82,13 @@ public class BattleLayoutPlanner : MonoBehaviour
 				{
 					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
 					{
-						if (!string.IsNullOrEmpty(l.characterIDs[c, r])) SetCharacter(c, r, l.characterIDs[c, r]);
+						if (!string.IsNullOrEmpty(l.characterIDs[c, r])) try
+							{
+								SetCharacter(c, r, l.characterIDs[c, r]);
+							} catch
+							{
+								SetCharacter(c, r, string.Empty);
+							}
 					}
 				}
 			}
@@ -92,6 +98,11 @@ public class BattleLayoutPlanner : MonoBehaviour
 				throw;
 			}
 		}
+	}
+
+	private void OnDestroy()
+	{
+		SaveManager.instance.SaveProgress();
 	}
 
 	public void SaveLayout()
