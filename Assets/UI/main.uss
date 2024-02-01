@@ -1,5 +1,7 @@
 .unity-text-element {
     font-size: 70px;
+    -unity-font: url('project://database/Assets/Fonts/Pixelated.ttf?fileID=12800000&guid=e5bc0e2f5779b6b498c30c892d13fb79&type=3#Pixelated');
+    -unity-font-definition: initial;
 }
 
 .unity-button {

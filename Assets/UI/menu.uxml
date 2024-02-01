@@ -2,7 +2,7 @@
     <ui:Template name="popupUXML" src="project://database/Assets/UI/popupUXML.uxml?fileID=9197481963319205126&amp;guid=243b632e9ae51d04cb171c6cce8a6697&amp;type=3#popupUXML" />
     <Style src="project://database/Assets/UI/main.uss?fileID=7433441132597879392&amp;guid=ee14eaaf81f14f947a7b1c7a9d35eaf5&amp;type=3#main" />
     <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 7%; margin-right: 10px; margin-bottom: 7%; margin-left: 10px;">
-        <ui:Label tabindex="-1" text="EPICgame" parse-escape-sequences="true" display-tooltip-when-elided="true" name="maintitle" style="-unity-text-align: upper-center; height: 8%; -unity-font: url(&apos;project://database/Assets/Fonts/Blox.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox&apos;); -unity-font-definition: initial; -unity-font-style: normal; font-size: 90px;" />
+        <ui:Label tabindex="-1" text="ᅠARCTICᅠ&#10;  quest" parse-escape-sequences="true" display-tooltip-when-elided="true" name="maintitle" style="-unity-text-align: upper-center; height: 28%; -unity-font: url(&apos;project://database/Assets/Fonts/Blox.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox&apos;); -unity-font-definition: initial; -unity-font-style: normal; font-size: 200px; -unity-text-outline-color: rgb(102, 54, 102); -unity-text-outline-width: 4px;" />
         <ui:VisualElement name="space" style="flex-grow: 1; height: 70%; display: flex; flex-direction: column;">
             <ui:Label tabindex="-1" text="Tap to play" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: -20deg; align-self: center; width: 50%; height: 9%; -unity-text-align: upper-center; justify-content: flex-start; flex-direction: row; position: absolute; left: 6%; top: 20%;" />
         </ui:VisualElement>
@@ -13,10 +13,10 @@
             <ui:Label tabindex="-1" text="manual" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: 0; align-self: center; width: 50%; height: 80%; -unity-text-align: middle-center;" />
         </ui:VisualElement>
         <ui:Instance template="popupUXML" name="popupUXML" style="display: none; height: 70%;" />
-        <ui:VisualElement name="buttonholder" style="flex-grow: 1; height: 8%; width: 100%; flex-direction: row; justify-content: center; transition-property: all; transition-duration: 0s; transition-timing-function: ease-out; transition-delay: 0s;">
-            <ui:Button text="Manual" parse-escape-sequences="true" display-tooltip-when-elided="true" name="manual" style="height: 50%; width: 30%;" />
-            <ui:Button text="Layout" parse-escape-sequences="true" display-tooltip-when-elided="true" name="layout" style="height: 50%; width: 30%;" />
-            <ui:Button text="Credits" parse-escape-sequences="true" display-tooltip-when-elided="true" name="credit" style="height: 50%; width: 30%;" />
+        <ui:VisualElement name="buttonholder" style="flex-grow: 1; height: 14%; width: 100%; flex-direction: row; justify-content: center; transition-property: all; transition-duration: 0s; transition-timing-function: ease-out; transition-delay: 0s;">
+            <ui:Button text="MANUAL" parse-escape-sequences="true" display-tooltip-when-elided="true" name="manual" style="height: 50%; width: 30%;" />
+            <ui:Button text="LAYOUT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="layout" style="height: 50%; width: 30%;" />
+            <ui:Button text="CREDITS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="credit" style="height: 50%; width: 30%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
