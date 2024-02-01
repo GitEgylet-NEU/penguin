@@ -129,14 +129,17 @@ public class BattleManager : MonoBehaviour
 	private void Update()
 	{
 		if (!init) return;
-		foreach (Team t in System.Enum.GetValues(typeof(Team)))
+
+		if (!participants.Any(p => p.team == Team.Player))
 		{
-			if (!participants.Any(p => p.team == t))
-			{
-				Debug.Log($"{t} lost!");
-				Debug.Break();
-				return;
-			}
+			Debug.Log("you lose");
+			UIController.instance.onOff(UIController.instance.gameOverDoc, true);
+			
+		}
+		else if (!participants.Any(p => p.team == Team.Enemy))
+		{
+			Debug.Log("you win");
+			UIController.instance.setWin();
 		}
 	}
 

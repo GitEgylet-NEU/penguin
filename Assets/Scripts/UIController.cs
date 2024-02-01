@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using System.Data;
 
 public class UIController : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class UIController : MonoBehaviour
 	public UIDocument mainDoc, gameOverDoc, popupDoc;
 
 	public Button layoutButton, manualButton, creditButton, restartButton, okButton;
-	public VisualElement playElement, manualElement, creditElement;
+	public VisualElement playElement, manualElement, creditElement, popupElement;
+	public Image icon;
+	public Label popupText, popupTitle, gameoverTitle;
 	public bool gameOn = false;
 	
 	void Start()
@@ -27,6 +30,7 @@ public class UIController : MonoBehaviour
 		var popupRoot = popupDoc.GetComponent<UIDocument>().rootVisualElement;
 		
 		gameOverDoc.enabled = false;
+		popupDoc.enabled = false;
 
 		//Visualelements
 		creditElement = root.Q("creditelement");
@@ -35,22 +39,29 @@ public class UIController : MonoBehaviour
 		playElement.RegisterCallback<ClickEvent>(OnPlayClicked);
 
 		//Buttons
-		layoutButton = root.Q<Button>("layout");
-		layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
+			layoutButton = root.Q<Button>("layout");
+			layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
 		
-		manualButton = root.Q<Button>("manual");
-		manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement));
+			manualButton = root.Q<Button>("manual");
+			manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement));
 
-		creditButton = root.Q<Button>("credit");
-		creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement));
+			creditButton = root.Q<Button>("credit");
+			creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement));
 
-		restartButton = gameRoot.Q<Button>("restart");
-		restartButton.RegisterCallback<ClickEvent>(RestartGame);
+				//gameover/win
+				restartButton = gameRoot.Q<Button>("restart");
+				restartButton.RegisterCallback<ClickEvent>(RestartGame);
 
-		okButton = popupRoot.Q<Button>("ok");
-		okButton.RegisterCallback<ClickEvent>((_) => onOff(popupDoc,false));
+				//popup
+				okButton = root.Q<Button>("ok");
+				okButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(playElement, popupElement));
 
-		
+		//egyéb
+		icon = root.Q<Image>("icon");
+		popupText = root.Q<Label>("text");
+		popupTitle = root.Q<Label>("title");
+		gameoverTitle = gameRoot.Q<Label>("title");
+
 	}
 
 	void OnLayoutClicked(ClickEvent evt)
@@ -89,5 +100,17 @@ public class UIController : MonoBehaviour
 	public void onOff(UIDocument document,bool state)
 	{
 		document.enabled = state;
+	}
+	public void setWin() 
+	{
+		restartButton.text = ("Hurráá");
+		gameoverTitle.text = ("YOUwin");
+		onOff(gameOverDoc, true);
+	}
+	public void setPopup(string titleText, string text, bool iconActive)
+	{
+		icon.style.display = iconActive ? DisplayStyle.Flex : DisplayStyle.None;
+		popupTitle.text = titleText;
+		popupText.text = text;
 	}
 }
