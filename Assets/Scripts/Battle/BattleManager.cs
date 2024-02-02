@@ -95,7 +95,8 @@ public class BattleManager : MonoBehaviour
 		}
 
 		//spawn enemies
-		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom();
+		int maxDiff = gameData.levelMaxEnemyDifficulty[SaveManager.instance.progressData.level];
+		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom(l => l.difficulty <= maxDiff);
 		if (enemyLayout != null)
 		{
 			Debug.Log($"Loaded {enemyLayout.name} ({enemyLayout.difficulty})");

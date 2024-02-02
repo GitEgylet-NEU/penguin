@@ -106,12 +106,10 @@ public class TeamManager : MonoBehaviour
 			}
 			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
 			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level-1;
-			Debug.Log($"lastChecked: {SaveManager.instance.progressData.lastCheckedLevel}; level: {SaveManager.instance.progressData.level}");
 			SaveManager.instance.SaveProgress();
 
 			if (popupText.Any())
 			{
-				Debug.Log(string.Join("\n", popupText));
 				UIController.instance.ActivateLayer(UIController.instance.popupElement, UIController.instance.manualElement, UIController.instance.creditElement);
 				UIController.instance.setPopup("Szintlépés!", string.Join("\n", popupText), false);
 			}
