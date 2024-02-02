@@ -6,10 +6,6 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
 	public static UIController instance;
-	private void Awake()
-	{
-		instance = this;
-	}
 
 	public UIDocument mainDoc, gameOverDoc;
 
@@ -23,9 +19,11 @@ public class UIController : MonoBehaviour
 	public UnityEngine.UI.Button unityRestartButton;
 	public TextMeshProUGUI unityGameOverText;
 	
-	void Start()
+	void Awake()
 	{
-		mainDoc.enabled = true;
+        instance = this;
+
+        mainDoc.enabled = true;
 
 		var gameRoot = gameOverDoc.GetComponent<UIDocument>().rootVisualElement;
 		var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
@@ -37,6 +35,8 @@ public class UIController : MonoBehaviour
 		manualElement = root.Q("manualelement");
 		playElement = root.Q("space");
 		playElement.RegisterCallback<ClickEvent>(OnPlayClicked);
+		popupElement = root.Q("popup");
+		Debug.Log(popupElement);
 
 		//Buttons
 			layoutButton = root.Q<Button>("layout");
@@ -81,14 +81,20 @@ public class UIController : MonoBehaviour
 		Debug.Log(visual.style.display);
 		if (visual.style.display == DisplayStyle.Flex)
 		{
+			Debug.Log("a");
 			visual.style.display = DisplayStyle.None;
 			playElement.style.display = DisplayStyle.Flex;
 		}
 		else
 		{
-			visual.style.display = DisplayStyle.Flex;
+            Debug.Log("b" + visual.name);
 			playElement.style.display= DisplayStyle.None;
-			foreach (var av in antivisual) av.style.display = DisplayStyle.None;
+			visual.style.display = DisplayStyle.Flex;
+			foreach (var av in antivisual)
+			{
+				Debug.Log(av.name);
+                av.style.display = DisplayStyle.None;
+            }
 
 		}
 	}
@@ -117,7 +123,8 @@ public class UIController : MonoBehaviour
 	}
 	public void setPopup(string titleText, string text, bool iconActive)
 	{
-		icon.style.display = iconActive ? DisplayStyle.Flex : DisplayStyle.None;
+		Debug.Log($"setPopup: {titleText}, {text}");
+		//icon.style.display = iconActive ? DisplayStyle.Flex : DisplayStyle.None;
 		popupTitle.text = titleText;
 		popupText.text = text;
 	}

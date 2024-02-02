@@ -1,5 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="popupUXML" src="project://database/Assets/UI/popupUXML.uxml?fileID=9197481963319205126&amp;guid=243b632e9ae51d04cb171c6cce8a6697&amp;type=3#popupUXML" />
     <Style src="project://database/Assets/UI/main.uss?fileID=7433441132597879392&amp;guid=ee14eaaf81f14f947a7b1c7a9d35eaf5&amp;type=3#main" />
     <ui:VisualElement name="root" style="flex-grow: 1; margin-top: 7%; margin-right: 10px; margin-bottom: 7%; margin-left: 10px;">
         <ui:Label tabindex="-1" text="ᅠARCTICᅠ&#10;  quest" parse-escape-sequences="true" display-tooltip-when-elided="true" name="maintitle" style="-unity-text-align: upper-center; height: 28%; -unity-font: url(&apos;project://database/Assets/Fonts/Blox.ttf?fileID=12800000&amp;guid=36d25dacf6cf6d340986bb31212baf31&amp;type=3#Blox&apos;); -unity-font-definition: initial; -unity-font-style: normal; font-size: 200px; -unity-text-outline-color: rgb(102, 54, 102); -unity-text-outline-width: 4px;" />
@@ -12,7 +11,13 @@
         <ui:VisualElement name="manualelement" style="flex-grow: 1; height: 70%; display: none;">
             <ui:Label tabindex="-1" text="manual" parse-escape-sequences="true" display-tooltip-when-elided="true" style="rotate: 0; align-self: center; width: 50%; height: 80%; -unity-text-align: middle-center;" />
         </ui:VisualElement>
-        <ui:Instance template="popupUXML" name="popupUXML" style="display: none; height: 70%;" />
+        <ui:VisualElement name="popup" style="flex-grow: 1; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; background-color: rgb(255, 255, 255); border-top-left-radius: 71px; border-top-right-radius: 71px; border-bottom-right-radius: 71px; border-bottom-left-radius: 71px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; border-top-width: 12px; border-right-width: 12px; border-bottom-width: 12px; border-left-width: 12px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); height: 70%; display: none;">
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" style="-unity-text-align: upper-center; font-size: 90px;" />
+            <ui:VisualElement style="flex-grow: 1; width: 100%; height: 70%; flex-direction: column;">
+                <ui:Label tabindex="-1" text="Lorem IPsum franc se tudja bla blababalbal bséjaékdajk" parse-escape-sequences="true" display-tooltip-when-elided="true" name="text" style="white-space: normal; width: 80%; -unity-text-align: upper-center; align-self: center; height: 60%; flex-wrap: nowrap; min-height: 147px;" />
+            </ui:VisualElement>
+            <ui:Button text="rendben" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ok" style="-unity-text-align: middle-center; align-self: center;" />
+        </ui:VisualElement>
         <ui:VisualElement name="buttonholder" style="flex-grow: 1; height: 14%; width: 100%; flex-direction: row; justify-content: center; transition-property: all; transition-duration: 0s; transition-timing-function: ease-out; transition-delay: 0s;">
             <ui:Button text="MANUAL" parse-escape-sequences="true" display-tooltip-when-elided="true" name="manual" style="height: 50%; width: 30%;" />
             <ui:Button text="LAYOUT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="layout" style="height: 50%; width: 30%;" />
