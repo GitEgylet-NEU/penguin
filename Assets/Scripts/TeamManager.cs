@@ -113,7 +113,7 @@ public class TeamManager : MonoBehaviour
 			if (popupText.Any())
 			{
 				UIController.instance.ActivateLayer(UIController.instance.popupElement, UIController.instance.manualElement, UIController.instance.creditElement);
-				UIController.instance.setPopup("Szintlépés!", string.Join("\n", popupText), false);
+				//UIController.instance.setPopup("Szintlépés!", string.Join("\n", popupText), false);
 			}
 		}
 	}
