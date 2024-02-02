@@ -60,6 +60,7 @@ public class BattleManager : MonoBehaviour
 		{
 			try
 			{
+				bool saveAtEnd = false;
 				BattleLayout layout = o as BattleLayout;
 
 				distX = (width - padding * 2) / (gameData.columns - 1);
@@ -69,6 +70,12 @@ public class BattleManager : MonoBehaviour
 					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
 					{
 						if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
+						if (!gameData.playerCharacters.Any(pc => pc.id == layout.characterIDs[c,r]))
+						{
+							layout.characterIDs[c, r] = string.Empty;
+							saveAtEnd = true;
+							continue;
+						}
 						if (!TeamManager.instance.penguins.Any(p => p.gameObject.name == layout.characterIDs[c, r])) continue;
 						CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
 						if (data == null) continue;
@@ -87,6 +94,8 @@ public class BattleManager : MonoBehaviour
 						obj.SetActive(true);
 					}
 				}
+
+				if (saveAtEnd) SaveManager.instance.SaveObject(Path.Combine(SaveManager.instance.layoutSavePath, layoutName), o);
 			}
 			catch (System.Exception e)
 			{
