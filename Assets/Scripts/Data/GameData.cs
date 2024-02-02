@@ -17,6 +17,7 @@ public class GameData : ScriptableObject
 	public int[] levelUpgradePointRewards;
 	public string[] levelUpgradeCharacterRewards;
 	public int[] levelMaxEnemyDifficulty;
+	public float[] levelRunLength;
 	public int[] characterUpgradeCosts;
 
 	private void OnValidate()

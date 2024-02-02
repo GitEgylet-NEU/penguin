@@ -62,4 +62,14 @@ MonoBehaviour:
   - p_techno
   - 
   levelMaxEnemyDifficulty: 010000000100000002000000020000000300000003000000040000000400000005000000
+  levelRunLength:
+  - 150
+  - 200
+  - 250
+  - 300
+  - 350
+  - 400
+  - 500
+  - 600
+  - 800
   characterUpgradeCosts: 01000000020000000300000003000000
