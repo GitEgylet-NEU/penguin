@@ -30,7 +30,7 @@ MonoBehaviour:
     hasAbility: 1
     ability:
       id: targeted_heal
-      abilityCost: 50
+      abilityCost: 32
       floats:
       - Key: heal_amount
         Value: 20

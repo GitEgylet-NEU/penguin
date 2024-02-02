@@ -22,43 +22,43 @@ MonoBehaviour:
   levels:
   - maxNumber: 1
     maxHealth: 40
-    hitsPerSecond: 1
-    damagePerHit: 0
+    hitsPerSecond: 0.15
+    damagePerHit: 1
     range: 3
     speed: 13
     rotationSpeed: 300
     hasAbility: 1
     ability:
       id: targeted_heal
-      abilityCost: 45
+      abilityCost: 1
       floats:
       - Key: heal_amount
-        Value: 10
+        Value: 20
   - maxNumber: 1
     maxHealth: 45
-    hitsPerSecond: 2
-    damagePerHit: 0
+    hitsPerSecond: 0.2
+    damagePerHit: 1
     range: 6
     speed: 16
     rotationSpeed: 325
     hasAbility: 1
     ability:
       id: targeted_heal
-      abilityCost: 45
+      abilityCost: 1
       floats:
       - Key: heal_amount
-        Value: 10
+        Value: 35
   - maxNumber: 1
     maxHealth: 50
-    hitsPerSecond: 4
-    damagePerHit: 0
+    hitsPerSecond: 0.33
+    damagePerHit: 1
     range: 12
     speed: 20
     rotationSpeed: 375
     hasAbility: 1
     ability:
       id: targeted_heal
-      abilityCost: 45
+      abilityCost: 1
       floats:
       - Key: heal_amount
-        Value: 10
+        Value: 50
