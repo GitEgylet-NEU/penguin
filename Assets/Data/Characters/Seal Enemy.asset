@@ -18,9 +18,10 @@ MonoBehaviour:
   xpYield: 11
   frontSprite: {fileID: 21300000, guid: 4b15848a870feda4fb0c5059884b7d51, type: 3}
   backSprite: {fileID: 21300000, guid: f57156fa4a1063642bfabe228151b7f6, type: 3}
+  slideSprite: {fileID: 0}
   levels:
   - maxNumber: 1
-    maxHealth: 200
+    maxHealth: 180
     hitsPerSecond: 2
     damagePerHit: 6
     range: 4

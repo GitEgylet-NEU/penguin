@@ -34,7 +34,7 @@ public class Penguin : MonoBehaviour
 
 	public void AddMoveCommand(float z, float amount)
 	{
-		if (!executeCommands) return;
+		if (!executeCommands || moveCommands == null) return;
 		moveCommands.Add(new MoveCommand(z, amount));
 	}
 
