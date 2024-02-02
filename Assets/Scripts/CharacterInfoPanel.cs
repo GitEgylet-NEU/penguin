@@ -109,6 +109,6 @@ public class CharacterInfoPanel : MonoBehaviour
 		//icon.color = characterData.color;
 		icon.sprite = characterData.frontSprite;
 
-		infoPanel.GetChild(0).GetChild(0).GetComponent<RectTransform>().SetHeight(Mathf.Abs(descriptionText.rectTransform.localPosition.y) + descriptionText.rectTransform.rect.height + 250f);
+		//infoPanel.GetChild(0).GetChild(0).GetComponent<RectTransform>().SetHeight(Mathf.Abs(descriptionText.rectTransform.localPosition.y) + descriptionText.rectTransform.rect.height + 250f);
 	}
 }
