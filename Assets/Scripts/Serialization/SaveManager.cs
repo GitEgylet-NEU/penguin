@@ -32,7 +32,7 @@ public class SaveManager : MonoBehaviour
 			progressData = new ProgressData();
 			progressData.InitCharacterLevels(gameData.playerCharacters);
 			progressData.lastCheckedLevel = -1;
-			progressData.characterLevels.GetElement(gameData.levelUpgradeCharacterRewards[0]).Value = 0;
+			progressData.characterLevels.GetElement("p_regular").Value = 0;
 		}
 		else
 		{

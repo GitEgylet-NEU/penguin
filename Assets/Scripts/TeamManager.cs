@@ -82,6 +82,8 @@ public class TeamManager : MonoBehaviour
 		xpBar.max = SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 ? gameData.levelXPCosts[SaveManager.instance.progressData.level + 1] : gameData.levelXPCosts[SaveManager.instance.progressData.level] + 1;
 		xpBar.disappearOnZero = false;
 
+		runLength = gameData.levelRunLength[SaveManager.instance.progressData.level];
+
 		CheckLevels();
 
 		run = true;
