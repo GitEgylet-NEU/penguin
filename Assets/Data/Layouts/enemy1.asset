@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: enemy1
   m_EditorClassIdentifier: 
   team: 1
-  difficulty: 1
+  difficulty: 2
   characters:
   - Key: {x: 2, y: 5}
     Value: e_thug

@@ -52,7 +52,6 @@ MonoBehaviour:
   - 400
   levelUpgradePointRewards: 000000000100000002000000030000000400000005000000060000000700000008000000
   levelUpgradeCharacterRewards:
-  - p_regular
   - p_archer
   - p_cowboy
   - p_medic
@@ -60,6 +59,7 @@ MonoBehaviour:
   - p_crusader
   - p_samurai
   - p_techno
+  - 
   - 
   levelMaxEnemyDifficulty: 010000000100000002000000020000000300000003000000040000000400000005000000
   characterUpgradeCosts: 01000000020000000300000003000000

@@ -21,9 +21,9 @@ MonoBehaviour:
   slideSprite: {fileID: 0}
   levels:
   - maxNumber: 1
-    maxHealth: 230
-    hitsPerSecond: 1.5
-    damagePerHit: 10
+    maxHealth: 80
+    hitsPerSecond: 1.3
+    damagePerHit: 7.5
     range: 7
     speed: 6
     rotationSpeed: 300

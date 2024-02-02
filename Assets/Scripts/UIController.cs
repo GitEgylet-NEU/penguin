@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
 	public Image icon;
 	public Label popupText, popupTitle, gameoverTitle;
 	public bool gameOn = false;
+	public bool move = false;
 
 	[Space]
 	public UnityEngine.UI.Button unityRestartButton;
@@ -71,6 +72,7 @@ public class UIController : MonoBehaviour
 	}
 	private void OnPlayClicked(ClickEvent evt)
 	{
+		move = true;
 		gameOn = true;
 		mainDoc.enabled = false;
 		TeamManager.instance.StartGame();

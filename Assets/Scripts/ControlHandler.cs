@@ -27,7 +27,7 @@ public class ControlHandler : MonoBehaviour
 
 	void HandleStrafe()
 	{
-		if (Input.touchCount == 0)
+		if (Input.touchCount == 0 || UIController.instance.move == false)
 		{
 			TeamManager.instance.Move(Input.GetAxisRaw("Horizontal"));
 		}
