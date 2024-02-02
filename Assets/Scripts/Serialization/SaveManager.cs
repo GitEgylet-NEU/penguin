@@ -9,6 +9,7 @@ public class SaveManager : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
+		LoadProgress();
 	}
 
 	public GameData gameData;
@@ -18,10 +19,6 @@ public class SaveManager : MonoBehaviour
 
 	public ProgressData progressData;
 
-	private void Start()
-	{
-		LoadProgress();
-	}
 	private void OnDestroy()
 	{
 		SaveProgress();
@@ -31,6 +28,7 @@ public class SaveManager : MonoBehaviour
 	{
 		if (!LoadObject(progressSavePath, out progressData))
 		{
+			Debug.Log("create new progress");
 			progressData = new ProgressData();
 			progressData.InitCharacterLevels(gameData.playerCharacters);
 			progressData.lastCheckedLevel = -1;
@@ -38,11 +36,13 @@ public class SaveManager : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log("load progress");
 			progressData.UpdateCharacterLevels(gameData.playerCharacters);
 		}
 	}
 	public void SaveProgress()
 	{
+		Debug.Log("save progress");
 		SaveObject(progressSavePath, progressData);
 	}
 

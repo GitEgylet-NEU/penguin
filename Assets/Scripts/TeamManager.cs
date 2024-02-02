@@ -78,7 +78,6 @@ public class TeamManager : MonoBehaviour
 		cameraController.followTransform = penguins[0].transform;
 		cameraController.offset = cameraOffset;
 
-		SaveManager.instance.LoadProgress();
 		xpBar.min = SaveManager.instance.progressData.level >= 1 ? gameData.levelXPCosts[SaveManager.instance.progressData.level - 1] + 1 : 0f;
 		xpBar.max = SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 ? gameData.levelXPCosts[SaveManager.instance.progressData.level + 1] : gameData.levelXPCosts[SaveManager.instance.progressData.level] + 1;
 		xpBar.disappearOnZero = false;
@@ -96,30 +95,33 @@ public class TeamManager : MonoBehaviour
 
 			int upPoints = 0;
 			//leveled up
-			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i <= SaveManager.instance.progressData.level; i++)
+			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i < SaveManager.instance.progressData.level; i++)
 			{
 				Debug.Log(i);
 				upPoints += gameData.levelUpgradePointRewards[i];
 				string id = gameData.levelUpgradeCharacterRewards[i];
-				if (!string.IsNullOrEmpty(id)) continue;
+				if (string.IsNullOrEmpty(id)) continue;
 				popupText.Add($"Feloldottad {gameData.GetCharacterData(id, BattleManager.Team.Player).name}-t");
 				SaveManager.instance.progressData.characterLevels.GetElement(id).Value = 0;
 			}
 			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
-			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level;
+			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level-1;
+			Debug.Log($"lastChecked: {SaveManager.instance.progressData.lastCheckedLevel}; level: {SaveManager.instance.progressData.level}");
+			SaveManager.instance.SaveProgress();
 
 			if (popupText.Any())
 			{
 				Debug.Log(string.Join("\n", popupText));
 				UIController.instance.ActivateLayer(UIController.instance.popupElement, UIController.instance.manualElement, UIController.instance.creditElement);
 				UIController.instance.setPopup("Szintlépés!", string.Join("\n", popupText), false);
-				
 			}
 		}
 	}
 
 	private void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.X)) BattleManager.instance.AddXP(20f);
+
 		if (xpBar.isActiveAndEnabled)
 		{
 			xpBar.SetValue(SaveManager.instance.progressData.xp);

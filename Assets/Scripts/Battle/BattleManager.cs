@@ -50,8 +50,6 @@ public class BattleManager : MonoBehaviour
 			return;
 		}
 
-		SaveManager.instance.LoadProgress();
-
 		if (load) Initialize();
 	}
 
