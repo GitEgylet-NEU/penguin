@@ -25,6 +25,7 @@ public class TeamManager : MonoBehaviour
 	[Header("Run")]
 	public float initialRunSpeed;
 	[Tooltip("Hányszorosára gyorsul a sebesség másodpercenként?")] public float runMultiplier = 0;
+	public bool exponential;
 	[SerializeField] public float runLength;
 	public float runStartZ = float.PositiveInfinity;
 	bool run;
@@ -41,6 +42,8 @@ public class TeamManager : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] ProgressBar xpBar;
 	[SerializeField] TextMeshProUGUI xpText, levelText, upgradePointText;
+
+	float setRunMultiplierToThis;
 
 	private void Start()
 	{
@@ -85,6 +88,9 @@ public class TeamManager : MonoBehaviour
 		runLength = gameData.levelRunLength[SaveManager.instance.progressData.level];
 
 		CheckLevels();
+
+		setRunMultiplierToThis = runMultiplier;
+		runMultiplier = 0f;
 
 		run = true;
 	}
@@ -167,7 +173,7 @@ public class TeamManager : MonoBehaviour
 
 	public void StartGame()
 	{
-		runMultiplier = 1.05f;
+		runMultiplier = setRunMultiplierToThis;
 		xpBar.gameObject.SetActive(false);
 		runStartZ = penguins.First().transform.position.z;
 	}

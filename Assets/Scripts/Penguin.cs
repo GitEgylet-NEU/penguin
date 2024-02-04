@@ -22,7 +22,18 @@ public class Penguin : MonoBehaviour
 	private void Update()
 	{
 		// gyorsulás
-		if (TeamManager.instance.runMultiplier > 0f) speed *= 1f + Time.deltaTime * (TeamManager.instance.runMultiplier - 1f);
+		if (TeamManager.instance.runMultiplier > 0f)
+		{
+			if (TeamManager.instance.exponential)
+			{
+				speed *= 1f + Time.deltaTime * (TeamManager.instance.runMultiplier - 1f);
+			}
+			else
+			{
+				//linear
+				speed += TeamManager.instance.initialRunSpeed * TeamManager.instance.runMultiplier * Time.deltaTime;
+			}
+		}
 
 		// mozgás parancsok végrehajtása
 		foreach (var command in moveCommands.Where(c => transform.position.z >= c.z).ToArray())

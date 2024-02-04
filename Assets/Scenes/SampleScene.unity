@@ -1777,7 +1777,8 @@ MonoBehaviour:
   penguinDistance: 2.5
   randomColors: 0
   initialRunSpeed: 8
-  runMultiplier: 0
+  runMultiplier: 0.125
+  exponential: 0
   runLength: 100
   runStartZ: Infinity
   penguinCatchUpSpeed: 8
@@ -1852,6 +1853,7 @@ MonoBehaviour:
   mainDoc: {fileID: 682520888}
   gameOverDoc: {fileID: 1257519206}
   gameOn: 0
+  move: 0
   unityRestartButton: {fileID: 2094323164}
   unityGameOverText: {fileID: 135481690}
 --- !u!114 &1683354757
