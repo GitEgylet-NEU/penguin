@@ -62,11 +62,11 @@ public class CharacterSelection : MonoBehaviour
 	GameObject dragObj;
 	string id;
 
-	public void InfoPanelActive(bool set) => infoPanelActive = set;
-	public bool infoPanelActive;
+	public void IgnoreTouch(bool set) => ignoreTouch = set;
+	public bool ignoreTouch;
 	void HandleDrags()
 	{
-		if (infoPanelActive) return;
+		if (ignoreTouch) return;
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		if (Input.GetMouseButtonDown(0) || (!dragging && Input.touchCount == 1))
 		{

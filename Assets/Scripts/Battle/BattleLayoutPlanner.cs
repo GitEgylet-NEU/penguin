@@ -24,12 +24,15 @@ public class BattleLayoutPlanner : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] CharacterSelection characterSelection;
 	[SerializeField] RectTransform modalWindow;
+	[SerializeField] RectTransform alertWindow;
+	[SerializeField] Button saveButton;
 	[SerializeField] Button backButton;
 
 	BattleLayout layout;
 	Transform[,] markers;
 	bool changed = false;
-	int size;
+	bool hasLayout = true;
+	public int size;
 
 	void Start()
 	{
@@ -92,13 +95,15 @@ public class BattleLayoutPlanner : MonoBehaviour
 						if (!string.IsNullOrEmpty(l.characterIDs[c, r])) try
 							{
 								SetCharacter(c, r, l.characterIDs[c, r]);
-								size++;
-							} catch
+							}
+							catch
 							{
 								SetCharacter(c, r, string.Empty);
 							}
 					}
 				}
+				changed = false;
+				hasLayout = true;
 			}
 			catch (Exception e)
 			{
@@ -106,10 +111,19 @@ public class BattleLayoutPlanner : MonoBehaviour
 				throw;
 			}
 		}
+		else hasLayout = false;
+
+		if (size == 0)
+		{
+			alertWindow.gameObject.SetActive(true);
+			characterSelection.IgnoreTouch(true);
+		}
+		else alertWindow.gameObject.SetActive(false);
 	}
 
 	private void Update()
 	{
+		saveButton.gameObject.SetActive(changed && size > 0);
 		backButton.gameObject.SetActive(size > 0);
 	}
 
@@ -168,7 +182,9 @@ public class BattleLayoutPlanner : MonoBehaviour
 		{
 			// remove character
 			layout.characterIDs[column, row] = string.Empty;
+			Debug.Log(size);
 			size--;
+			Debug.Log($"remove {size}");
 
 			Destroy(markers[column, row].GetChild(1).gameObject);
 		}
@@ -185,6 +201,13 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 		Debug.Log($"set ({column};{row}) to {id}");
 		changed = true;
+		
+		if (size == 0)
+		{
+			alertWindow.gameObject.SetActive(true);
+			characterSelection.IgnoreTouch(true);
+		}
+
 		return true;
 	}
 
@@ -209,6 +232,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 		if (!confirm && changed)
 		{
 			modalWindow.gameObject.SetActive(true);
+			modalWindow.Find("Decline").GetComponent<Button>().interactable = hasLayout;
 			//wait for user input
 		}
 		else
