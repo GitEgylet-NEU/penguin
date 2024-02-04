@@ -9,7 +9,6 @@ public class CharacterData : ScriptableObject
 {
 	public string id;
 	public string description;
-	public Color color;
 	public float xpYield;
 
 	[Header("Visuals")]

@@ -175,12 +175,13 @@ public class BattleLayoutPlanner : MonoBehaviour
 		else
 		{
 			//change character
+			Debug.Log("Change");
 			layout.characterIDs[column, row] = id;
 
 			CharacterData data = GetCharacter(column, row);
 			var obj = markers[column, row].GetChild(1).gameObject;
 			obj.name = data.name;
-			obj.GetComponent<SpriteRenderer>().color = data.color;
+			obj.GetComponent<SpriteRenderer>().sprite = data.frontSprite;
 		}
 		Debug.Log($"set ({column};{row}) to {id}");
 		changed = true;
