@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
@@ -9,26 +9,25 @@ public class UIController : MonoBehaviour
 
 	public UIDocument mainDoc, gameOverDoc;
 
-	public Button layoutButton, manualButton, creditButton, restartButton, okButton;
+	public Button layoutButton, manualButton, creditButton, restartButton;
 	public VisualElement playElement, manualElement, creditElement, popupElement;
-	public Image icon;
-	public Label popupText, popupTitle, gameoverTitle;
+	public Label gameoverTitle;
 	public bool gameOn = false;
 	public bool move = false;
 
 	[Space]
 	public UnityEngine.UI.Button unityRestartButton;
 	public TextMeshProUGUI unityGameOverText;
-	
+
 	void Awake()
 	{
-        instance = this;
+		instance = this;
 
-        mainDoc.enabled = true;
+		mainDoc.enabled = true;
 
 		var gameRoot = gameOverDoc.GetComponent<UIDocument>().rootVisualElement;
 		var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
-		
+
 		gameOverDoc.enabled = false;
 
 		//Visualelements
@@ -37,37 +36,31 @@ public class UIController : MonoBehaviour
 		playElement = root.Q("space");
 		playElement.RegisterCallback<ClickEvent>(OnPlayClicked);
 		popupElement = root.Q("popup");
-		Debug.Log(popupElement);
 
 		//Buttons
-			layoutButton = root.Q<Button>("layout");
-			layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
-		
-			manualButton = root.Q<Button>("manual");
-			manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement, popupElement));
+		layoutButton = root.Q<Button>("layout");
+		layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
 
-			creditButton = root.Q<Button>("credit");
-			creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement, popupElement));
+		manualButton = root.Q<Button>("manual");
+		manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement, popupElement));
 
-				//gameover/win
-				restartButton = gameRoot.Q<Button>("restart");
-				restartButton.RegisterCallback<ClickEvent>((_) => RestartGame());
+		creditButton = root.Q<Button>("credit");
+		creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement, popupElement));
 
-				//popup
-				okButton = root.Q<Button>("ok");
-				okButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(playElement, popupElement));
+		//gameover/win
+		restartButton = gameRoot.Q<Button>("restart");
+		restartButton.RegisterCallback<ClickEvent>((_) => RestartGame());
 
 		//egyéb
-		icon = root.Q<Image>("icon");
-		popupText = root.Q<Label>("text");
-		popupTitle = root.Q<Label>("title");
 		gameoverTitle = gameRoot.Q<Label>("title");
 
+		//make sure all menus are hidden
+		ActivateLayer(playElement, popupElement, creditElement, manualElement);
 	}
 
 	void OnLayoutClicked(ClickEvent evt)
 	{
-		Debug.Log("layout");
+		//Debug.Log("layout");
 		SceneManager.LoadScene("LayoutPlanning");
 	}
 	private void OnPlayClicked(ClickEvent evt)
@@ -77,26 +70,24 @@ public class UIController : MonoBehaviour
 		mainDoc.enabled = false;
 		TeamManager.instance.StartGame();
 	}
-	public void ActivateLayer(VisualElement visual, params VisualElement[] antivisual) 
+
+	/// <param name="visual"><see cref="VisualElement"/> to enable</param>
+	/// <param name="antivisual"><see cref="VisualElement"/>s to disable</param>
+	public void ActivateLayer(VisualElement visual, params VisualElement[] antivisual)
 	{
-		Debug.Log("activatelayer");
-		Debug.Log(visual.style.display);
 		if (visual.style.display == DisplayStyle.Flex)
 		{
-			Debug.Log("a");
 			visual.style.display = DisplayStyle.None;
 			playElement.style.display = DisplayStyle.Flex;
 		}
 		else
 		{
-            Debug.Log("b" + visual.name);
-			playElement.style.display= DisplayStyle.None;
+			playElement.style.display = DisplayStyle.None;
 			visual.style.display = DisplayStyle.Flex;
 			foreach (var av in antivisual)
 			{
-				Debug.Log(av.name);
-                av.style.display = DisplayStyle.None;
-            }
+				av.style.display = DisplayStyle.None;
+			}
 
 		}
 	}
@@ -113,21 +104,21 @@ public class UIController : MonoBehaviour
 	}
 
 	//dokumentumok ki/be kapcsolása
-	public void onOff(UIDocument document,bool state)
+	public void ToggleDocument(UIDocument document, bool state)
 	{
 		document.enabled = state;
 	}
-	public void setWin() 
+	public void SetWin()
 	{
 		restartButton.text = ("Hurráá");
 		gameoverTitle.text = ("YOUwin");
-		onOff(gameOverDoc, true);
+		ToggleDocument(gameOverDoc, true);
 	}
-	public void setPopup(string titleText, string text, bool iconActive)
+	public void SetPopup(string titleText, string text)
 	{
-		Debug.Log($"setPopup: {titleText}, {text}");
-		//icon.style.display = iconActive ? DisplayStyle.Flex : DisplayStyle.None;
-		popupTitle.text = titleText;
-		popupText.text = text;
+		//Debug.Log($"setPopup: {titleText}, {text}");
+		mainDoc.GetComponent<UIDocument>().rootVisualElement.Q<Label>("title").text = titleText;
+		mainDoc.GetComponent<UIDocument>().rootVisualElement.Q<Label>("text").text = text;
+		mainDoc.GetComponent<UIDocument>().rootVisualElement.Q<Button>("ok").RegisterCallback<ClickEvent>((_) => ActivateLayer(playElement, popupElement));
 	}
 }

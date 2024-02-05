@@ -142,7 +142,7 @@ public class BattleManager : MonoBehaviour
 		if (!participants.Any(p => p.team == Team.Player))
 		{
 			Debug.Log("you lose");
-			//UIController.instance.onOff(UIController.instance.gameOverDoc, true);
+			//UIController.instance.ToggleDocument(UIController.instance.gameOverDoc, true);
 			UIController.instance.EndGame(false);
 			foreach (var participant in participants) participant.DisableParticipant();
 			return;

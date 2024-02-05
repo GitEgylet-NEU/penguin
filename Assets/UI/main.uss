@@ -18,9 +18,13 @@
     border-right-color: rgb(102, 54, 102);
     border-top-color: rgb(102, 54, 102);
     border-bottom-color: rgb(102, 54, 102);
-    border-top-left-radius: 68px;
-    border-top-right-radius: 68px;
-    border-bottom-right-radius: 68px;
-    border-bottom-left-radius: 68px;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
+    border-bottom-right-radius: 48px;
+    border-bottom-left-radius: 48px;
     color: rgb(102, 54, 102);
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
 }
