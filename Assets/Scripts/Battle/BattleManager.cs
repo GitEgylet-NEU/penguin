@@ -27,6 +27,7 @@ public class BattleManager : MonoBehaviour
 	[Min(0)] public float width;
 	float distX;
 	float distZ;
+	float cachedXP = 0f;
 
 	[Header("Battle")]
 	public List<BattleParticipant> participants;
@@ -143,28 +144,33 @@ public class BattleManager : MonoBehaviour
 		{
 			Debug.Log("you lose");
 			//UIController.instance.ToggleDocument(UIController.instance.gameOverDoc, true);
-			UIController.instance.EndGame(false);
+			UIController.instance.EndGame(false, cachedXP);
+			SaveXP(false);
 			foreach (var participant in participants) participant.DisableParticipant();
-			return;
+			init = false;
 		}
 		if (!participants.Any(p => p.team == Team.Enemy))
 		{
 			Debug.Log("you win");
 			//UIController.instance.setWin();
-			UIController.instance.EndGame(true);
+			UIController.instance.EndGame(true, cachedXP);
+			SaveXP(true);
 			foreach (var participant in participants) participant.DisableParticipant();
-			return;
+			init = false;
 		}
-	}
-
-	private void OnDestroy()
-	{
-		SaveManager.instance.SaveProgress();
 	}
 
 	public void AddXP(float amount)
 	{
-		SaveManager.instance.progressData.xp += amount;
+		cachedXP += amount;
+		Debug.Log($"add {amount} XP");
+	}
+
+	public void SaveXP(bool won)
+	{
+		if (!won) cachedXP *= gameData.lostBattleXPModifier;
+
+		SaveManager.instance.progressData.xp += cachedXP;
 		if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 && SaveManager.instance.progressData.xp >= gameData.levelXPCosts[SaveManager.instance.progressData.level + 1])
 		{
 			SaveManager.instance.progressData.level++;

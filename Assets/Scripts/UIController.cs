@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -18,6 +18,10 @@ public class UIController : MonoBehaviour
 	[Space]
 	public UnityEngine.UI.Button unityRestartButton;
 	public TextMeshProUGUI unityGameOverText;
+	public GameObject unityLostXpWindow;
+	public TextMeshProUGUI unityLostXpText;
+	public GameObject unityWonXpWindow;
+	public TextMeshProUGUI unityWonXpText;
 
 	void Awake()
 	{
@@ -51,7 +55,7 @@ public class UIController : MonoBehaviour
 		restartButton = gameRoot.Q<Button>("restart");
 		restartButton.RegisterCallback<ClickEvent>((_) => RestartGame());
 
-		//egyéb
+		//egyÃ©b
 		gameoverTitle = gameRoot.Q<Label>("title");
 
 		//make sure all menus are hidden
@@ -95,22 +99,41 @@ public class UIController : MonoBehaviour
 	{
 		SceneManager.LoadScene("Samplescene");
 	}
-	public void EndGame(bool won)
+	public void EndGame(bool won, float xp)
 	{
-		unityGameOverText.text = won ? "YOU won" : "YOU lost";
+		if (won)
+		{
+			unityGameOverText.text = "YOU won";
+			unityRestartButton.GetComponentInChildren<TextMeshProUGUI>().text = "HurrÃ¡!";
+			if (xp > 0f)
+			{
+				unityWonXpText.text = $"{xp} XP";
+				unityWonXpWindow.SetActive(true);
+			}
+		}
+		else
+		{
+			unityGameOverText.text = "YOU lost";
+			unityRestartButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÃšjrakezdÃ©s";
+			if (xp > 0f)
+			{
+				unityLostXpText.text = $"<s>{xp} XP</s>   â–º   <b>{xp / 2f} XP";
+				unityLostXpWindow.SetActive(true);
+			}
+		}
+
 		unityGameOverText.gameObject.SetActive(true);
-		unityRestartButton.GetComponentInChildren<TextMeshProUGUI>().text = won ? "Hurrá!" : "Újrakezdés";
 		unityRestartButton.gameObject.SetActive(true);
 	}
 
-	//dokumentumok ki/be kapcsolása
+	//dokumentumok ki/be kapcsolÃ¡sa
 	public void ToggleDocument(UIDocument document, bool state)
 	{
 		document.enabled = state;
 	}
 	public void SetWin()
 	{
-		restartButton.text = ("Hurráá");
+		restartButton.text = ("HurrÃ¡Ã¡");
 		gameoverTitle.text = ("YOUwin");
 		ToggleDocument(gameOverDoc, true);
 	}

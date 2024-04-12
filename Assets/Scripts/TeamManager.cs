@@ -166,11 +166,6 @@ public class TeamManager : MonoBehaviour
 		}
 	}
 
-	private void OnDestroy()
-	{
-		SaveManager.instance.SaveProgress();
-	}
-
 	public void StartGame()
 	{
 		runMultiplier = setRunMultiplierToThis;
@@ -219,7 +214,7 @@ public class TeamManager : MonoBehaviour
 			AudioManager.instance.StopBM();
 			AudioManager.instance.PlaySound("gameover");
 			//UIController.instance.ToggleDocument(UIController.instance.gameOverDoc,true);
-			UIController.instance.EndGame(false);
+			UIController.instance.EndGame(false, -1f);
 			GetComponent<TeamManager>().enabled = false;
 			//return;
 		}

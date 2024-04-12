@@ -7,6 +7,7 @@ public class GameData : ScriptableObject
 	[Min(0)] public int columns;
 	[Min(0)] public int rows;
 	public PremadeBattleLayout[] premadeBattleLayouts;
+	[Tooltip("Multiply all XP by this number when the player loses the battle")] public float lostBattleXPModifier = .5f;
 
 	[Space]
 	public CharacterData[] playerCharacters;

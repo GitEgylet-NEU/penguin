@@ -127,11 +127,6 @@ public class BattleLayoutPlanner : MonoBehaviour
 		backButton.gameObject.SetActive(size > 0);
 	}
 
-	private void OnDestroy()
-	{
-		SaveManager.instance.SaveProgress();
-	}
-
 	public void SaveLayout()
 	{
 		if (layout == null || string.IsNullOrEmpty(layoutName) || SaveManager.instance == null)
