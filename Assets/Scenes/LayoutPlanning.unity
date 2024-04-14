@@ -936,7 +936,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 874457924}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1450,7 +1450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: vissza
+  m_text: "tov\xE1bb"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4e063ab2c8afe2a468445ff975a40630, type: 2}
   m_sharedMaterial: {fileID: 5726198775022083818, guid: 4e063ab2c8afe2a468445ff975a40630, type: 2}
