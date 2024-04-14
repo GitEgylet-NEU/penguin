@@ -2413,7 +2413,7 @@ MonoBehaviour:
   penguinDistance: 2.5
   randomColors: 0
   initialRunSpeed: 8
-  runMultiplier: 0.125
+  runMultiplier: 0.1
   exponential: 0
   runLength: 100
   runStartZ: Infinity
@@ -2421,7 +2421,7 @@ MonoBehaviour:
   horizontalAxisName: Horizontal
   horizontalSensitivity: 8
   cameraController: {fileID: 519420033}
-  cameraOffset: 21.9
+  cameraOffset: 23
   xpBar: {fileID: 1421089423}
   xpText: {fileID: 2077424370}
   levelText: {fileID: 616934114}
