@@ -10,16 +10,16 @@ public class GameData : ScriptableObject
 	[Tooltip("Multiply all XP by this number when the player loses the battle")] public float lostBattleXPModifier = .5f;
 
 	[Space]
-	public CharacterData[] playerCharacters;
-	public CharacterData[] enemyCharacters;
+	public PenguinData[] playerCharacters;
+	public EnemyData[] enemyCharacters;
 
 	[Header("Player Progress")]
 	public float[] levelXPCosts;
 	public int[] levelUpgradePointRewards;
-	public string[] levelUpgradeCharacterRewards;
-	public int[] levelMaxEnemyDifficulty;
+	public PenguinData[] levelUpgradeCharacterRewards;
 	public float[] levelRunLength;
 	public int[] characterUpgradeCosts;
+	public PenguinData defaultPenguin;
 
 	private void OnValidate()
 	{
@@ -29,17 +29,12 @@ public class GameData : ScriptableObject
 		}
 	}
 
-	public CharacterData GetCharacterData(string id, BattleManager.Team team)
+	public PenguinData GetPenguinData(string id)
 	{
-		switch (team)
-		{
-			case BattleManager.Team.Player:
-				return playerCharacters.GetCharacter(id);
-			case BattleManager.Team.Enemy:
-				return enemyCharacters.GetCharacter(id);
-			default:
-				Debug.LogError("There's no character list defined for team " + team);
-				return null;
-		}
+		return (PenguinData)playerCharacters.GetCharacter(id);
+	}
+	public EnemyData GetEnemyData(string id)
+	{
+		return (EnemyData)enemyCharacters.GetCharacter(id);
 	}
 }

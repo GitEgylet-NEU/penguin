@@ -68,17 +68,17 @@ public class BattleManager : MonoBehaviour
 				distZ = (length - padding * 2) / (gameData.rows - 1);
 				for (int c = 0; c < gameData.columns; c++)
 				{
-					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+					for (int r = 0; r < layout.characterNames.GetLength(1); r++)
 					{
-						if (string.IsNullOrEmpty(layout.characterIDs[c, r])) continue;
-						if (!gameData.playerCharacters.Any(pc => pc.id == layout.characterIDs[c,r]))
+						if (string.IsNullOrEmpty(layout.characterNames[c, r])) continue;
+						if (!gameData.playerCharacters.Any(pc => pc.name == layout.characterNames[c,r]))
 						{
-							layout.characterIDs[c, r] = string.Empty;
+							layout.characterNames[c, r] = string.Empty;
 							saveAtEnd = true;
 							continue;
 						}
-						if (!TeamManager.instance.penguins.Any(p => p.gameObject.name == layout.characterIDs[c, r])) continue;
-						CharacterData data = gameData.GetCharacterData(layout.characterIDs[c, r], layout.team);
+						if (!TeamManager.instance.penguins.Any(p => p.gameObject.name == layout.characterNames[c, r])) continue;
+						PenguinData data = gameData.GetPenguinData(layout.characterNames[c, r]);
 						if (data == null) continue;
 
 						//spawn
@@ -104,19 +104,33 @@ public class BattleManager : MonoBehaviour
 			}
 		}
 
+
+		//calculate difficulty score based on player level and remaining penguins
+		int diff = Mathf.RoundToInt((SaveManager.instance.progressData.level + 1) / 2f);
+		foreach (var penguin in TeamManager.instance.penguins)
+		{
+			diff += SaveManager.instance.progressData.characterLevels.GetElement(penguin.gameObject.name).Value + 1;
+		}
+		Debug.Log($"diff score: {diff}");
+
+		float minDiff = (SaveManager.instance.progressData.level == 0) ? 0f : diff * .7f;
 		//spawn enemies
-		int maxDiff = gameData.levelMaxEnemyDifficulty[SaveManager.instance.progressData.level];
-		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom(l => l.difficulty <= maxDiff);
+		PremadeBattleLayout enemyLayout = gameData.premadeBattleLayouts.GetRandom(l => l.Difficulty >= minDiff && l.Difficulty <= diff * 1.2f);
+		if (enemyLayout == null)
+		{
+			int maxDiff = gameData.premadeBattleLayouts.Select(l => l.Difficulty).Max();
+			if (diff > maxDiff) enemyLayout = gameData.premadeBattleLayouts.GetRandom(l => l.Difficulty == maxDiff);
+		}
 		if (enemyLayout != null)
 		{
-			Debug.Log($"Loaded {enemyLayout.name} ({enemyLayout.difficulty})");
+			Debug.Log($"Loaded {enemyLayout.name} ({enemyLayout.Difficulty})");
 			var matrix = enemyLayout.GetMatrix();
 			for (int c = 0; c < matrix.GetLength(0); c++)
 			{
 				for (int r = 0; r < matrix.GetLength(1); r++)
 				{
 					if (string.IsNullOrEmpty(matrix[c, r])) continue;
-					CharacterData data = gameData.GetCharacterData(matrix[c, r], enemyLayout.team);
+					EnemyData data = gameData.GetEnemyData(matrix[c, r]);
 					if (data == null) continue;
 
 					//spawn
@@ -126,7 +140,7 @@ public class BattleManager : MonoBehaviour
 					obj.transform.SetPositionAndRotation(pos, Quaternion.Euler(0f, -180f, 0f));
 
 					BattleParticipant p = obj.GetComponent<BattleParticipant>();
-					p.team = enemyLayout.team;
+					p.team = Team.Enemy;
 					p.Setup(data);
 
 					obj.SetActive(true);

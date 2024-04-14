@@ -13,13 +13,13 @@ public class ProgressData
 
 	public List<SerializableTuple<string, int>> characterLevels;
 
-	public void InitCharacterLevels(IEnumerable<CharacterData> characters)
+	public void InitCharacterLevels(IEnumerable<PenguinData> characters)
 	{
 		Debug.Log("init charlevels");
-		characterLevels = characters.Select(c => new SerializableTuple<string, int>(c.id, -1)).ToList();
+		characterLevels = characters.Select(c => new SerializableTuple<string, int>(c.name, -1)).ToList();
 	}
 
-	public void UpdateCharacterLevels(IEnumerable<CharacterData> characters)
+	public void UpdateCharacterLevels(IEnumerable<PenguinData> characters)
 	{
 		if (characterLevels == null || characterLevels.Count == 0)
 		{
@@ -28,16 +28,16 @@ public class ProgressData
 		Debug.Log("update charlevels");
 		foreach (var c in characters)
 		{
-			if (c == null || string.IsNullOrEmpty(c.id)) continue;
+			if (c == null || string.IsNullOrEmpty(c.name)) continue;
 			if (characterLevels == null) characterLevels = new();
-			if (!characterLevels.ContainsKey(c.id))
+			if (!characterLevels.ContainsKey(c.name))
 			{
-				characterLevels.Add(new(c.id, -1));
+				characterLevels.Add(new(c.name, -1));
 			}
 		}
 		foreach (var x in characterLevels.ToArray())
 		{
-			if (!characters.Any(c => c.id == x.Key))
+			if (!characters.Any(c => c.name == x.Key))
 			{
 				characterLevels.RemoveAll(c => c.Key == x.Key);
 			}

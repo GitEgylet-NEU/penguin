@@ -10,47 +10,47 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Cowboy Penguin
+  m_Name: Penguin
   m_EditorClassIdentifier: 
-  id: p_cowboy
-  description: i am a cowboy
+  id: p_regular
+  description: just a penguin
   color: {r: 0, g: 0, b: 0, a: 0}
   xpYield: 0
-  frontSprite: {fileID: 21300000, guid: 3bcd6f4c9110d6147ba38b326fcea302, type: 3}
-  backSprite: {fileID: 21300000, guid: 2f555eac2bc76354a9b1200757a580b1, type: 3}
-  slideSprite: {fileID: 21300000, guid: 7c64927069cf83a49999b29b039fd1b4, type: 3}
+  frontSprite: {fileID: 21300000, guid: 6a78790343710bc4ca2843d48c1da688, type: 3}
+  backSprite: {fileID: 21300000, guid: 867d897a206418742908cf5dfdabf208, type: 3}
+  slideSprite: {fileID: 21300000, guid: 508cb153b1211364fa488ec73f719019, type: 3}
   levels:
   - maxNumber: 1
-    maxHealth: 50
-    hitsPerSecond: 0.5
-    damagePerHit: 8
-    range: 6
-    speed: 7
-    rotationSpeed: 250
+    maxHealth: 130
+    hitsPerSecond: 1
+    damagePerHit: 7.5
+    range: 3
+    speed: 5
+    rotationSpeed: 200
     hasAbility: 0
     ability:
       id: 
       abilityCost: 0
       floats: []
   - maxNumber: 1
-    maxHealth: 80
-    hitsPerSecond: 1.5
-    damagePerHit: 6
-    range: 7
-    speed: 7
-    rotationSpeed: 275
+    maxHealth: 120
+    hitsPerSecond: 1
+    damagePerHit: 10
+    range: 3.5
+    speed: 6
+    rotationSpeed: 225
     hasAbility: 0
     ability:
       id: 
       abilityCost: 0
       floats: []
   - maxNumber: 1
-    maxHealth: 110
+    maxHealth: 150
     hitsPerSecond: 2
     damagePerHit: 8
-    range: 7.5
-    speed: 8.5
-    rotationSpeed: 350
+    range: 4
+    speed: 7
+    rotationSpeed: 275
     hasAbility: 0
     ability:
       id: 

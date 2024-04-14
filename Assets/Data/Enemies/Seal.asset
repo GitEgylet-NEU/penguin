@@ -9,21 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Seal Enemy
+  m_Script: {fileID: 11500000, guid: 9599337df59cd604a80eef7e9c38f62c, type: 3}
+  m_Name: Seal
   m_EditorClassIdentifier: 
-  id: e_seal
-  description: seal goes ow
-  color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 11
   frontSprite: {fileID: 21300000, guid: 4b15848a870feda4fb0c5059884b7d51, type: 3}
   backSprite: {fileID: 21300000, guid: f57156fa4a1063642bfabe228151b7f6, type: 3}
-  slideSprite: {fileID: 0}
   levels:
   - maxNumber: 1
     maxHealth: 180
     hitsPerSecond: 2
-    damagePerHit: 6
+    damagePerHit: 5
     range: 4
     speed: 5
     rotationSpeed: 250
@@ -32,3 +27,5 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
+  xpYield: 15
+  difficulty: 5

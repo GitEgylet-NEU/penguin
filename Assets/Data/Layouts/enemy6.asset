@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53784f387a111f94b99644cf4365567c, type: 3}
   m_Name: enemy6
   m_EditorClassIdentifier: 
-  team: 1
-  difficulty: 3
   characters:
   - Key: {x: 0, y: 4}
-    Value: e_seal
+    Value: {fileID: 11400000, guid: f07b2ae42796ba24f86da9f259aab48b, type: 2}
   - Key: {x: 2, y: 4}
-    Value: e_seal
+    Value: {fileID: 11400000, guid: f07b2ae42796ba24f86da9f259aab48b, type: 2}
   - Key: {x: 3, y: 4}
-    Value: e_seal
+    Value: {fileID: 11400000, guid: f07b2ae42796ba24f86da9f259aab48b, type: 2}

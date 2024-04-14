@@ -90,11 +90,11 @@ public class BattleLayoutPlanner : MonoBehaviour
 				layout.team = l.team;
 				for (int c = 0; c < gameData.columns; c++)
 				{
-					for (int r = 0; r < layout.characterIDs.GetLength(1); r++)
+					for (int r = 0; r < layout.characterNames.GetLength(1); r++)
 					{
-						if (!string.IsNullOrEmpty(l.characterIDs[c, r])) try
+						if (!string.IsNullOrEmpty(l.characterNames[c, r])) try
 							{
-								SetCharacter(c, r, l.characterIDs[c, r]);
+								SetCharacter(c, r, l.characterNames[c, r]);
 							}
 							catch
 							{
@@ -151,21 +151,21 @@ public class BattleLayoutPlanner : MonoBehaviour
 		return null;
 	}
 
-	public bool SetCharacter(int column, int row, string id)
+	public bool SetCharacter(int column, int row, string name)
 	{
-		if (column > gameData.columns || row >= layout.characterIDs.GetLength(1))
+		if (column > gameData.columns || row >= layout.characterNames.GetLength(1))
 		{
 			Debug.LogError("Coordinates out of bounds!");
 			return false;
 		}
 
-		if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(layout.characterIDs[column, row]))
+		if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(layout.characterNames[column, row]))
 		{
 			// set character where there wasn't any previously
-			layout.characterIDs[column, row] = id;
+			layout.characterNames[column, row] = name;
 			size++;
 
-			CharacterData data = GetCharacter(column, row);
+			PenguinData data = GetCharacter(column, row);
 			var obj = Instantiate(penguinPrefab, markers[column, row]);
 			obj.name = data.name;
 			obj.transform.localPosition = Vector2.zero;
@@ -173,10 +173,10 @@ public class BattleLayoutPlanner : MonoBehaviour
 			//obj.GetComponent<SpriteRenderer>().color = data.color;
 			obj.GetComponent<SpriteRenderer>().sprite = data.frontSprite;
 		}
-		else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(layout.characterIDs[column, row]))
+		else if (string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(layout.characterNames[column, row]))
 		{
 			// remove character
-			layout.characterIDs[column, row] = string.Empty;
+			layout.characterNames[column, row] = string.Empty;
 			Debug.Log(size);
 			size--;
 			Debug.Log($"remove {size}");
@@ -187,14 +187,14 @@ public class BattleLayoutPlanner : MonoBehaviour
 		{
 			//change character
 			Debug.Log("Change");
-			layout.characterIDs[column, row] = id;
+			layout.characterNames[column, row] = name;
 
-			CharacterData data = GetCharacter(column, row);
+			PenguinData data = GetCharacter(column, row);
 			var obj = markers[column, row].GetChild(1).gameObject;
 			obj.name = data.name;
 			obj.GetComponent<SpriteRenderer>().sprite = data.frontSprite;
 		}
-		Debug.Log($"set ({column};{row}) to {id}");
+		Debug.Log($"set ({column};{row}) to {name}");
 		changed = true;
 		
 		if (size == 0)
@@ -206,20 +206,20 @@ public class BattleLayoutPlanner : MonoBehaviour
 		return true;
 	}
 
-	public CharacterData GetCharacter(int column, int row)
+	public PenguinData GetCharacter(int column, int row)
 	{
 		if (layout == null)
 		{
 			Debug.LogError("No layout is set!");
 			return null;
 		}
-		if (string.IsNullOrWhiteSpace(layout.characterIDs[column, row]))
+		if (string.IsNullOrWhiteSpace(layout.characterNames[column, row]))
 		{
 			Debug.LogError($"There's no character placed at ({column};{row})");
 			return null;
 		}
 
-		return gameData.GetCharacterData(layout.characterIDs[column, row], layout.team);
+		return gameData.GetPenguinData(layout.characterNames[column, row]);
 	}
 
 	public void ReturnToMenu(bool confirm = false)
@@ -242,7 +242,7 @@ public class BattleLayoutPlanner : MonoBehaviour
 [Serializable]
 public class BattleLayout
 {
-	public string[,] characterIDs; // [col,row] = [x,y]
+	public string[,] characterNames; // [col,row] = [x,y]
 	public BattleManager.Team team;
 
 	float distX = -1f;
@@ -250,14 +250,14 @@ public class BattleLayout
 
 	public BattleLayout(int columns, int rows, BattleManager.Team team)
 	{
-		characterIDs = new string[columns, rows];
+		characterNames = new string[columns, rows];
 		this.team = team;
 	}
 
 	public void CalculateLayout(Transform battlefield, float padding)
 	{
-		distX = (battlefield.localScale.x - padding * 2) / (characterIDs.GetLength(0) - 1);
-		distY = (battlefield.localScale.y - padding * 2) / (characterIDs.GetLength(1) - 1);
+		distX = (battlefield.localScale.x - padding * 2) / (characterNames.GetLength(0) - 1);
+		distY = (battlefield.localScale.y - padding * 2) / (characterNames.GetLength(1) - 1);
 	}
 	/// <summary>Calculates the relative position of a cell. Padding must be added afterwards.</summary>
 	public Vector2 GetPosition(int column, int row)
@@ -275,11 +275,11 @@ public class BattleLayout
 	public int Count(string id)
 	{
 		int i = 0;
-		for (int col = 0; col < characterIDs.GetLength(0); col++)
+		for (int col = 0; col < characterNames.GetLength(0); col++)
 		{
-			for (int row = 0; row < characterIDs.GetLength(1); row++)
+			for (int row = 0; row < characterNames.GetLength(1); row++)
 			{
-				if (characterIDs[col, row] == id) i++;
+				if (characterNames[col, row] == id) i++;
 			}
 		}
 		return i;
@@ -288,11 +288,11 @@ public class BattleLayout
 	public string[] GetCharacters()
 	{
 		List<string> results = new();
-		for (int col = 0; col < characterIDs.GetLength(0); col++)
+		for (int col = 0; col < characterNames.GetLength(0); col++)
 		{
-			for (int row = 0; row < characterIDs.GetLength(1); row++)
+			for (int row = 0; row < characterNames.GetLength(1); row++)
 			{
-				if (!string.IsNullOrEmpty(characterIDs[col, row])) results.Add(characterIDs[col, row]);
+				if (!string.IsNullOrEmpty(characterNames[col, row])) results.Add(characterNames[col, row]);
 			}
 		}
 		return results.ToArray();

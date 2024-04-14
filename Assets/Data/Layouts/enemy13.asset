@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53784f387a111f94b99644cf4365567c, type: 3}
   m_Name: enemy13
   m_EditorClassIdentifier: 
-  team: 1
-  difficulty: 2
   characters:
   - Key: {x: 1, y: 4}
-    Value: e_octopus
+    Value: {fileID: 11400000, guid: 23075fa7dd3a26147b52a9b5015a71e3, type: 2}
   - Key: {x: 3, y: 5}
-    Value: e_lemming
+    Value: {fileID: 11400000, guid: 2f6b65ebc1597d945901cf7112a900ce, type: 2}

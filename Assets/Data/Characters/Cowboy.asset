@@ -10,22 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Archer Penguin
+  m_Name: Cowboy
   m_EditorClassIdentifier: 
-  id: p_archer
-  description: archer guy
-  color: {r: 0.23820755, g: 0.9528302, b: 0.8161272, a: 1}
-  xpYield: 0
-  frontSprite: {fileID: 21300000, guid: d861917d7bae067419a906c78044bb75, type: 3}
-  backSprite: {fileID: 21300000, guid: e7735b1f824df5d42ba04436bf728484, type: 3}
-  slideSprite: {fileID: 21300000, guid: deb0a4b03125f8b4c80e6010c07b409a, type: 3}
+  id: cowboy
+  frontSprite: {fileID: 21300000, guid: 3bcd6f4c9110d6147ba38b326fcea302, type: 3}
+  backSprite: {fileID: 21300000, guid: 2f555eac2bc76354a9b1200757a580b1, type: 3}
   levels:
   - maxNumber: 1
-    maxHealth: 80
-    hitsPerSecond: 1.5
-    damagePerHit: 10
+    maxHealth: 50
+    hitsPerSecond: 0.5
+    damagePerHit: 8
     range: 6
-    speed: 4
+    speed: 7
     rotationSpeed: 250
     hasAbility: 0
     ability:
@@ -33,11 +29,11 @@ MonoBehaviour:
       abilityCost: 0
       floats: []
   - maxNumber: 1
-    maxHealth: 100
-    hitsPerSecond: 2
-    damagePerHit: 10
+    maxHealth: 80
+    hitsPerSecond: 1.5
+    damagePerHit: 6
     range: 7
-    speed: 5
+    speed: 7
     rotationSpeed: 275
     hasAbility: 0
     ability:
@@ -45,14 +41,16 @@ MonoBehaviour:
       abilityCost: 0
       floats: []
   - maxNumber: 1
-    maxHealth: 120
+    maxHealth: 110
     hitsPerSecond: 2
-    damagePerHit: 13
-    range: 9
-    speed: 6
-    rotationSpeed: 325
+    damagePerHit: 8
+    range: 7.5
+    speed: 8.5
+    rotationSpeed: 350
     hasAbility: 0
     ability:
       id: 
       abilityCost: 0
       floats: []
+  description: i am a cowboy
+  slideSprite: {fileID: 21300000, guid: 7c64927069cf83a49999b29b039fd1b4, type: 3}

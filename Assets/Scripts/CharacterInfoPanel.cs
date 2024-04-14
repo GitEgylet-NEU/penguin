@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class CharacterInfoPanel : MonoBehaviour
 {
-	[HideInInspector] public CharacterData characterData;
-	[HideInInspector] public CharacterData.Level level;
+	[HideInInspector] public PenguinData characterData;
+	[HideInInspector] public PenguinData.Level level;
 	int levelIdx;
 
 	public GameData gameData;
@@ -39,7 +39,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		{
 			if (t != characterTemplate.transform) Destroy(t.gameObject);
 		}
-		foreach (CharacterData data in gameData.playerCharacters)
+		foreach (PenguinData data in gameData.playerCharacters)
 		{
 			GameObject obj = Instantiate(characterTemplate, scrollContent);
 			obj.name = data.name;
@@ -52,7 +52,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		SetCharacter(null);
 	}
 
-	public void SetCharacter(CharacterData newCharacter)
+	public void SetCharacter(PenguinData newCharacter)
 	{
 		characterData = newCharacter;
 		UpdateUI();
@@ -63,7 +63,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		if (levelIdx < characterData.levels.Length - 1 && SaveManager.instance.progressData.upgradePoints >= gameData.characterUpgradeCosts[levelIdx])
 		{
 			SaveManager.instance.progressData.upgradePoints -= gameData.characterUpgradeCosts[levelIdx];
-			SaveManager.instance.progressData.characterLevels.GetElement(characterData.id).Value++;
+			SaveManager.instance.progressData.characterLevels.GetElement(characterData.name).Value++;
 			UpdateUI();
 		}
 	}
@@ -77,7 +77,7 @@ public class CharacterInfoPanel : MonoBehaviour
 			infoPanel.gameObject.SetActive(false);
 			return;
 		}
-		levelIdx = SaveManager.instance.progressData.characterLevels.GetElement(characterData.id).Value;
+		levelIdx = SaveManager.instance.progressData.characterLevels.GetElement(characterData.name).Value;
 		level = characterData.levels[levelIdx];
 
 		infoPanel.gameObject.SetActive(true);

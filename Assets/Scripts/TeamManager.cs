@@ -51,10 +51,10 @@ public class TeamManager : MonoBehaviour
 		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, BattleManager.instance.layoutName), out BattleLayout layout))
 		{
 			int i = 0;
-			foreach (var c in layout.GetCharacters().Shuffle().Select(x => gameData.GetCharacterData(x, BattleManager.Team.Player)))
+			foreach (var c in layout.GetCharacters().Shuffle().Select(x => gameData.GetPenguinData(x)))
 			{
 				GameObject obj = Instantiate(penguinPrefab);
-				obj.name = c.id;
+				obj.name = c.name;
 				obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
 				if (c.slideSprite != null) obj.GetComponentInChildren<SpriteRenderer>().sprite = c.slideSprite;
 
@@ -106,10 +106,10 @@ public class TeamManager : MonoBehaviour
 			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i < SaveManager.instance.progressData.level; i++)
 			{
 				upPoints += gameData.levelUpgradePointRewards[i];
-				string id = gameData.levelUpgradeCharacterRewards[i];
-				if (string.IsNullOrEmpty(id)) continue;
-				popupText.Add($"Feloldottad {gameData.GetCharacterData(id, BattleManager.Team.Player).name}-t");
-				SaveManager.instance.progressData.characterLevels.GetElement(id).Value = 0;
+				PenguinData penguin = gameData.levelUpgradeCharacterRewards[i];
+				if (penguin == null) continue;
+				popupText.Add($"Feloldottad {penguin.name}-t");
+				SaveManager.instance.progressData.characterLevels.GetElement(penguin.name).Value = 0;
 			}
 			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
 			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level - 1;
@@ -150,7 +150,7 @@ public class TeamManager : MonoBehaviour
 			}
 
 			// run leállítása, ha az elsõ pingvin a végére ér
-			if (penguins.FirstOrDefault().transform.position.z >= runStartZ + runLength)
+			if (penguins.FirstOrDefault().transform.position.z >= runStartZ + runLength + 5f)
 			{
 				Debug.Log("battle");
 				run = false;

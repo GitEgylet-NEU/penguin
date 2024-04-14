@@ -15,7 +15,7 @@ public class CharacterSelection : MonoBehaviour
 	Dictionary<string, GameObject> buttons;
 
 	bool init = false;
-	public void Init(IEnumerable<CharacterData> characters)
+	public void Init(IEnumerable<PenguinData> characters)
 	{
 		canSelect = new Dictionary<string, bool>();
 
@@ -26,15 +26,15 @@ public class CharacterSelection : MonoBehaviour
 		buttons = new();
 		foreach (var c in characters)
 		{
-			if (SaveManager.instance.progressData.characterLevels.GetElement(c.id).Value == -1) continue; //not unlocked
+			if (SaveManager.instance.progressData.characterLevels.GetElement(c.name).Value == -1) continue; //not unlocked
 			var obj = Instantiate(prefab, transform);
-			obj.name = c.id;
+			obj.name = c.name;
 			//obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
 			obj.transform.Find("Icon").GetComponent<Image>().sprite = c.frontSprite;
 			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = c.name;
 			obj.SetActive(true);
-			canSelect.Add(c.id, true);
-			buttons.Add(c.id, obj);
+			canSelect.Add(c.name, true);
+			buttons.Add(c.name, obj);
 		}
 
 		GetComponent<RectTransform>().SetWidth(50f + (transform.childCount-1) * 190f + (transform.childCount - 2) * 25f);
@@ -50,10 +50,10 @@ public class CharacterSelection : MonoBehaviour
 		foreach (Transform t in transform)
 		{
 			if (t.gameObject.name == "CharacterTemplate") continue;
-			var c = layoutPlanner.gameData.GetCharacterData(t.gameObject.name, BattleManager.Team.Player);
+			var c = layoutPlanner.gameData.GetPenguinData(t.gameObject.name);
 			if (c == null) continue;
-			canSelect[c.id] = layoutPlanner.Count(c.id) < c.levels[SaveManager.instance.progressData.characterLevels.GetElement(c.id).Value].maxNumber;
-			buttons[c.id].GetComponent<Image>().color = canSelect[c.id] ? Color.white : Color.gray;
+			canSelect[c.name] = layoutPlanner.Count(c.name) < c.levels[SaveManager.instance.progressData.characterLevels.GetElement(c.name).Value].maxNumber;
+			buttons[c.name].GetComponent<Image>().color = canSelect[c.name] ? Color.white : Color.gray;
 		}
 	}
 
@@ -98,12 +98,12 @@ public class CharacterSelection : MonoBehaviour
 			}
 			else
 			{
-				CharacterData character = layoutPlanner.gameData.GetCharacterData(id, layoutPlanner.team);
+				PenguinData character = layoutPlanner.gameData.GetPenguinData(id);
 				if (character == null) return;
-				if (!canSelect[character.id]) return;
+				if (!canSelect[character.name]) return;
 
 				dragObj = Instantiate(layoutPlanner.penguinPrefab);
-				dragObj.name = "drag " + character.id;
+				dragObj.name = "drag " + character.name;
 				dragObj.GetComponent<SpriteRenderer>().sprite = character.frontSprite;
 				dragObj.SetActive(true);
 

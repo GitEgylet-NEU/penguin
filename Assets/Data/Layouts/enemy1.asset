@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53784f387a111f94b99644cf4365567c, type: 3}
   m_Name: enemy1
   m_EditorClassIdentifier: 
-  team: 1
-  difficulty: 2
   characters:
   - Key: {x: 2, y: 5}
-    Value: e_thug
+    Value: {fileID: 11400000, guid: acb1bac0f0388fc44ada2fc6cdebd4c2, type: 2}

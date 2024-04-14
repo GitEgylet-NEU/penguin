@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Polar Bear Enemy
+  m_Script: {fileID: 11500000, guid: 9599337df59cd604a80eef7e9c38f62c, type: 3}
+  m_Name: Polar Bear
   m_EditorClassIdentifier: 
-  id: e_polarbear
-  description: polar bear goes rawr
-  color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 35
   frontSprite: {fileID: 21300000, guid: 330dde0ab58dd8947b810d4abcc6f652, type: 3}
   backSprite: {fileID: 21300000, guid: 98cb530dcc43be84e9637ab2a184ba51, type: 3}
   levels:
@@ -31,3 +27,5 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
+  xpYield: 35
+  difficulty: 4

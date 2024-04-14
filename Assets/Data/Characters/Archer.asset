@@ -10,23 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Regular Penguin
+  m_Name: Archer
   m_EditorClassIdentifier: 
-  id: p_regular
-  description: just a penguin
-  color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 0
-  frontSprite: {fileID: 21300000, guid: 6a78790343710bc4ca2843d48c1da688, type: 3}
-  backSprite: {fileID: 21300000, guid: 867d897a206418742908cf5dfdabf208, type: 3}
-  slideSprite: {fileID: 21300000, guid: 508cb153b1211364fa488ec73f719019, type: 3}
+  id: archer
+  frontSprite: {fileID: 21300000, guid: d861917d7bae067419a906c78044bb75, type: 3}
+  backSprite: {fileID: 21300000, guid: e7735b1f824df5d42ba04436bf728484, type: 3}
   levels:
   - maxNumber: 1
-    maxHealth: 130
-    hitsPerSecond: 1
-    damagePerHit: 7.5
-    range: 3
+    maxHealth: 80
+    hitsPerSecond: 1.5
+    damagePerHit: 10
+    range: 6
+    speed: 4
+    rotationSpeed: 250
+    hasAbility: 0
+    ability:
+      id: 
+      abilityCost: 0
+      floats: []
+  - maxNumber: 1
+    maxHealth: 100
+    hitsPerSecond: 2
+    damagePerHit: 10
+    range: 7
     speed: 5
-    rotationSpeed: 200
+    rotationSpeed: 275
     hasAbility: 0
     ability:
       id: 
@@ -34,25 +42,15 @@ MonoBehaviour:
       floats: []
   - maxNumber: 1
     maxHealth: 120
-    hitsPerSecond: 1
-    damagePerHit: 10
-    range: 3.5
-    speed: 6
-    rotationSpeed: 225
-    hasAbility: 0
-    ability:
-      id: 
-      abilityCost: 0
-      floats: []
-  - maxNumber: 1
-    maxHealth: 150
     hitsPerSecond: 2
-    damagePerHit: 8
-    range: 4
-    speed: 7
-    rotationSpeed: 275
+    damagePerHit: 13
+    range: 9
+    speed: 6
+    rotationSpeed: 325
     hasAbility: 0
     ability:
       id: 
       abilityCost: 0
       floats: []
+  description: archer guy
+  slideSprite: {fileID: 21300000, guid: deb0a4b03125f8b4c80e6010c07b409a, type: 3}

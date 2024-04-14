@@ -16,14 +16,15 @@ public class BattleParticipant : MonoBehaviour
 	}
 
 	public float Health { get; private set; }
+	public float XpYield { get; private set; } = -1f;
 
 	[SerializeField] bool enableHealthBar = true;
 	ProgressBar healthBar;
 	ProgressBar abilityBar;
 
 	public BattleManager.Team team;
-	public CharacterData Data { get; private set; }
-	public CharacterData.Level Level { get; private set; }
+	public BattleParticipantData Data { get; private set; }
+	public BattleParticipantData.Level Level { get; private set; }
 
 	BattleParticipant target;
 
@@ -33,23 +34,21 @@ public class BattleParticipant : MonoBehaviour
 
 	bool run = false;
 
-	public void Setup(CharacterData data)
+	public void Setup(BattleParticipantData data)
 	{
 		this.Data = data;
-		if (team == BattleManager.Team.Player) Level = data.levels[SaveManager.instance.progressData.characterLevels.GetElement(data.id).Value];
+		if (team == BattleManager.Team.Player) Level = data.levels[SaveManager.instance.progressData.characterLevels.GetElement(data.name).Value];
 		else Level = data.levels[0];
 		Health = Level.maxHealth;
 		run = true;
+
+		if (data.GetType() == typeof(EnemyData)) XpYield = ((EnemyData)data).xpYield;
 	}
 
 
 	private void Start()
 	{
-		if (Data == null)
-		{
-			if (team == BattleManager.Team.Player) Setup(BattleManager.instance.gameData.GetCharacterData("p_archer", team));
-			else Setup(BattleManager.instance.gameData.GetCharacterData("e_test", team));
-		}
+		if (Data == null) return;
 
 		if (enableHealthBar)
 		{
@@ -196,7 +195,7 @@ public class BattleParticipant : MonoBehaviour
 		BattleManager.instance.participants.Remove(this);
 		if (abilityBar != null) Destroy(abilityBar.gameObject);
 
-		if (Data.xpYield != 0f) BattleManager.instance.AddXP(Data.xpYield);
+		if (XpYield != -1f) BattleManager.instance.AddXP(XpYield);
 
 		Destroy(gameObject);
 	}

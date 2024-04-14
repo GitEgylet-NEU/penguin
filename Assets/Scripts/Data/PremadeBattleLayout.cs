@@ -6,9 +6,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Battle Layout", fileName = "New Battle Layout")]
 public class PremadeBattleLayout : ScriptableObject
 {
-	public BattleManager.Team team;
-	[Range(1, 5)] public int difficulty;
-	public List<SerializableTuple<Vector2Int, string>> characters; // Tuple<Tuple<column, row>, characterID>
+	public List<SerializableTuple<Vector2Int, EnemyData>> characters; // Tuple<Tuple<column, row>, characterID>
+	public int Difficulty
+	{
+		get
+		{
+			int diff = 0;
+			foreach (var character in characters)
+			{
+				diff += character.Value.difficulty;
+			}
+			return diff;
+		}
+	}
 
 	public string[,] GetMatrix()
 	{
@@ -19,19 +29,19 @@ public class PremadeBattleLayout : ScriptableObject
 		foreach (var c in characters.ToArray())
 		{
 			if (c.Key.x < 0 || c.Key.y < 0) continue;
-			matrix[c.Key.x, c.Key.y] = c.Value;
+			matrix[c.Key.x, c.Key.y] = c.Value.name;
 		}
 		return matrix;
 	}
-	public void LoadMatrix(string[,] matrix)
-	{
-		characters = new();
-		for (int col = 0; col < matrix.GetLength(0); col++)
-		{
-			for (int row = 0; row < matrix.GetLength(1); row++)
-			{
-				if (!string.IsNullOrEmpty(matrix[col, row])) characters.Add(new(new(col, row), matrix[col, row]));
-			}
-		}
-	}
+	//public void LoadMatrix(string[,] matrix)
+	//{
+	//	characters = new();
+	//	for (int col = 0; col < matrix.GetLength(0); col++)
+	//	{
+	//		for (int row = 0; row < matrix.GetLength(1); row++)
+	//		{
+	//			if (!string.IsNullOrEmpty(matrix[col, row])) characters.Add(new(new(col, row), matrix[col, row]));
+	//		}
+	//	}
+	//}
 }

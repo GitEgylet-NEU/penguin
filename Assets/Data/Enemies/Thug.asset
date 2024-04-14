@@ -9,16 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
-  m_Name: Thug Enemy
+  m_Script: {fileID: 11500000, guid: 9599337df59cd604a80eef7e9c38f62c, type: 3}
+  m_Name: Thug
   m_EditorClassIdentifier: 
-  id: e_thug
-  description: badass bro
-  color: {r: 0.9433962, g: 0.28454995, b: 0.25364897, a: 1}
-  xpYield: 5
   frontSprite: {fileID: 21300000, guid: eac82817b3430cf499028b84051393d4, type: 3}
   backSprite: {fileID: 21300000, guid: b40bd1c89fa961a4f979934a5f9b2e3d, type: 3}
-  slideSprite: {fileID: 0}
   levels:
   - maxNumber: 1
     maxHealth: 140
@@ -32,3 +27,5 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
+  xpYield: 6
+  difficulty: 3

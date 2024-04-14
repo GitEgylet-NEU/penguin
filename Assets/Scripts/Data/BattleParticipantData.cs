@@ -4,17 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Character", fileName = "New Character")]
-public class CharacterData : ScriptableObject
+public class BattleParticipantData : ScriptableObject
 {
-	public string id;
-	public string description;
-	public float xpYield;
-
 	[Header("Visuals")]
 	public Sprite frontSprite;
 	public Sprite backSprite;
-	public Sprite slideSprite;
 
 	[Header("Level Data")]
 	public Level[] levels;
@@ -46,10 +40,10 @@ public class CharacterData : ScriptableObject
 	}
 }
 
-public static class CharacterDataExtensions
+public static class BattleParticipantDataExtensions
 {
-	public static CharacterData GetCharacter(this IEnumerable<CharacterData> characters, string id)
+	public static BattleParticipantData GetCharacter(this IEnumerable<BattleParticipantData> participants, string name)
 	{
-		return characters.Where(c => c.id == id).FirstOrDefault();
+		return participants.Where(c => c.name == name).FirstOrDefault();
 	}
 }
