@@ -106,6 +106,7 @@ public class TeamManager : MonoBehaviour
 			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i < SaveManager.instance.progressData.level; i++)
 			{
 				upPoints += gameData.levelUpgradePointRewards[i];
+				if (gameData.levelUpgradeCharacterRewards.Length >= i) continue;
 				PenguinData penguin = gameData.levelUpgradeCharacterRewards[i];
 				if (penguin == null) continue;
 				popupText.Add($"Feloldottad {penguin.name}-t");
@@ -117,7 +118,6 @@ public class TeamManager : MonoBehaviour
 
 			if (popupText.Any())
 			{
-				UIController.instance.ActivateLayer(UIController.instance.popupElement, UIController.instance.manualElement, UIController.instance.creditElement);
 				UIController.instance.SetPopup("Szintlépés!", string.Join("\n", popupText));
 			}
 		}

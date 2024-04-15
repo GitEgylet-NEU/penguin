@@ -1,147 +1,121 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
 	public static UIController instance;
 
-	public UIDocument mainDoc, gameOverDoc;
-
-	public Button layoutButton, manualButton, creditButton, restartButton;
-	public VisualElement playElement, manualElement, creditElement, popupElement;
-	public Label gameoverTitle;
 	public bool gameOn = false;
 	public bool move = false;
 
+	[Header("Main Menu")]
+	public GameObject mainMenu;
+	public GameObject tapToPlayText;
+	public GameObject manualObject, creditsObject;
 	[Space]
-	public UnityEngine.UI.Button unityRestartButton;
-	public TextMeshProUGUI unityGameOverText;
-	public GameObject unityLostXpWindow;
-	public TextMeshProUGUI unityLostXpText;
-	public GameObject unityWonXpWindow;
-	public TextMeshProUGUI unityWonXpText;
+	public GameObject popupObject;
+	public TextMeshProUGUI popupTitle, popupText;
+	public Button popupButton;
+
+	[Header("Game Over")]
+	public Button restartButton;
+	public TextMeshProUGUI gameOverText;
+	public GameObject lostXpWindow;
+	public TextMeshProUGUI lostXpText;
+	public GameObject wonXpWindow;
+	public TextMeshProUGUI wonXpText;
 
 	void Awake()
 	{
 		instance = this;
-
-		mainDoc.enabled = true;
-
-		var gameRoot = gameOverDoc.GetComponent<UIDocument>().rootVisualElement;
-		var root = mainDoc.GetComponent<UIDocument>().rootVisualElement;
-
-		gameOverDoc.enabled = false;
-
-		//Visualelements
-		creditElement = root.Q("creditelement");
-		manualElement = root.Q("manualelement");
-		playElement = root.Q("space");
-		playElement.RegisterCallback<ClickEvent>(OnPlayClicked);
-		popupElement = root.Q("popup");
-
-		//Buttons
-		layoutButton = root.Q<Button>("layout");
-		layoutButton.RegisterCallback<ClickEvent>(OnLayoutClicked);
-
-		manualButton = root.Q<Button>("manual");
-		manualButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(manualElement, creditElement, popupElement));
-
-		creditButton = root.Q<Button>("credit");
-		creditButton.RegisterCallback<ClickEvent>((_) => ActivateLayer(creditElement, manualElement, popupElement));
-
-		//gameover/win
-		restartButton = gameRoot.Q<Button>("restart");
-		restartButton.RegisterCallback<ClickEvent>((_) => RestartGame());
-
-		//egyéb
-		gameoverTitle = gameRoot.Q<Label>("title");
-
-		//make sure all menus are hidden
-		ActivateLayer(playElement, popupElement, creditElement, manualElement);
 	}
 
-	void OnLayoutClicked(ClickEvent evt)
+	private void Start()
+	{
+		mainMenu.SetActive(true);
+		ActivateLayer(tapToPlayText, manualObject, creditsObject, popupObject);
+	}
+
+	public void OnLayoutClicked()
 	{
 		//Debug.Log("layout");
 		SceneManager.LoadScene("LayoutPlanning");
 	}
-	private void OnPlayClicked(ClickEvent evt)
+	public void OnPlayClicked()
 	{
 		move = true;
 		gameOn = true;
-		mainDoc.enabled = false;
+		mainMenu.SetActive(false);
 		TeamManager.instance.StartGame();
 	}
-
-	/// <param name="visual"><see cref="VisualElement"/> to enable</param>
-	/// <param name="antivisual"><see cref="VisualElement"/>s to disable</param>
-	public void ActivateLayer(VisualElement visual, params VisualElement[] antivisual)
+	public void OnManualClicked()
 	{
-		if (visual.style.display == DisplayStyle.Flex)
+		ActivateLayer(manualObject, creditsObject, tapToPlayText);
+	}
+	public void OnCreditsClicked()
+	{
+		ActivateLayer(creditsObject, manualObject, tapToPlayText);
+	}
+
+	/// <param name="visual"><see cref="GameObject"/> to enable</param>
+	/// <param name="antivisual"><see cref="GameObject"/>s to disable</param>
+	public void ActivateLayer(GameObject visual, params GameObject[] antivisual)
+	{
+		if (visual.activeInHierarchy)
 		{
-			visual.style.display = DisplayStyle.None;
-			playElement.style.display = DisplayStyle.Flex;
+			visual.SetActive(false);
+			tapToPlayText.gameObject.SetActive(true);
 		}
 		else
 		{
-			playElement.style.display = DisplayStyle.None;
-			visual.style.display = DisplayStyle.Flex;
+			tapToPlayText.gameObject.SetActive(false);
+			visual.SetActive(true);
 			foreach (var av in antivisual)
 			{
-				av.style.display = DisplayStyle.None;
+				av.SetActive(false);
 			}
 
 		}
 	}
 	public void RestartGame()
 	{
-		SceneManager.LoadScene("Samplescene");
+		SceneManager.LoadScene("SampleScene");
 	}
 	public void EndGame(bool won, float xp)
 	{
 		if (won)
 		{
-			unityGameOverText.text = "YOU won";
-			unityRestartButton.GetComponentInChildren<TextMeshProUGUI>().text = "Hurrá!";
+			gameOverText.text = "YOU won";
+			restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "Hurrá!";
 			if (xp > 0f)
 			{
-				unityWonXpText.text = $"{xp} XP";
-				unityWonXpWindow.SetActive(true);
+				wonXpText.text = $"{xp} XP";
+				wonXpWindow.SetActive(true);
 			}
 		}
 		else
 		{
-			unityGameOverText.text = "YOU lost";
-			unityRestartButton.GetComponentInChildren<TextMeshProUGUI>().text = "Újrakezdés";
+			gameOverText.text = "YOU lost";
+			restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "Újrakezdés";
 			if (xp > 0f)
 			{
-				unityLostXpText.text = $"<s>{xp} XP</s>   ►   <b>{xp / 2f} XP";
-				unityLostXpWindow.SetActive(true);
+				lostXpText.text = $"<s>{xp} XP</s>   ►   <b>{xp / 2f} XP";
+				lostXpWindow.SetActive(true);
 			}
 		}
 
-		unityGameOverText.gameObject.SetActive(true);
-		unityRestartButton.gameObject.SetActive(true);
+		gameOverText.gameObject.SetActive(true);
+		restartButton.gameObject.SetActive(true);
 	}
 
-	//dokumentumok ki/be kapcsolása
-	public void ToggleDocument(UIDocument document, bool state)
-	{
-		document.enabled = state;
-	}
-	public void SetWin()
-	{
-		restartButton.text = ("Hurráá");
-		gameoverTitle.text = ("YOUwin");
-		ToggleDocument(gameOverDoc, true);
-	}
 	public void SetPopup(string titleText, string text)
 	{
 		//Debug.Log($"setPopup: {titleText}, {text}");
-		mainDoc.GetComponent<UIDocument>().rootVisualElement.Q<Label>("title").text = titleText;
-		mainDoc.GetComponent<UIDocument>().rootVisualElement.Q<Label>("text").text = text;
-		mainDoc.GetComponent<UIDocument>().rootVisualElement.Q<Button>("ok").RegisterCallback<ClickEvent>((_) => ActivateLayer(playElement, popupElement));
+		popupTitle.text = titleText;
+		popupText.text = text;
+		popupButton.onClick.AddListener(() => ActivateLayer(tapToPlayText, popupObject));
+		ActivateLayer(popupObject, manualObject, creditsObject);
 	}
 }
