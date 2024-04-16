@@ -103,17 +103,17 @@ public class TeamManager : MonoBehaviour
 
 			int upPoints = 0;
 			//leveled up
-			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i < SaveManager.instance.progressData.level; i++)
+			for (int i = SaveManager.instance.progressData.lastCheckedLevel; i < SaveManager.instance.progressData.level; i++)
 			{
 				upPoints += gameData.levelUpgradePointRewards[i];
-				if (gameData.levelUpgradeCharacterRewards.Length >= i) continue;
+				if (gameData.levelUpgradeCharacterRewards.Length <= i) continue;
 				PenguinData penguin = gameData.levelUpgradeCharacterRewards[i];
 				if (penguin == null) continue;
 				popupText.Add($"Feloldottad {penguin.name}-t");
 				SaveManager.instance.progressData.characterLevels.GetElement(penguin.name).Value = 0;
 			}
 			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
-			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level - 1;
+			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level;
 			SaveManager.instance.SaveProgress();
 
 			if (popupText.Any())
@@ -125,8 +125,8 @@ public class TeamManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.X)) BattleManager.instance.AddXP(20f);
-		if (Input.GetKeyDown(KeyCode.C)) CheckLevels();
+		//if (Input.GetKeyDown(KeyCode.X)) BattleManager.instance.AddXP(20f);
+		//if (Input.GetKeyDown(KeyCode.C)) CheckLevels();
 
 		if (xpBar.isActiveAndEnabled)
 		{

@@ -35,7 +35,6 @@ public class UIController : MonoBehaviour
 	private void Start()
 	{
 		mainMenu.SetActive(true);
-		ActivateLayer(tapToPlayText, manualObject, creditsObject, popupObject);
 	}
 
 	public void OnLayoutClicked()
@@ -66,11 +65,11 @@ public class UIController : MonoBehaviour
 		if (visual.activeInHierarchy)
 		{
 			visual.SetActive(false);
-			tapToPlayText.gameObject.SetActive(true);
+			tapToPlayText.SetActive(true);
 		}
 		else
 		{
-			tapToPlayText.gameObject.SetActive(false);
+			tapToPlayText.SetActive(false);
 			visual.SetActive(true);
 			foreach (var av in antivisual)
 			{
