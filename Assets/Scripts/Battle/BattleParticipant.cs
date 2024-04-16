@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class BattleParticipant : MonoBehaviour
 {
-	Vector3 Forward => transform.forward;
+	Vector3 Forward => fwMultiplier * transform.forward;
+	float fwMultiplier = 1f;
 	Rigidbody rb;
 	SpriteRenderer sr;
 	private void Awake()
@@ -43,6 +44,8 @@ public class BattleParticipant : MonoBehaviour
 		run = true;
 
 		if (data.GetType() == typeof(EnemyData)) XpYield = ((EnemyData)data).xpYield;
+
+		if (team == BattleManager.Team.Enemy) fwMultiplier = -1f;
 	}
 
 
@@ -155,11 +158,13 @@ public class BattleParticipant : MonoBehaviour
 		if (!run) return;
 		if ((transform.rotation.eulerAngles.y > 90f && transform.rotation.eulerAngles.y < 270f) || (transform.rotation.eulerAngles.y < -90f && transform.rotation.eulerAngles.y > -270f))
 		{
-			sr.sprite = Data.frontSprite;
+			if (fwMultiplier == 1f) sr.sprite = Data.frontSprite;
+			else sr.sprite = Data.backSprite;
 		}
 		else
 		{
-			sr.sprite = Data.backSprite;
+			if (fwMultiplier == 1f) sr.sprite = Data.backSprite;
+			else sr.sprite = Data.frontSprite;
 		}
 	}
 
