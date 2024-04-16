@@ -1,0 +1,7 @@
+Arctic Quest Changelog
+
+v0.0.3
+- UI rework
+- better enemy selection
+- XP is now halved when the battle is lost
+- fix bug where enemies appeared darker than they should

@@ -103,7 +103,7 @@ public class TeamManager : MonoBehaviour
 
 			int upPoints = 0;
 			//leveled up
-			for (int i = SaveManager.instance.progressData.lastCheckedLevel; i < SaveManager.instance.progressData.level; i++)
+			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i < SaveManager.instance.progressData.level; i++)
 			{
 				upPoints += gameData.levelUpgradePointRewards[i];
 				if (gameData.levelUpgradeCharacterRewards.Length <= i) continue;
@@ -113,7 +113,7 @@ public class TeamManager : MonoBehaviour
 				SaveManager.instance.progressData.characterLevels.GetElement(penguin.name).Value = 0;
 			}
 			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
-			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level;
+			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level - 1;
 			SaveManager.instance.SaveProgress();
 
 			if (popupText.Any())
