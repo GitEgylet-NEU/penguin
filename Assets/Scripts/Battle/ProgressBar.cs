@@ -42,7 +42,7 @@ public class ProgressBar : MonoBehaviour
 
 	public void SetValue(float newValue)
 	{
-		if (newValue != Value)
+		if (shineDuration > 0f && newValue != Value)
 		{
 			float multiplier = Mathf.Abs(Value - newValue) / (max - min);
 			if (shineCoroutine != null) StopCoroutine(shineCoroutine);

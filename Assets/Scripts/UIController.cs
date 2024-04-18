@@ -19,6 +19,9 @@ public class UIController : MonoBehaviour
 	public TextMeshProUGUI popupTitle, popupText;
 	public Button popupButton;
 
+	[Header("Run")]
+	public ProgressBar runProgressBar;
+
 	[Header("Game Over")]
 	public Button restartButton;
 	public TextMeshProUGUI gameOverText;
@@ -35,6 +38,8 @@ public class UIController : MonoBehaviour
 	private void Start()
 	{
 		mainMenu.SetActive(true);
+
+		runProgressBar.min = 0;
 	}
 
 	public void OnLayoutClicked()

@@ -149,12 +149,16 @@ public class TeamManager : MonoBehaviour
 				penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.deltaTime);
 			}
 
+			if (UIController.instance.runProgressBar.gameObject.activeInHierarchy) UIController.instance.runProgressBar.SetValue(penguins.First().transform.position.z - runStartZ);
+
 			// run leállítása, ha az elsõ pingvin a végére ér
 			if (penguins.FirstOrDefault().transform.position.z >= runStartZ + runLength + 5f)
 			{
 				Debug.Log("battle");
 				run = false;
 				ControlHandler.instance.canStrafe = false;
+
+				UIController.instance.runProgressBar.gameObject.SetActive(false);
 
 				BattleManager.instance.startZ = penguins.FirstOrDefault().transform.position.z - BattleManager.instance.length / 2f;
 				BattleManager.instance.Initialize();
@@ -171,6 +175,10 @@ public class TeamManager : MonoBehaviour
 		runMultiplier = setRunMultiplierToThis;
 		xpBar.gameObject.SetActive(false);
 		runStartZ = penguins.First().transform.position.z;
+
+		UIController.instance.runProgressBar.max = runLength;
+		UIController.instance.runProgressBar.SetValue(0f);
+		UIController.instance.runProgressBar.gameObject.SetActive(true);
 	}
 
 	/// <summary>A pingvinek mozgatása oldalra egy megadott érték alapján.</summary>
