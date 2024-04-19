@@ -105,7 +105,7 @@ public class TeamManager : MonoBehaviour
 			//leveled up
 			for (int i = SaveManager.instance.progressData.lastCheckedLevel + 1; i < SaveManager.instance.progressData.level; i++)
 			{
-				upPoints += gameData.levelUpgradePointRewards[i];
+				upPoints += gameData.levelUpgradePointRewards[i + 1];
 				if (gameData.levelUpgradeCharacterRewards.Length <= i) continue;
 				PenguinData penguin = gameData.levelUpgradeCharacterRewards[i];
 				if (penguin == null) continue;
