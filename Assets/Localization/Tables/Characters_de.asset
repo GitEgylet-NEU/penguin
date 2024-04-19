@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Characters_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: 16e47c28b6539bd42ac8c50da88928bb, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 5389168640
+    m_Localized: Pinguin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61848694784
+    m_Localized: "Bogensch\xFCtze"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 228555501568
+    m_Localized: Paladin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29329056083968
+    m_Localized: nur ein Pinguin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29664428437504
+    m_Localized: Cowboy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29735538667520
+    m_Localized: Feldscher
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30205720145920
+    m_Localized: Samurai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30287165140992
+    m_Localized: Techno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30328579698688
+    m_Localized: Thai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30533555335168
+    m_Localized: "Bogenschie\xDFen-Junge"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31005905268736
+    m_Localized: ich bin ein Cowboy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31094769987584
+    m_Localized: bereit, um in Gelobtes Land zu gehen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31470126641152
+    m_Localized: beamteter Arzt von Beruf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31791540350976
+    m_Localized: konichiwa!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31886621028352
+    m_Localized: eins, zwei, Polizei
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32035560763392
+    m_Localized: "w\xFCtender Muay-Thai-Partisan"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

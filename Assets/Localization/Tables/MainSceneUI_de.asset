@@ -86,10 +86,33 @@ MonoBehaviour:
     m_Localized: Hurra!
     m_Metadata:
       m_Items: []
+  - m_Id: 114713052065792
+    m_Localized: Neue Stufe!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114879851147264
+    m_Localized: "Du hast einen neuen Charakter aufgel\xF6st: {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624886
+  - m_Id: 115373768192000
+    m_Localized: Du hast {0} Entwicklungspunkt(e) bekommen
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624886
+  - m_Id: 115832834764800
+    m_Localized: Okay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 124958918848512
+    m_Localized: "Gl\xFCckwunsch! Du hast Arctic Quest durchgespielt! L\xF6sch deine
+      Angaben, um eine neue Erfahrung zu haben!\nDanke f\xFCrs Spielen! :)"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 3130362818983624886
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 003078e32d0d00000030b811070e0000
+        m_Entries: 003078e32d0d00000030b811070e00000030b88c7b6800000030788cee680000

@@ -87,10 +87,35 @@ MonoBehaviour:
     m_Localized: Hooray!
     m_Metadata:
       m_Items: []
+  - m_Id: 114713052065792
+    m_Localized: New level!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114879851147264
+    m_Localized: 'You have unlocked a new character: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624885
+  - m_Id: 115373768192000
+    m_Localized: You got {0} upgrade point(s)
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624885
+  - m_Id: 115832834764800
+    m_Localized: Okay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 124958918848512
+    m_Localized: 'Congratulations, you beat the game! Erase your data for a new experience.
+
+      Thanks
+      for playing! :)'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 3130362818983624885
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 003078e32d0d00000030b811070e0000
+        m_Entries: 003078e32d0d00000030b811070e00000030788cee6800000030b88c7b680000

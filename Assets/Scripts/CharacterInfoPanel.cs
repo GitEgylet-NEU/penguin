@@ -1,6 +1,7 @@
 using NohaSoftware.Utilities;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class CharacterInfoPanel : MonoBehaviour
@@ -17,7 +18,7 @@ public class CharacterInfoPanel : MonoBehaviour
 
 	[Header("Info Panel")]
 	[SerializeField] RectTransform infoPanel;
-	public TextMeshProUGUI upgradePointText;
+	public LocalizeStringEvent upgradePointString;
 	public TextMeshProUGUI nameText;
 	public TextMeshProUGUI maxNumberText;
 	public TextMeshProUGUI hpText;
@@ -35,20 +36,25 @@ public class CharacterInfoPanel : MonoBehaviour
 	private void OnEnable()
 	{
 		if (gameData == null) return;
+		upgradePointString.StringReference.Arguments = new object[1];
 		foreach (Transform t in scrollContent)
 		{
 			if (t != characterTemplate.transform) Destroy(t.gameObject);
 		}
+		int i = 0;
 		foreach (PenguinData data in gameData.playerCharacters)
 		{
 			GameObject obj = Instantiate(characterTemplate, scrollContent);
 			obj.name = data.name;
-			obj.GetComponentInChildren<TextMeshProUGUI>().text = data.name;
+			obj.GetComponentInChildren<TextMeshProUGUI>().text = data.LocalizedName;
 			//obj.transform.Find("Icon").GetComponent<Image>().color = data.color;
 			obj.transform.Find("Icon").GetComponent<Image>().sprite = data.frontSprite;
 			obj.GetComponent<Button>().onClick.AddListener(() => { SetCharacter(data); });
 			obj.SetActive(true);
+			i++;
 		}
+		float height = i * 210f + (i - 1) * 20f + 40f;
+		scrollContent.SetHeight(height);
 		SetCharacter(null);
 	}
 
@@ -70,7 +76,7 @@ public class CharacterInfoPanel : MonoBehaviour
 
 	public void UpdateUI()
 	{
-		upgradePointText.text = "Fejlesztési pontok: " + SaveManager.instance.progressData.upgradePoints;
+		upgradePointString.StringReference.Arguments[0] = SaveManager.instance.progressData.upgradePoints;
 
 		if (characterData == null)
 		{
@@ -81,7 +87,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		level = characterData.levels[levelIdx];
 
 		infoPanel.gameObject.SetActive(true);
-		nameText.text = characterData.name;
+		nameText.text = characterData.LocalizedName;
 		maxNumberText.text = level.maxNumber + " db";
 		hpText.text = level.maxHealth.ToString();
 		hpsText.text = level.hitsPerSecond.ToString();
@@ -103,7 +109,7 @@ public class CharacterInfoPanel : MonoBehaviour
 			upgradeButton.interactable = false;
 		}
 
-		descriptionText.text = characterData.description;
+		descriptionText.text = characterData.LocalizedDescription;
 		descriptionText.GetComponent<RectTransform>().SetHeight(descriptionText.preferredHeight);
 
 		//icon.color = characterData.color;

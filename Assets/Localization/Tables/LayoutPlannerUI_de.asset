@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: LayoutPlannerUI_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: cb3af2cd084a3d140bea6ebfc4c0fa66, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 32077524992
+    m_Localized: Speichern
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93096259584
+    m_Localized: Hilfe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 160410644480
+    m_Localized: Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434852343808
+    m_Localized: "\xC4nderungen speichern?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 669976637440
+    m_Localized: Ja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 696522387456
+    m_Localized: Nein
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743381151744
+    m_Localized: Noch nicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 917759340544
+    m_Localized: "Hier kannst du entscheiden, welche Pinguine du ins Schlacht mitbringen
+      m\xF6chtest. Du kannst sie auch entwicklen oder aufs Schlachtfeld stellen.\r\n\r\nAlle
+      Pinguine k\xF6nnen platzieren werden, aber nur diejenigen nehmen am Kampf teil,
+      die den Rutsch \xFCberleben."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2980958449664
+    m_Localized: "Klick um zu schlie\xDFen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5681494634496
+    m_Localized: '<align="center"><color="red><b>Achtung!</b></align></color>
+
+
+      Dein
+      Team muss mindestens aus einem Pinguin bestehen, um das Spiel zu starten.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6863504027648
+    m_Localized: Charakters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7040889532416
+    m_Localized: 'Schlag/s:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7147747815424
+    m_Localized: 'Schaden:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7307924090880
+    m_Localized: 'Reichweite:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7508197912576
+    m_Localized: 'Geschw.:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7598572580864
+    m_Localized: 'Stufe:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7732245049344
+    m_Localized: Entwickeln
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9618025099264
+    m_Localized: 'Entw.-Kosten:'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

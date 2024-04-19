@@ -1632,6 +1632,7 @@ GameObject:
   - component: {fileID: 334449179}
   - component: {fileID: 334449181}
   - component: {fileID: 334449180}
+  - component: {fileID: 334449182}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1755,6 +1756,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334449178}
   m_CullTransparentMesh: 1
+--- !u!114 &334449182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334449178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:1b087a8c487126b44a0b1f26ddc913b2
+    m_TableEntryReference:
+      m_KeyId: 115832834764800
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 334449180}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &375929275
 GameObject:
   m_ObjectHideFlags: 0
@@ -6934,6 +6975,36 @@ MonoBehaviour:
   cameraOffset: 23
   xpBar: {fileID: 1421089423}
   xpText: {fileID: 2077424370}
+  newLevelString:
+    m_TableReference:
+      m_TableCollectionName: GUID:1b087a8c487126b44a0b1f26ddc913b2
+    m_TableEntryReference:
+      m_KeyId: 114713052065792
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  newCharacterString:
+    m_TableReference:
+      m_TableCollectionName: GUID:1b087a8c487126b44a0b1f26ddc913b2
+    m_TableEntryReference:
+      m_KeyId: 114879851147264
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  upgradePointsString:
+    m_TableReference:
+      m_TableCollectionName: GUID:1b087a8c487126b44a0b1f26ddc913b2
+    m_TableEntryReference:
+      m_KeyId: 115373768192000
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!4 &1683354753
 Transform:
   m_ObjectHideFlags: 0

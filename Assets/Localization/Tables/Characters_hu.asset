@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Characters_hu
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: hu
+  m_SharedData: {fileID: 11400000, guid: 16e47c28b6539bd42ac8c50da88928bb, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 5389168640
+    m_Localized: Pingvin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61848694784
+    m_Localized: "\xCDj\xE1sz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 228555501568
+    m_Localized: Lovag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29329056083968
+    m_Localized: csak egy pingvin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29664428437504
+    m_Localized: Cowboy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29735538667520
+    m_Localized: Felcser
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30205720145920
+    m_Localized: "Szamur\xE1j"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30287165140992
+    m_Localized: Techno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30328579698688
+    m_Localized: Thai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30533555335168
+    m_Localized: "\xEDj\xE1szpasi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31005905268736
+    m_Localized: "k\xE1vboj vagyok"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31094769987584
+    m_Localized: "k\xE9sz menni a Szentf\xF6ldre"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31470126641152
+    m_Localized: "hivat\xE1sos orvosi tiszt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31791540350976
+    m_Localized: konichiwa!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31886621028352
+    m_Localized: diumdisun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32035560763392
+    m_Localized: "m\xE9rges muay thai partiz\xE1n"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

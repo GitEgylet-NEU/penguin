@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: LayoutPlannerUI_hu
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: hu
+  m_SharedData: {fileID: 11400000, guid: cb3af2cd084a3d140bea6ebfc4c0fa66, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 32077524992
+    m_Localized: "Ment\xE9s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 93096259584
+    m_Localized: "S\xFAg\xF3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 160410644480
+    m_Localized: Info
+    m_Metadata:
+      m_Items: []
+  - m_Id: 434852343808
+    m_Localized: "Mented a v\xE1ltoztat\xE1sokat?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 669976637440
+    m_Localized: Igen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 696522387456
+    m_Localized: Nem
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743381151744
+    m_Localized: "M\xE9gsem"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 917759340544
+    m_Localized: "Ebben a men\xFCben kiv\xE1laszthatod, hogy mely pingvineket szeretn\xE9d
+      magaddal vinni a csat\xE1ba, fejlesztheted \u0151ket, \xE9s el is helyezheted
+      \u0151ket a csatat\xE9ren.\n\nMindegyik pingvint lehelyezheted, de a csat\xE1ban
+      csak azok fognak r\xE9szt venni, akik t\xFAl\xE9lt\xE9k a cs\xFAsz\xE1st!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2980958449664
+    m_Localized: "Kattints a bez\xE1r\xE1shoz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5681494634496
+    m_Localized: "<align=\"center\"><color=\"red><b>Figyelem!</b></align></color>\n\nA
+      csapatodnak legal\xE1bb egy pingvint kell tartalmaznia a j\xE1t\xE9k ind\xEDt\xE1s\xE1hoz."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6863504027648
+    m_Localized: Karakterek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7040889532416
+    m_Localized: "\xFCt\xE9s/mp:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7147747815424
+    m_Localized: "sebz\xE9s:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7307924090880
+    m_Localized: "hat\xF3k\xF6r:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7508197912576
+    m_Localized: "sebess\xE9g:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7598572580864
+    m_Localized: 'szint:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7732245049344
+    m_Localized: "Fejleszt\xE9s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9618025099264
+    m_Localized: "fejleszt\xE9s \xE1ra:"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

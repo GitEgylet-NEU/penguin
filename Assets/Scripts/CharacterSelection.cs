@@ -31,7 +31,7 @@ public class CharacterSelection : MonoBehaviour
 			obj.name = c.name;
 			//obj.transform.Find("Icon").GetComponent<Image>().color = c.color;
 			obj.transform.Find("Icon").GetComponent<Image>().sprite = c.frontSprite;
-			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = c.name;
+			obj.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = c.LocalizedName;
 			obj.SetActive(true);
 			canSelect.Add(c.name, true);
 			buttons.Add(c.name, obj);

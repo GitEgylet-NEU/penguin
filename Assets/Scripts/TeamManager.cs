@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 
 public class TeamManager : MonoBehaviour
@@ -42,6 +43,7 @@ public class TeamManager : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] ProgressBar xpBar;
 	[SerializeField] TextMeshProUGUI xpText;
+	[SerializeField] LocalizedString newLevelString, newCharacterString, upgradePointsString, beatGameString;
 
 	float setRunMultiplierToThis;
 
@@ -109,16 +111,22 @@ public class TeamManager : MonoBehaviour
 				if (gameData.levelUpgradeCharacterRewards.Length <= i) continue;
 				PenguinData penguin = gameData.levelUpgradeCharacterRewards[i];
 				if (penguin == null) continue;
-				popupText.Add($"Feloldottad {penguin.name}-t");
+				newCharacterString.Arguments = new object[] { penguin.LocalizedName };
+				popupText.Add(newCharacterString.GetLocalizedString());
 				SaveManager.instance.progressData.characterLevels.GetElement(penguin.name).Value = 0;
 			}
-			if (upPoints > 0) popupText.Add($"{upPoints} fejlesztési pontot kaptál");
+			if (upPoints > 0)
+			{
+				upgradePointsString.Arguments = new object[] { upPoints };
+				popupText.Add(upgradePointsString.GetLocalizedString());
+			}
 			SaveManager.instance.progressData.lastCheckedLevel = SaveManager.instance.progressData.level - 1;
 			SaveManager.instance.SaveProgress();
 
 			if (popupText.Any())
 			{
-				UIController.instance.SetPopup("Szintlépés!", string.Join("\n", popupText));
+				if (SaveManager.instance.progressData.level == 8) popupText.Add(beatGameString.GetLocalizedString());
+				UIController.instance.SetPopup(newLevelString.GetLocalizedString(), string.Join("\n\n", popupText));
 			}
 		}
 	}

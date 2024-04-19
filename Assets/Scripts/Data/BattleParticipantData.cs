@@ -3,9 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class BattleParticipantData : ScriptableObject
 {
+	public string LocalizedName
+	{
+		get
+		{
+			LocalizedString l = new()
+			{
+				TableReference = "Characters",
+				TableEntryReference = name
+			};
+			l.RefreshString();
+			return l.GetLocalizedString();
+		}
+	}
+
 	[Header("Visuals")]
 	public Sprite frontSprite;
 	public Sprite backSprite;

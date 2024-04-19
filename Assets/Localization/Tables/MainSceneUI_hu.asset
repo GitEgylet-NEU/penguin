@@ -86,10 +86,34 @@ MonoBehaviour:
     m_Localized: "Hurr\xE1!"
     m_Metadata:
       m_Items: []
+  - m_Id: 114713052065792
+    m_Localized: "Szintl\xE9p\xE9s!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114879851147264
+    m_Localized: "Feloldott\xE1l egy \xFAj karaktert: {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624887
+  - m_Id: 115373768192000
+    m_Localized: "{0} fejleszt\xE9si pontot szerezt\xE9l"
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624887
+  - m_Id: 115832834764800
+    m_Localized: Rendben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 124958918848512
+    m_Localized: "Gratul\xE1lok, v\xE9gigj\xE1tszottad a j\xE1t\xE9kot! T\xF6r\xF6ld
+      az adataidat, hogy \xFAjra \xE1t\xE9lhesd a j\xE1t\xE9k\xE9lm\xE9nyt.\nK\xF6sz\xF6nj\xFCk
+      a j\xE1t\xE9kot! :)"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 3130362818983624887
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 003078e32d0d00000030b811070e0000
+        m_Entries: 003078e32d0d00000030b811070e00000030b88c7b6800000030788cee680000

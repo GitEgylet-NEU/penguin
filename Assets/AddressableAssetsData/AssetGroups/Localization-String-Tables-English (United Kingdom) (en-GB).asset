@@ -24,6 +24,18 @@ MonoBehaviour:
     - Locale-en-GB
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66843b5d6edd5fd4498ef8254badfc30
+    m_Address: LayoutPlannerUI_en-GB
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-GB
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7140ecb9b25df6b49b4bf898fe3957a8
+    m_Address: Characters_en-GB
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-GB
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 36e2f415a6f82ac4d8861138ff12be8b, type: 2}
   m_SchemaSet:

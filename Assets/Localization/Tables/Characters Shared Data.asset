@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Characters Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Characters
+  m_TableCollectionNameGuidString: 16e47c28b6539bd42ac8c50da88928bb
+  m_Entries:
+  - m_Id: 5389168640
+    m_Key: Penguin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61848694784
+    m_Key: Archer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 228555501568
+    m_Key: Crusader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29329056083968
+    m_Key: Penguin_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29664428437504
+    m_Key: Cowboy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29735538667520
+    m_Key: Medic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30205720145920
+    m_Key: Samurai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30287165140992
+    m_Key: Techno
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30328579698688
+    m_Key: Thai
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30533555335168
+    m_Key: Archer_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31005905268736
+    m_Key: Cowboy_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31094769987584
+    m_Key: Crusader_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31470126641152
+    m_Key: Medic_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31791540350976
+    m_Key: Samurai_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31886621028352
+    m_Key: Techno_d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32035560763392
+    m_Key: Thai_d
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3130362823346749447
+  references:
+    version: 2
+    RefIds:
+    - rid: 3130362823346749447
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1713532802690
