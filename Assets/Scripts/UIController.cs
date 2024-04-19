@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ public class UIController : MonoBehaviour
 	public GameObject mainMenu;
 	public GameObject tapToPlayText;
 	public GameObject manualObject, creditsObject;
+	[Space]
+	public LocalizedString levelString, upgradePointString;
+	public TextMeshProUGUI levelText, upgradePointText;
 	[Space]
 	public GameObject popupObject;
 	public TextMeshProUGUI popupTitle, popupText;
@@ -35,11 +39,41 @@ public class UIController : MonoBehaviour
 		instance = this;
 	}
 
+	private void OnEnable()
+	{
+		levelString.Arguments = new object[1];
+		levelString.StringChanged += UpdateLevelText;
+
+		upgradePointString.Arguments = new object[1];
+		upgradePointString.StringChanged += UpdateUpgradePointText;
+	}
+	private void OnDisable()
+	{
+		levelString.StringChanged -= UpdateLevelText;
+		upgradePointString.StringChanged -= UpdateUpgradePointText;
+	}
+
 	private void Start()
 	{
 		mainMenu.SetActive(true);
 
 		runProgressBar.min = 0;
+
+		levelString.Arguments[0] = SaveManager.instance.progressData.level + 1;
+		levelString.RefreshString();
+		upgradePointString.Arguments[0] = SaveManager.instance.progressData.upgradePoints;
+		upgradePointString.RefreshString();
+	}
+
+	void UpdateLevelText(string value)
+	{
+		Debug.Log("update level to " + value);
+		levelText.text = value;
+	}
+	void UpdateUpgradePointText(string value)
+	{
+		Debug.Log("update points to " + value);
+		upgradePointText.text = value;
 	}
 
 	public void OnLayoutClicked()

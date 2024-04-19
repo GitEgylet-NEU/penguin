@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: MainSceneUI_hu
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: hu
+  m_SharedData: {fileID: 11400000, guid: 1b087a8c487126b44a0b1f26ddc913b2, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 3130362818983624887
+  m_TableData:
+  - m_Id: 57742471168
+    m_Localized: "Koppints a j\xE1t\xE9khoz!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13456329158656
+    m_Localized: "\xDAtmutat\xF3"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13618329956352
+    m_Localized: "Kioszt\xE1s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13679201890304
+    m_Localized: "St\xE1blista"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14490740994048
+    m_Localized: '{0}. szint'
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624887
+  - m_Id: 15423524843520
+    m_Localized: "Fejleszt\xE9si pontok: {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624887
+  - m_Id: 21152033943552
+    m_Localized: "Az Arctic Quest folyam\xE1n pingvinek csapat\xE1t vezeted, akik
+      egy j\xE9ghegyr\u0151l cs\xFAsznak lefel\xE9. A hegy l\xE1b\xE1n\xE1l gonosz
+      l\xE9nyek v\xE1rnak r\xE1d, akikkel meg kell k\xFCzdened. A pingvinjeidet csatarendbe
+      \xE1ll\xEDthatod a LAYOUT men\xFCben, illetve fejlesztheted k\xE9pess\xE9geiket.
+      Az ellens\xE9gek legy\u0151z\xE9s\xE9\xE9rt XP pontokat kapsz, amiket felhalmozva
+      szintet l\xE9psz.\n\r\nSok sikert, j\xF3 sz\xF3rakoz\xE1st!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26434382344192
+    m_Localized: "<align=\"center\">Csuhai Hunor\nGy\xF6nki Dominik\nMocs\xE1ri M\xE1rton\nPerczel
+      Patrik</align>\n\n<size=80%>A j\xE1t\xE9kot a GitEgylet csapata k\xE9sz\xEDtette
+      a PENdroid 2024 verseny 3. fordul\xF3j\xE1ra.</size>\n\n<size=60%>A projekt
+      egy\xE9b, ny\xEDlt licenccel ell\xE1tott nyersanyagokat is felhaszn\xE1l."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29125900775424
+    m_Localized: "Nyelv kiv\xE1laszt\xE1sa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328364023808
+    m_Localized: "K\xE9sz"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3130362818983624887
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 003078e32d0d00000030b811070e0000

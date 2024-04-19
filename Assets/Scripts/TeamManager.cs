@@ -41,7 +41,7 @@ public class TeamManager : MonoBehaviour
 
 	[Header("UI")]
 	[SerializeField] ProgressBar xpBar;
-	[SerializeField] TextMeshProUGUI xpText, levelText, upgradePointText;
+	[SerializeField] TextMeshProUGUI xpText;
 
 	float setRunMultiplierToThis;
 
@@ -131,8 +131,6 @@ public class TeamManager : MonoBehaviour
 		if (xpBar.isActiveAndEnabled)
 		{
 			xpBar.SetValue(SaveManager.instance.progressData.xp);
-			levelText.text = $"{SaveManager.instance.progressData.level + 1}. szint";
-			upgradePointText.text = $"Fejlesztési pontok: {SaveManager.instance.progressData.upgradePoints}";
 
 			if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1)
 				xpText.text = $"{SaveManager.instance.progressData.xp} / {gameData.levelXPCosts[SaveManager.instance.progressData.level + 1]}";

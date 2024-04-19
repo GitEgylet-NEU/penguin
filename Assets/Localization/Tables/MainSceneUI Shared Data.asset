@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: MainSceneUI Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: MainSceneUI
+  m_TableCollectionNameGuidString: 1b087a8c487126b44a0b1f26ddc913b2
+  m_Entries:
+  - m_Id: 57742471168
+    m_Key: tapToPlay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13456329158656
+    m_Key: manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13618329956352
+    m_Key: layout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13679201890304
+    m_Key: credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14490740994048
+    m_Key: level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15423524843520
+    m_Key: upgradePoints
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21152033943552
+    m_Key: manualText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26434382344192
+    m_Key: creditsText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29125900775424
+    m_Key: localeSelection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328364023808
+    m_Key: done
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3130362818983624752
+  references:
+    version: 2
+    RefIds:
+    - rid: 3130362818983624752
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1713514901374

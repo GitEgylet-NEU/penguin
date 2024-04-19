@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: MainSceneUI_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: 1b087a8c487126b44a0b1f26ddc913b2, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 3130362818983624886
+  m_TableData:
+  - m_Id: 57742471168
+    m_Localized: Klick um zu spielen!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13456329158656
+    m_Localized: Manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13618329956352
+    m_Localized: Layout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13679201890304
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14490740994048
+    m_Localized: Stufe {0}
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624886
+  - m_Id: 15423524843520
+    m_Localized: 'Entwicklungspunkte: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 3130362818983624886
+  - m_Id: 21152033943552
+    m_Localized: "Bei Arctic Quest f\xFChrst du eine Pinguingruppe, die auf einem
+      Eisberg schlickert. Unten warten auf dich b\xF6se Tiere, die du besiegen musst.
+      Du kannst im Layoutmenu das Layout der Pinguinen stellen, oder sie entwickeln.
+      F\xFCr das Besiegen der Gegnern erh\xE4ltest du Erfahrungspunkte (XP). Wenn
+      du eine Stufe aufsteigst, bekommst du neue Charakters und einige Entwicklungspunkte.\r\n\r\nViel
+      Erfolg!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26434382344192
+    m_Localized: "<align=\"center\">Hunor Csuhai\r\nDominik Gy\xF6nki\r\nM\xE1rton
+      Mocs\xE1ri\r\nPatrik Perczel</align>\r\n\r\n<size=80%>Das Spiel wurde vom Team
+      GitEgylet f\xFCr die 3. Runde des Wettbewerbs PENdroid entwickelt.</size>\r\n\r\n<size=60%>Andere
+      Materialien unter offenen Lizenze wurden benutzt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29125900775424
+    m_Localized: "Sprache ausw\xE4hlen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29328364023808
+    m_Localized: Fertig
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3130362818983624886
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 003078e32d0d00000030b811070e0000
