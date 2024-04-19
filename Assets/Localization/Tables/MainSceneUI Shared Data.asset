@@ -55,6 +55,22 @@ MonoBehaviour:
     m_Key: done
     m_Metadata:
       m_Items: []
+  - m_Id: 62258222215168
+    m_Key: restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63220475244544
+    m_Key: xpLost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63792108548096
+    m_Key: xpWon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64822430937088
+    m_Key: hooray
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

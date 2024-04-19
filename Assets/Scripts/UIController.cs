@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -27,8 +28,10 @@ public class UIController : MonoBehaviour
 	public ProgressBar runProgressBar;
 
 	[Header("Game Over")]
-	public Button restartButton;
+	public GameObject gameOverObject;
 	public TextMeshProUGUI gameOverText;
+	public LocalizeStringEvent restartButtonLocalizer;
+	[SerializeField] LocalizedString hoorayString, restartString;
 	public GameObject lostXpWindow;
 	public TextMeshProUGUI lostXpText;
 	public GameObject wonXpWindow;
@@ -55,6 +58,7 @@ public class UIController : MonoBehaviour
 
 	private void Start()
 	{
+		gameOverObject.SetActive(false);
 		mainMenu.SetActive(true);
 
 		runProgressBar.min = 0;
@@ -78,7 +82,6 @@ public class UIController : MonoBehaviour
 
 	public void OnLayoutClicked()
 	{
-		//Debug.Log("layout");
 		SceneManager.LoadScene("LayoutPlanning");
 	}
 	public void OnPlayClicked()
@@ -114,7 +117,6 @@ public class UIController : MonoBehaviour
 			{
 				av.SetActive(false);
 			}
-
 		}
 	}
 	public void RestartGame()
@@ -126,7 +128,8 @@ public class UIController : MonoBehaviour
 		if (won)
 		{
 			gameOverText.text = "YOU won";
-			restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "Hurrá!";
+			restartButtonLocalizer.StringReference = hoorayString;
+			restartButtonLocalizer.RefreshString();
 			if (xp > 0f)
 			{
 				wonXpText.text = $"{xp} XP";
@@ -136,7 +139,8 @@ public class UIController : MonoBehaviour
 		else
 		{
 			gameOverText.text = "YOU lost";
-			restartButton.GetComponentInChildren<TextMeshProUGUI>().text = "Újrakezdés";
+			restartButtonLocalizer.StringReference = restartString;
+			restartButtonLocalizer.RefreshString();
 			if (xp > 0f)
 			{
 				lostXpText.text = $"<s>{xp} XP</s>   ►   <b>{xp / 2f} XP";
@@ -144,8 +148,7 @@ public class UIController : MonoBehaviour
 			}
 		}
 
-		gameOverText.gameObject.SetActive(true);
-		restartButton.gameObject.SetActive(true);
+		gameOverObject.SetActive(true);
 	}
 
 	public void SetPopup(string titleText, string text)

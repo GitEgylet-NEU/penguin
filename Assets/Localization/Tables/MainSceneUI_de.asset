@@ -69,6 +69,23 @@ MonoBehaviour:
     m_Localized: Fertig
     m_Metadata:
       m_Items: []
+  - m_Id: 62258222215168
+    m_Localized: Neustart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63220475244544
+    m_Localized: "Du hast die Schlacht verloren, deshalb bekommst du nur die H\xE4lfte
+      der XP-Punkte."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63792108548096
+    m_Localized: Du kannst alle XP-Punkte nehmen!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64822430937088
+    m_Localized: Hurra!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

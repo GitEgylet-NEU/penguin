@@ -69,6 +69,23 @@ MonoBehaviour:
     m_Localized: "K\xE9sz"
     m_Metadata:
       m_Items: []
+  - m_Id: 62258222215168
+    m_Localized: "\xDAjrakezd\xE9s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63220475244544
+    m_Localized: "Csat\xE1t vesztett\xE9l, \xEDgy a megszerzett XP-pontok fel\xE9t
+      kapod meg."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63792108548096
+    m_Localized: "Az \xF6sszes XP-pontot hazaviheted!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64822430937088
+    m_Localized: "Hurr\xE1!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
