@@ -49,34 +49,37 @@ public class TeamManager : MonoBehaviour
 
 	private void Start()
 	{
-		// pingvinek generálása
-		if (SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, BattleManager.instance.layoutName), out BattleLayout layout))
+		// load or init layout
+		if (!SaveManager.instance.LoadObject(Path.Combine(SaveManager.instance.layoutSavePath, BattleManager.instance.layoutName), out BattleLayout layout))
 		{
-			int i = 0;
-			foreach (var c in layout.GetCharacters().Shuffle().Select(x => gameData.GetPenguinData(x)))
+			layout = new BattleLayout(gameData.columns, gameData.rows, BattleManager.Team.Player);
+			layout.characterNames[2, 2] = "Penguin";
+			if (!SaveManager.instance.SaveObject(Path.Combine(SaveManager.instance.layoutSavePath, BattleManager.instance.layoutName), layout))
 			{
-				GameObject obj = Instantiate(penguinPrefab);
-				obj.name = c.name;
-				obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
-				if (c.slideSprite != null) obj.GetComponentInChildren<SpriteRenderer>().sprite = c.slideSprite;
-
-				if (randomColors)
-				{
-					Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
-					obj.GetComponentInChildren<SpriteRenderer>().color = col;
-				}
-
-				Penguin penguin = obj.GetComponent<Penguin>();
-				penguin.id = i;
-				penguins.Add(penguin);
-
-				i++;
+				Debug.LogError("can't init default layout");
+				return;
 			}
 		}
-		else
+		// pingvinek generálása
+		int i = 0;
+		foreach (var c in layout.GetCharacters().Shuffle().Select(x => gameData.GetPenguinData(x)))
 		{
-			SceneManager.LoadScene("LayoutPlanning");
-			return;
+			GameObject obj = Instantiate(penguinPrefab);
+			obj.name = c.name;
+			obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
+			if (c.slideSprite != null) obj.GetComponentInChildren<SpriteRenderer>().sprite = c.slideSprite;
+
+			if (randomColors)
+			{
+				Color col = new Color(Random.Range(.4f, .8f), Random.Range(.4f, .8f), Random.Range(.4f, .8f));
+				obj.GetComponentInChildren<SpriteRenderer>().color = col;
+			}
+
+			Penguin penguin = obj.GetComponent<Penguin>();
+			penguin.id = i;
+			penguins.Add(penguin);
+
+			i++;
 		}
 
 		AudioManager.instance.StartBM();
