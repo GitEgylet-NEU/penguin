@@ -36,7 +36,8 @@ public class CharacterInfoPanel : MonoBehaviour
 	private void OnEnable()
 	{
 		if (gameData == null) return;
-		upgradePointString.StringReference.Arguments = new object[1];
+		upgradePointString.StringReference.Arguments = new object[1] { SaveManager.instance.progressData.upgradePoints };
+		upgradePointString.RefreshString();
 		foreach (Transform t in scrollContent)
 		{
 			if (t != characterTemplate.transform) Destroy(t.gameObject);
@@ -77,6 +78,7 @@ public class CharacterInfoPanel : MonoBehaviour
 	public void UpdateUI()
 	{
 		upgradePointString.StringReference.Arguments[0] = SaveManager.instance.progressData.upgradePoints;
+		upgradePointString.RefreshString();
 
 		if (characterData == null)
 		{
