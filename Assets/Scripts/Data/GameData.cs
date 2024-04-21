@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Game Data")]
 public class GameData : ScriptableObject
 {
+	public VisualData visualData;
+
 	[Header("Battle Settings")]
 	[Min(0)] public int columns;
 	[Min(0)] public int rows;

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54f6bf30afba8443aaa11089977d7a2, type: 3}
+  m_Name: Visual Data
+  m_EditorClassIdentifier: 
+  abilityParticles:
+  - Key: targeted_heal
+    Value: {fileID: 4953192014429293773, guid: c3837d8e290c3f14a82daf682e83a4b1, type: 3}

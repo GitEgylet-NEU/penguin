@@ -218,14 +218,17 @@ public class BattleParticipant : MonoBehaviour
 					{
 						Debug.Log("cast on self");
 						ChangeHealth(Level.ability.floats.GetElement("heal_amount").Value);
+						ShowParticle(BattleManager.instance.gameData.visualData.abilityParticles.GetElement(Level.ability.id).Value, 1f);
 						return true;
 					}
 				}
 				else
 				{
-					var other = query.OrderBy(p => p.Health).First();
+					Debug.Log(string.Join(", ", query.OrderBy(c => c.Health / c.Level.maxHealth).Select(c => c.name)));
+					var other = query.OrderBy(p => p.Health / p.Level.maxHealth).First();
 					Debug.Log("cast on " + other.name);
 					other.ChangeHealth(Level.ability.floats.GetElement("heal_amount").Value);
+					other.ShowParticle(BattleManager.instance.gameData.visualData.abilityParticles.GetElement(Level.ability.id).Value, 1f);
 					return true;
 				}
 				return false;
@@ -241,5 +244,20 @@ public class BattleParticipant : MonoBehaviour
 			default:
 				return false;
 		}
+	}
+
+	public void ShowParticle(GameObject particle, float time = 0f)
+	{
+		GameObject obj = Instantiate(particle, transform);
+		ParticleSystem sys = obj.GetComponent<ParticleSystem>();
+		sys.Play();
+
+		IEnumerator StopParticle()
+		{
+			yield return new WaitForSeconds(time);
+			sys.Stop();
+		}
+
+		if (time > 0f) StartCoroutine(StopParticle());
 	}
 }

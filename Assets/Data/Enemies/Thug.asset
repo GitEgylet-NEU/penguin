@@ -27,5 +27,5 @@ MonoBehaviour:
       id: 
       abilityCost: 0
       floats: []
-  xpYield: 6
-  difficulty: 3
+  xpYield: 14
+  difficulty: 2

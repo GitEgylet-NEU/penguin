@@ -30,4 +30,4 @@ MonoBehaviour:
       - Key: heal_amount
         Value: 20
   xpYield: 18
-  difficulty: 2
+  difficulty: 3

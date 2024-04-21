@@ -17,10 +17,10 @@ MonoBehaviour:
   levels:
   - maxNumber: 1
     maxHealth: 350
-    hitsPerSecond: 1.5
+    hitsPerSecond: 0.5
     damagePerHit: 11
-    range: 8
-    speed: 6
+    range: 4
+    speed: 3
     rotationSpeed: 300
     hasAbility: 0
     ability:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc9fcf8b867795478b9daf103d5cab2, type: 3}
   m_Name: Base GameData
   m_EditorClassIdentifier: 
+  visualData: {fileID: 11400000, guid: 8ee4c8a343707894788cc19ec1cd3df1, type: 2}
   columns: 5
   rows: 6
   premadeBattleLayouts:
