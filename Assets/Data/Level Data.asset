@@ -16,27 +16,99 @@ MonoBehaviour:
   - id: level0
     prefab: {fileID: 5702051948169177812, guid: bf6b6b007f670d24290045a2e9d15078, type: 3}
     length: 10
+    frontSocket:
+      left: 1
+      center: 1
+      right: 0
+    rearSocket:
+      left: 0
+      center: 1
+      right: 1
   - id: level1
     prefab: {fileID: 5702051948169177812, guid: f052d34a6e53e684e8a9c8d0835cbbd8, type: 3}
     length: 10
+    frontSocket:
+      left: 1
+      center: 1
+      right: 1
+    rearSocket:
+      left: 0
+      center: 1
+      right: 0
   - id: level2
     prefab: {fileID: 5702051948169177812, guid: 38506ed46b39ca747bec36453388d934, type: 3}
     length: 10
+    frontSocket:
+      left: 1
+      center: 0
+      right: 0
+    rearSocket:
+      left: 1
+      center: 0
+      right: 0
   - id: level3
     prefab: {fileID: 5702051948169177812, guid: 47bf32907f648074e8424a681cca45f8, type: 3}
     length: 10
+    frontSocket:
+      left: 1
+      center: 0
+      right: 0
+    rearSocket:
+      left: 0
+      center: 1
+      right: 0
   - id: level4
     prefab: {fileID: 5702051948169177812, guid: 8bcb67bd36544f74caccb31a4ce9d5c7, type: 3}
     length: 40
+    frontSocket:
+      left: 0
+      center: 1
+      right: 0
+    rearSocket:
+      left: 0
+      center: 1
+      right: 0
   - id: level5
     prefab: {fileID: 5702051948169177812, guid: 69e971301b8d19c4baecb6a5ecc0c7ab, type: 3}
     length: 40
+    frontSocket:
+      left: 0
+      center: 1
+      right: 0
+    rearSocket:
+      left: 0
+      center: 1
+      right: 1
   - id: level6
     prefab: {fileID: 5702051948169177812, guid: b825305544d4e2f48ac7c1e9305571da, type: 3}
     length: 10
+    frontSocket:
+      left: 0
+      center: 1
+      right: 0
+    rearSocket:
+      left: 0
+      center: 1
+      right: 0
   - id: level7
     prefab: {fileID: 5702051948169177812, guid: 17ce095500ba5b14fb053d5f8cdd94bf, type: 3}
     length: 0
+    frontSocket:
+      left: 0
+      center: 1
+      right: 1
+    rearSocket:
+      left: 0
+      center: 1
+      right: 0
   - id: level8
     prefab: {fileID: 5702051948169177812, guid: e0a54dd9960fac540a37bc5c11fe2a36, type: 3}
-    length: 0
+    length: 30
+    frontSocket:
+      left: 1
+      center: 1
+      right: 0
+    rearSocket:
+      left: 1
+      center: 1
+      right: 0

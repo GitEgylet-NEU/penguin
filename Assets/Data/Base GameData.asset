@@ -62,14 +62,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 806f863f870c37c489e2d3cbf2263150, type: 2}
   - {fileID: 11400000, guid: 20d78ff345f0ef34ea89b53255e19f13, type: 2}
   levelRunLength:
-  - 150
   - 200
   - 250
   - 300
   - 350
   - 400
+  - 450
   - 500
   - 600
-  - 800
+  - 700
   characterUpgradeCosts: 01000000020000000300000003000000
   defaultPenguin: {fileID: 11400000, guid: f9a6ed258a43fec49b4c5b16f0c7fdb5, type: 2}

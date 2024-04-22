@@ -9,7 +9,7 @@ public class LevelSpawner : MonoBehaviour
 	public GameObject blankSection, tree;
 	public List<GameObject> sections, trees;
 	float z = 0;
-	string lastLevelId;
+	LevelData.LevelFragment lastLevel;
 
 	//megadja hogy mennyire elõre generáljon
 	public int renderDistance = 30;
@@ -58,7 +58,7 @@ public class LevelSpawner : MonoBehaviour
 				{
 					var next = GetNextLevelFragment();
 					Debug.Log(next.id);
-					lastLevelId = next.id;
+					lastLevel = next;
 					sections.Add(Instantiate(next.prefab, new Vector3(0, -0.1f, z + next.length / 2), Quaternion.identity));
 					z += next.length;
 				}
@@ -86,8 +86,17 @@ public class LevelSpawner : MonoBehaviour
 	//különbözõ generálásának a biztosítása
 	public LevelData.LevelFragment GetNextLevelFragment()
 	{
-		return levelData.levelFragments.GetRandom(f => f.id != lastLevelId && 
-		f.length <= (TeamManager.instance.runStartZ + TeamManager.instance.runLength) - (sections.Last().transform.position.z + sections.Last().transform.Find("ground").localScale.z / 2));
+		if (lastLevel == null)
+		{
+			return levelData.levelFragments.GetRandom(f => f.length <= (TeamManager.instance.runStartZ + TeamManager.instance.runLength) - (sections.Last().transform.position.z + sections.Last().transform.Find("ground").localScale.z / 2));
+		}
+		else
+		{
+			var q = levelData.levelFragments.GetRandom(f => f.id != lastLevel.id && f.rearSocket.IsCompatible(lastLevel.frontSocket) &&
+			f.length <= (TeamManager.instance.runStartZ + TeamManager.instance.runLength) - (sections.Last().transform.position.z + sections.Last().transform.Find("ground").localScale.z / 2));
+			if (q == null) return levelData.levelFragments.GetRandom(f => f.length <= (TeamManager.instance.runStartZ + TeamManager.instance.runLength) - (sections.Last().transform.position.z + sections.Last().transform.Find("ground").localScale.z / 2));
+			else return q;
+		}
 	}
 
 	//törlés

@@ -6963,8 +6963,8 @@ MonoBehaviour:
   penguins: []
   penguinDistance: 2.5
   randomColors: 0
-  initialRunSpeed: 8
-  runMultiplier: 0.1
+  initialRunSpeed: 10
+  runMultiplier: 0.08
   exponential: 0
   runLength: 100
   runStartZ: Infinity
