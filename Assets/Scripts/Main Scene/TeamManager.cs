@@ -130,6 +130,7 @@ public class TeamManager : MonoBehaviour
 			{
 				if (SaveManager.instance.progressData.level == 8) popupText.Add(beatGameString.GetLocalizedString());
 				UIController.instance.SetPopup(newLevelString.GetLocalizedString(), string.Join("\n\n", popupText));
+				AudioManager.instance.PlaySound("new level reached", AudioManager.instance.Mixer.UI);
 			}
 		}
 	}
@@ -229,7 +230,7 @@ public class TeamManager : MonoBehaviour
 		{
 			GetComponent<LevelSpawner>().enabled = false;
 			AudioManager.instance.StopBM();
-			AudioManager.instance.PlaySound("gameover");
+			AudioManager.instance.PlaySound("game over", AudioManager.instance.Mixer.SFX);
 			//UIController.instance.ToggleDocument(UIController.instance.gameOverDoc,true);
 			UIController.instance.EndGame(false, -1f);
 			GetComponent<TeamManager>().enabled = false;
@@ -241,7 +242,7 @@ public class TeamManager : MonoBehaviour
 			int idx = penguins.IndexOf(penguin);
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
-			AudioManager.instance.PlaySound("treehit");
+			AudioManager.instance.PlaySound("tree hit", AudioManager.instance.Mixer.SFX);
 
 			if (idx == 0 && penguins.Any())
 			{

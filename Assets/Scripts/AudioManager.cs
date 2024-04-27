@@ -1,50 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 //Background music: Jeremy Blake - Powerup! (https://www.youtube.com/watch?v=l7SwiFWOQqM)
-//Tree hit and Game over: Freesound (CC0)
 
 public class AudioManager : MonoBehaviour
 {
-	float volume = .75f;
-    public static AudioManager instance;
+	public static AudioManager instance;
 	private static AudioSource BM;
-    List<AudioSource> sources = new List<AudioSource>();
-    List<string> sourcenames = new List<string>();
+	public AudioMixer audioMixer;
+	List<AudioSource> sources = new();
+
+	public AudioMixerGroups Mixer => mixerGroups;
+	[SerializeField] AudioMixerGroups mixerGroups;
+
+	[Header("Settings")]
+	public bool autoplayBM = true;
+
+	[System.Serializable]
+	public sealed class AudioMixerGroups
+	{
+		public AudioMixerGroup music, UI, SFX, ambience;
+	}
 
 	private void Awake()
 	{
 		instance = this;
 	}
 
-    private void Start()
-    {
-		StartBM();
-    }
+	private void Start()
+	{
+		if (autoplayBM) StartBM();
+	}
 
-    public void StartBM()
-    {
+	public void StartBM()
+	{
 		if (BM == null)
-        {
+		{
 			BM = gameObject.AddComponent<AudioSource>();
 			BM.clip = LoadClip("Jeremy Blake - Powerup!");
-			BM.volume = volume;
+			BM.outputAudioMixerGroup = mixerGroups.music;
 			BM.loop = true;
 			BM.Play();
 		}
 	}
 
 	public void StopBM()
-    {
+	{
 		if (BM != null)
-        {
+		{
 			BM.Stop();
 			Destroy(BM);
 		}
-    }
+	}
 
-    public void PlaySound(string name)
+	[System.Obsolete("An Audio Mixer Group should be specified for every SFX")]
+	public void PlaySound(string name)
+	{
+		PlaySound(name, null);
+	}
+	public void PlaySound(string name, AudioMixerGroup mixerGroup)
 	{
 		AudioSource SFX = gameObject.AddComponent<AudioSource>();
 
@@ -59,14 +75,8 @@ public class AudioManager : MonoBehaviour
 			return;
 		}
 
-		if (sourcenames.Contains(name))
-		{
-			return;
-		}
-
-		SFX.volume = volume;
+		SFX.outputAudioMixerGroup = mixerGroup;
 		sources.Add(SFX);
-		sourcenames.Add(name);
 		SFX.Play();
 
 		StartCoroutine(RemoveSFX());
@@ -74,7 +84,6 @@ public class AudioManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(SFX.clip.length);
 			sources.Remove(SFX);
-			sourcenames.Remove(name);
 			Destroy(SFX);
 		}
 	}
@@ -87,15 +96,5 @@ public class AudioManager : MonoBehaviour
 			throw new System.IO.FileNotFoundException($"Couldn't find an AudioClip at Resources/Audio/{name}");
 		}
 		return clip;
-	}
-
-	public float GetVolume() => volume;
-	public void SetVolume(float volume)
-	{
-		this.volume = volume;
-		foreach (var src in sources)
-		{
-			src.volume = this.volume;
-		}
 	}
 }

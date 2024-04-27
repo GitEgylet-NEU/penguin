@@ -162,6 +162,8 @@ public class BattleManager : MonoBehaviour
 			SaveXP(false);
 			foreach (var participant in participants) participant.DisableParticipant();
 			init = false;
+			AudioManager.instance.StopBM();
+			AudioManager.instance.PlaySound("game over", AudioManager.instance.Mixer.SFX);
 		}
 		if (!participants.Any(p => p.team == Team.Enemy))
 		{
@@ -171,6 +173,8 @@ public class BattleManager : MonoBehaviour
 			SaveXP(true);
 			foreach (var participant in participants) participant.DisableParticipant();
 			init = false;
+			AudioManager.instance.StopBM();
+			AudioManager.instance.PlaySound("victory 8bit", AudioManager.instance.Mixer.music);
 		}
 	}
 

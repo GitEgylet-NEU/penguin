@@ -72,6 +72,7 @@ public class CharacterInfoPanel : MonoBehaviour
 			SaveManager.instance.progressData.upgradePoints -= gameData.characterUpgradeCosts[levelIdx];
 			SaveManager.instance.progressData.characterLevels.GetElement(characterData.name).Value++;
 			UpdateUI();
+			AudioManager.instance.PlaySound("upgrade", AudioManager.instance.Mixer.UI);
 		}
 	}
 
