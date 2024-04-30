@@ -43,7 +43,7 @@ public class TeamManager : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] ProgressBar xpBar;
 	[SerializeField] TextMeshProUGUI xpText;
-	[SerializeField] LocalizedString newLevelString, newCharacterString, upgradePointsString, beatGameString;
+	[SerializeField] LocalizedString newLevelString, newCharacterString, upgradePointsString, beatGameString, levelString;
 
 	float setRunMultiplierToThis;
 
@@ -105,6 +105,16 @@ public class TeamManager : MonoBehaviour
 		if (SaveManager.instance.progressData.lastCheckedLevel != SaveManager.instance.progressData.level)
 		{
 			List<string> popupText = new();
+
+			int levelDiff = SaveManager.instance.progressData.level - (SaveManager.instance.progressData.lastCheckedLevel + 1);
+			if (levelDiff > 0)
+			{
+				levelString.Arguments = new object[] { SaveManager.instance.progressData.level - levelDiff + 1 };
+				string oldLevel = levelString.GetLocalizedString();
+				levelString.Arguments = new object[] { SaveManager.instance.progressData.level + 1 };
+				string newLevel = levelString.GetLocalizedString();
+				popupText.Add($"{oldLevel} -> {newLevel}");
+			}
 
 			int upPoints = 0;
 			//leveled up

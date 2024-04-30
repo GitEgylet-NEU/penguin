@@ -189,7 +189,7 @@ public class BattleManager : MonoBehaviour
 		if (!won) cachedXP *= gameData.lostBattleXPModifier;
 
 		SaveManager.instance.progressData.xp += cachedXP;
-		if (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 && SaveManager.instance.progressData.xp >= gameData.levelXPCosts[SaveManager.instance.progressData.level + 1])
+		while (SaveManager.instance.progressData.level < gameData.levelXPCosts.Length - 1 && SaveManager.instance.progressData.xp >= gameData.levelXPCosts[SaveManager.instance.progressData.level + 1])
 		{
 			SaveManager.instance.progressData.level++;
 			SaveManager.instance.progressData.upgradePoints += gameData.levelUpgradePointRewards[SaveManager.instance.progressData.level];

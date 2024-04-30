@@ -6275,6 +6275,7 @@ MonoBehaviour:
     UI: {fileID: 1437293013304221096, guid: 1498d15f7d2f2f6489299cbca4ebc184, type: 2}
     SFX: {fileID: -7335454675162917512, guid: 1498d15f7d2f2f6489299cbca4ebc184, type: 2}
     ambience: {fileID: -2047099792653090196, guid: 1498d15f7d2f2f6489299cbca4ebc184, type: 2}
+  autoplayBM: 1
 --- !u!4 &1257826916
 Transform:
   m_ObjectHideFlags: 0
@@ -7010,9 +7011,18 @@ MonoBehaviour:
     m_LocalVariables: []
   beatGameString:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1b087a8c487126b44a0b1f26ddc913b2
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 124958918848512
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  levelString:
+    m_TableReference:
+      m_TableCollectionName: GUID:1b087a8c487126b44a0b1f26ddc913b2
+    m_TableEntryReference:
+      m_KeyId: 14490740994048
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
