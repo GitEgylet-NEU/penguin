@@ -12,21 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
   m_Name: Thai
   m_EditorClassIdentifier: 
-  id: p_thai
-  description: angry muay thaier partisan
-  color: {r: 0.6981973, g: 0.7264151, b: 0.2706924, a: 1}
-  xpYield: 0
   frontSprite: {fileID: 21300000, guid: 61cfda5e06c8d9e40b4dfffca77389d6, type: 3}
   backSprite: {fileID: 21300000, guid: 74df80f378499dd4eab37cb1a34045ec, type: 3}
-  slideSprite: {fileID: 21300000, guid: 4b8b2c4a19fc48f4bae14eafdda3cd6a, type: 3}
+  speed: 14
   levels:
   - maxNumber: 1
     maxHealth: 50
     hitsPerSecond: 2.5
     damagePerHit: 5
     range: 1.6
-    speed: 7
-    rotationSpeed: 300
     hasAbility: 1
     ability:
       id: area_damage
@@ -41,8 +35,6 @@ MonoBehaviour:
     hitsPerSecond: 3.5
     damagePerHit: 5
     range: 1.8
-    speed: 8
-    rotationSpeed: 325
     hasAbility: 0
     ability:
       id: 
@@ -53,10 +45,10 @@ MonoBehaviour:
     hitsPerSecond: 4.5
     damagePerHit: 5
     range: 2.5
-    speed: 10
-    rotationSpeed: 375
     hasAbility: 0
     ability:
       id: 
       abilityCost: 0
       floats: []
+  description: angry muay thaier partisan
+  slideSprite: {fileID: 21300000, guid: 4b8b2c4a19fc48f4bae14eafdda3cd6a, type: 3}

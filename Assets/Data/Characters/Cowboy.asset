@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
   m_Name: Cowboy
   m_EditorClassIdentifier: 
-  id: cowboy
   frontSprite: {fileID: 21300000, guid: 3bcd6f4c9110d6147ba38b326fcea302, type: 3}
   backSprite: {fileID: 21300000, guid: 2f555eac2bc76354a9b1200757a580b1, type: 3}
+  speed: 10
   levels:
   - maxNumber: 1
     maxHealth: 50
     hitsPerSecond: 0.5
     damagePerHit: 8
     range: 6
-    speed: 7
-    rotationSpeed: 250
     hasAbility: 0
     ability:
       id: 
@@ -33,8 +31,6 @@ MonoBehaviour:
     hitsPerSecond: 1.5
     damagePerHit: 6
     range: 7
-    speed: 7
-    rotationSpeed: 275
     hasAbility: 0
     ability:
       id: 
@@ -45,8 +41,6 @@ MonoBehaviour:
     hitsPerSecond: 2
     damagePerHit: 8
     range: 7.5
-    speed: 8.5
-    rotationSpeed: 350
     hasAbility: 0
     ability:
       id: 

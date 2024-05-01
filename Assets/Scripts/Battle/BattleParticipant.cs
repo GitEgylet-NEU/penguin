@@ -84,6 +84,28 @@ public class BattleParticipant : MonoBehaviour
 		rb.angularVelocity = Vector3.zero;
 	}
 
+	Coroutine lookAtCoroutine;
+	float lookAtThreshold = 5f;
+	void StartLookAt()
+	{
+		if (lookAtCoroutine != null)
+		{
+			StopCoroutine(lookAtCoroutine);
+		}
+		lookAtCoroutine = StartCoroutine(LookAt());
+	}
+	IEnumerator LookAt()
+	{
+		float t = 0f;
+		while (t < 1f)
+		{
+			rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(fwMultiplier * (target.rb.position - rb.position)), t);
+			t += Time.deltaTime * .2f;
+			yield return null;
+		}
+		lookAtCoroutine = null;
+	}
+
 	private void Update()
 	{
 		if (!run) return;
@@ -104,30 +126,23 @@ public class BattleParticipant : MonoBehaviour
 			target = null;
 			target = BattleManager.instance.participants.Where(p => p.team != team).OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
 			if (target == null) return;
+			StartLookAt();
 			//Debug.Log($"{gameObject.name}'s new target: {target.name}");
 		}
 
 		//rotate towards target
-		float deltaAngle = Vector3.SignedAngle(Forward, (target.transform.position - transform.position).normalized, Vector3.up);
-		float y;
-		if (deltaAngle > 0f)
+		float deltaAngle = Vector3.SignedAngle(Forward, target.transform.position - transform.position, Vector3.up);
+		if (lookAtCoroutine == null && (Mathf.Abs(deltaAngle) >= lookAtThreshold || Mathf.Abs(180f - Mathf.Abs(deltaAngle)) >= lookAtThreshold))
 		{
-			y = Mathf.Min(Level.rotationSpeed * Time.deltaTime, deltaAngle);
-			if (y < 0f) y = 0f;
+			StartLookAt();
 		}
-		else
-		{
-			y = Mathf.Max(-Level.rotationSpeed * Time.deltaTime, deltaAngle);
-			if (y > 0f) y = 0f;
-		}
-		rb.rotation = Quaternion.Euler(0f, rb.rotation.eulerAngles.y + y, 0f);
 
 		//move into range
 		float distance = Vector3.Distance(transform.position, target.transform.position);
 		//if (Level.shouldMoveBack && isMovingBack && Mathf.Abs(Level.range - distance) <= .2f) isMovingBack = false;
-		if (Mathf.Abs(deltaAngle) <= 5f) //is looking at target?
+		if (180f - Mathf.Abs(deltaAngle) <= lookAtThreshold || Mathf.Abs(deltaAngle) <= lookAtThreshold) //is looking at target?
 		{
-			if (distance > Level.range) rb.MovePosition(transform.position + Level.speed * Time.deltaTime * Forward);
+			if (distance > Level.range) rb.MovePosition(transform.position + Data.speed * Time.deltaTime * Forward);
 			else
 			{
 				// move back
@@ -216,7 +231,6 @@ public class BattleParticipant : MonoBehaviour
 				{
 					if (Health <= Level.maxHealth)
 					{
-						Debug.Log("cast on self");
 						ChangeHealth(Level.ability.floats.GetElement("heal_amount").Value);
 						ShowParticle(BattleManager.instance.gameData.visualData.abilityParticles.GetElement(Level.ability.id).Value, 1f);
 						return true;
@@ -224,9 +238,7 @@ public class BattleParticipant : MonoBehaviour
 				}
 				else
 				{
-					Debug.Log(string.Join(", ", query.OrderBy(c => c.Health / c.Level.maxHealth).Select(c => c.name)));
 					var other = query.OrderBy(p => p.Health / p.Level.maxHealth).First();
-					Debug.Log("cast on " + other.name);
 					other.ChangeHealth(Level.ability.floats.GetElement("heal_amount").Value);
 					other.ShowParticle(BattleManager.instance.gameData.visualData.abilityParticles.GetElement(Level.ability.id).Value, 1f);
 					return true;

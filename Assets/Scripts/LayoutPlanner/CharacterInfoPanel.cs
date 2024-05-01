@@ -96,7 +96,7 @@ public class CharacterInfoPanel : MonoBehaviour
 		hpsText.text = level.hitsPerSecond.ToString();
 		damageText.text = level.damagePerHit.ToString();
 		rangeText.text = level.range.ToString();
-		speedText.text = level.speed.ToString();
+		speedText.text = characterData.speed.ToString();
 		//kiteText.text = level.shouldMoveBack ? "igen" : "nem";
 
 		levelText.text = (levelIdx+1).ToString();

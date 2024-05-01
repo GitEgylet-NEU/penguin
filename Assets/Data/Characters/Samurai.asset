@@ -12,21 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1499426274bbcb64bbad44fb480ba731, type: 3}
   m_Name: Samurai
   m_EditorClassIdentifier: 
-  id: p_samurai
-  description: konnichiwa!
-  color: {r: 0, g: 0, b: 0, a: 0}
-  xpYield: 0
   frontSprite: {fileID: 21300000, guid: 6d3287fa2fc16cd4d99df4b23d768ff3, type: 3}
   backSprite: {fileID: 21300000, guid: 1a41bfd329e24624893fda67f5ae2899, type: 3}
-  slideSprite: {fileID: 21300000, guid: a88bab0e5e5d9864b9cfa0287b1f64a5, type: 3}
+  speed: 14
   levels:
   - maxNumber: 1
     maxHealth: 60
     hitsPerSecond: 0.5
     damagePerHit: 15
     range: 1.2
-    speed: 9
-    rotationSpeed: 150
     hasAbility: 0
     ability:
       id: 
@@ -37,8 +31,6 @@ MonoBehaviour:
     hitsPerSecond: 0.5
     damagePerHit: 15
     range: 1.5
-    speed: 10
-    rotationSpeed: 175
     hasAbility: 0
     ability:
       id: 
@@ -49,10 +41,10 @@ MonoBehaviour:
     hitsPerSecond: 1
     damagePerHit: 13
     range: 3
-    speed: 13
-    rotationSpeed: 225
     hasAbility: 0
     ability:
       id: 
       abilityCost: 0
       floats: []
+  description: konnichiwa!
+  slideSprite: {fileID: 21300000, guid: a88bab0e5e5d9864b9cfa0287b1f64a5, type: 3}

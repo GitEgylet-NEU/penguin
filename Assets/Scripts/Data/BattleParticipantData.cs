@@ -26,6 +26,7 @@ public class BattleParticipantData : ScriptableObject
 	public Sprite backSprite;
 
 	[Header("Level Data")]
+	[Min(0)] public float speed;
 	public Level[] levels;
 
 	[Serializable]
@@ -37,8 +38,6 @@ public class BattleParticipantData : ScriptableObject
 		public float hitsPerSecond;
 		public float damagePerHit;
 		public float range;
-		public float speed;
-		public float rotationSpeed;
 		//[Tooltip("Whether the participant should move back to their desired range when their target gets too close")] public bool shouldMoveBack = false;
 
 		[Header("Ability")]

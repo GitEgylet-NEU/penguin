@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontSprite: {fileID: 21300000, guid: 0ee82cc858ff426438f75e544381553a, type: 3}
   backSprite: {fileID: 21300000, guid: 1036d7b2039830649ad3773a3bad76b6, type: 3}
+  speed: 16
   levels:
   - maxNumber: 1
     maxHealth: 130
     hitsPerSecond: 1
     damagePerHit: 8
     range: 8
-    speed: 8
-    rotationSpeed: 300
     hasAbility: 1
     ability:
       id: targeted_heal
