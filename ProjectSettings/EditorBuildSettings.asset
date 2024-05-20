@@ -15,5 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Battle.unity
     guid: 780dbf3800868a940828190da8c0d307
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 3eaa42b20518c484da3a96aae1d8649d, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 2287610b51f84c241b0084cb214c11b9, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 67b8ff1be5e99914d8a1abf76cc796f6, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 81766714c5e573d4296702b3e61ba27c, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: 90bded0ba0cc2504f8e8d53f8f67ca94, type: 2}
