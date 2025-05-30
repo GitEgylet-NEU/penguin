@@ -108,6 +108,7 @@ public class UIController : MonoBehaviour
 		{
 			visual.SetActive(false);
 			tapToPlayText.SetActive(true);
+			mainMenu.GetComponent<Button>().interactable = true;
 		}
 		else
 		{
@@ -117,6 +118,7 @@ public class UIController : MonoBehaviour
 			{
 				av.SetActive(false);
 			}
+			mainMenu.GetComponent<Button>().interactable = false;
 		}
 	}
 	public void RestartGame()

@@ -50,7 +50,19 @@ public class CharacterInfoPanel : MonoBehaviour
 			obj.GetComponentInChildren<TextMeshProUGUI>().text = data.LocalizedName;
 			//obj.transform.Find("Icon").GetComponent<Image>().color = data.color;
 			obj.transform.Find("Icon").GetComponent<Image>().sprite = data.frontSprite;
-			obj.GetComponent<Button>().onClick.AddListener(() => { SetCharacter(data); });
+			if (SaveManager.instance.progressData.characterLevels.ContainsKey(data.name) && SaveManager.instance.progressData.characterLevels.GetElement(data.name).Value > -1)
+			{
+				//obj.GetComponent<Image>().color = Color.white;
+				obj.GetComponent<Button>().onClick.AddListener(() => { SetCharacter(data); });
+				obj.GetComponent<Button>().interactable = true;
+			}
+			else
+			{
+				//disable button
+				//obj.GetComponent<Image>().color = Color.gray;
+				obj.GetComponent<Button>().interactable = false;
+			}
+
 			obj.SetActive(true);
 			i++;
 		}
