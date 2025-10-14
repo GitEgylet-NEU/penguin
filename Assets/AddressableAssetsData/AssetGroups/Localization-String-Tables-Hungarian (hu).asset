@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: Localization-String-Tables-Hungarian (hu)
   m_EditorClassIdentifier: 
   m_GroupName: Localization-String-Tables-Hungarian (hu)
-  m_Data:
-    m_SerializedData: []
   m_GUID: 0cde6fd3a401fdf4a8a8a32600c2d79c
   m_SerializeEntries:
-  - m_GUID: ddb25a90f3d6d474ca836759d08ea6bd
-    m_Address: MainSceneUI_hu
+  - m_GUID: 763888949615755469c16d2cf0885ada
+    m_Address: General_hu
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-hu
-    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 870c4504248ae824586ad4f36ea06eae
     m_Address: LayoutPlannerUI_hu
@@ -30,14 +27,15 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-hu
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eb9692cb3b218dc45a7633763c69978d
-    m_Address: Characters_hu
+  - m_GUID: ddb25a90f3d6d474ca836759d08ea6bd
+    m_Address: MainSceneUI_hu
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-hu
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 763888949615755469c16d2cf0885ada
-    m_Address: General_hu
+  - m_GUID: eb9692cb3b218dc45a7633763c69978d
+    m_Address: Characters_hu
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-hu
