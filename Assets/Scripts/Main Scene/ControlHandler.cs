@@ -29,15 +29,17 @@ public class ControlHandler : MonoBehaviour
 	{
 		if (Input.touchCount == 0 || UIController.instance.move == false)
 		{
-			TeamManager.instance.Move(Input.GetAxisRaw("Horizontal"));
+			float horizontal = Input.GetAxisRaw("Horizontal");
+			if (Mathf.Abs(horizontal) >= 0.05f)
+				TeamManager.instance.Move(horizontal);
 		}
 		else
 		{
 			Touch touch = Input.GetTouch(0);
 
 			float horizontal = touch.position.x > Screen.width / 2f ? sensitivity : -sensitivity;
-
-			TeamManager.instance.Move(horizontal);
+            if (Mathf.Abs(horizontal) >= 0.05f)
+                TeamManager.instance.Move(horizontal);
 		}
 	}
 }

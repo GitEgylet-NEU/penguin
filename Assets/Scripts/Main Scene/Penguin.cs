@@ -6,7 +6,7 @@ using UnityEngine;
 public class Penguin : MonoBehaviour
 {
 	[HideInInspector] public int id;
-	[HideInInspector] public List<MoveCommand> moveCommands;
+	[HideInInspector] public Queue<Vector2> moveCommands;
 
 	Coroutine getBehindCoroutine, catchUpCoroutine;
 	bool executeCommands = true;
@@ -15,7 +15,7 @@ public class Penguin : MonoBehaviour
 
 	private void Start()
 	{
-		moveCommands = new List<MoveCommand>();
+		moveCommands = new Queue<Vector2>();
 		speed = TeamManager.instance.initialRunSpeed;
 	}
 
@@ -36,28 +36,34 @@ public class Penguin : MonoBehaviour
 		}
 
 		// mozgás parancsok végrehajtása
-		foreach (var command in moveCommands.Where(c => transform.position.z >= c.z).ToArray())
+		while (moveCommands.TryPeek(out Vector2 command) && command.x <= transform.position.z)
 		{
-			if (executeCommands) Move(command.amount);
-			moveCommands.Remove(command);
+			if (executeCommands) Move(moveCommands.Dequeue().y);
+			else moveCommands.Dequeue();
 		}
 	}
 
-	public void AddMoveCommand(float z, float amount)
+	public void AddMoveCommand(Vector2 command, bool first)
 	{
-		if (!executeCommands || moveCommands == null) return;
-		moveCommands.Add(new MoveCommand(z, amount));
+		if (moveCommands == null) return;
+		if (executeCommands || first)
+		{
+			if (first)
+				moveCommands.Clear();
+            moveCommands.Enqueue(command);
+        }
 	}
 
 	void Move(float amount)
 	{
-		transform.position += new Vector3(amount, 0, 0);
+		transform.position = new Vector3(amount, transform.position.y, transform.position.z);
 	}
 
 
 	public void GetBehind(Penguin other)
 	{
 		if (getBehindCoroutine != null) StopCoroutine(getBehindCoroutine);
+		moveCommands.Clear();
 
 		IEnumerator Follow()
 		{
@@ -70,7 +76,7 @@ public class Penguin : MonoBehaviour
 
 				float horizontal = Mathf.Min(distance, TeamManager.instance.horizontalSensitivity * Time.deltaTime);
 				if (transform.position.x > other.transform.position.x) horizontal *= -1f;
-				Move(horizontal);
+				Move(transform.position.x + horizontal);
 
 				distance = Mathf.Abs(transform.position.x - other.transform.position.x);
 

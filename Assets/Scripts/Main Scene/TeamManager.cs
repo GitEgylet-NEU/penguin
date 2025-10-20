@@ -206,12 +206,13 @@ public class TeamManager : MonoBehaviour
 	public void Move(float horizontal)
 	{
 		float amount = horizontal * horizontalSensitivity * Time.deltaTime;
+		Vector2 moveCommand = new Vector2(penguins.First().transform.position.z, penguins.First().transform.position.x + amount);
 
 		int i = 0;
 		foreach (Penguin penguin in penguins)
 		{
 			if (penguin == null) continue;
-			penguin.AddMoveCommand(penguins.First().transform.position.z, amount);
+			penguin.AddMoveCommand(moveCommand, i == 0);
 			i++;
 		}
 	}
