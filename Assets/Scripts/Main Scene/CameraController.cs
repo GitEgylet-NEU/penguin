@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 	public Transform followTransform;
 	public float offset;
 	public float xLimit;
+	public float smoothing = 5f;
 
 	Coroutine lerpCoroutine;
 
@@ -14,7 +15,12 @@ public class CameraController : MonoBehaviour
 		if (followTransform != null)
 		{
 			// kövesse a followTransform pozícióját, miközben az xLimiten belül marad
-			transform.position = new Vector3(Mathf.Clamp(followTransform.position.x, -xLimit, xLimit), transform.position.y, followTransform.position.z - offset);
+			Vector3 moveTo = new Vector3(
+				Mathf.Clamp(followTransform.position.x, -xLimit, xLimit),
+				transform.position.y,
+				followTransform.position.z - offset
+				);
+            transform.position = Vector3.Lerp(transform.position, moveTo, smoothing * Time.deltaTime);
 		}
 	}
 

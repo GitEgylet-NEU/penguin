@@ -145,7 +145,20 @@ public class TeamManager : MonoBehaviour
 		}
 	}
 
-	private void Update()
+    private void FixedUpdate()
+    {
+        if (run)
+		{
+            // mindegyik pingvin mozgatása elõre
+            foreach (Penguin penguin in penguins)
+            {
+                if (penguin == null) continue;
+                penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.fixedDeltaTime);
+            }
+        }
+    }
+
+    private void Update()
 	{
 		//if (Input.GetKeyDown(KeyCode.X)) BattleManager.instance.AddXP(20f);
 		//if (Input.GetKeyDown(KeyCode.C)) CheckLevels();
@@ -162,12 +175,7 @@ public class TeamManager : MonoBehaviour
 
 		if (run)
 		{
-			// mindegyik pingvin mozgatása elõre
-			foreach (Penguin penguin in penguins)
-			{
-				if (penguin == null) continue;
-				penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.deltaTime);
-			}
+			//korábban pingvinek mozgatása -> FixedUpdate()
 
 			if (UIController.instance.runProgressBar.gameObject.activeInHierarchy) UIController.instance.runProgressBar.SetValue(penguins.First().transform.position.z - runStartZ);
 

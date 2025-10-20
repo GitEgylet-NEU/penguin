@@ -2453,6 +2453,7 @@ MonoBehaviour:
   followTransform: {fileID: 0}
   offset: 5
   xLimit: 0
+  smoothing: 30
 --- !u!1 &566258307
 GameObject:
   m_ObjectHideFlags: 0

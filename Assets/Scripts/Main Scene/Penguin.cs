@@ -126,16 +126,4 @@ public class Penguin : MonoBehaviour
 	{
 		StopAllCoroutines();
 	}
-
-	public struct MoveCommand
-	{
-		public float z;
-		public float amount;
-
-		public MoveCommand(float z, float amount)
-		{
-			this.z = z;
-			this.amount = amount;
-		}
-	}
 }
