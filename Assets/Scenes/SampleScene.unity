@@ -2453,7 +2453,7 @@ MonoBehaviour:
   followTransform: {fileID: 0}
   offset: 5
   xLimit: 0
-  smoothing: 30
+  smoothing: 250
 --- !u!1 &566258307
 GameObject:
   m_ObjectHideFlags: 0
@@ -7112,10 +7112,11 @@ MonoBehaviour:
   penguinDistance: 2.5
   randomColors: 0
   initialRunSpeed: 10
-  runMultiplier: 0.08
+  runMultiplier: 0.05
   exponential: 0
   runLength: 100
   runStartZ: Infinity
+  run: 0
   penguinCatchUpSpeed: 8
   horizontalAxisName: Horizontal
   horizontalSensitivity: 8
@@ -7168,6 +7169,9 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  tomatoPrefab: {fileID: 3421305283948683671, guid: 681cf2028a0e1384e8500d0dbb8b0f0e, type: 3}
+  tomatoDuration: 1
+  ketchupParticlePrefab: {fileID: 7533122946383828176, guid: 282382635317d944f96500633fe14539, type: 3}
   references:
     version: 2
     RefIds: []

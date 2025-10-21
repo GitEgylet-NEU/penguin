@@ -13,28 +13,39 @@ public class Penguin : MonoBehaviour
 
 	public float speed;
 
-	private void Start()
+	Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
 	{
 		moveCommands = new Queue<Vector2>();
 		speed = TeamManager.instance.initialRunSpeed;
 	}
 
-	private void Update()
-	{
-		// gyorsulás
-		if (TeamManager.instance.runMultiplier > 0f)
-		{
-			if (TeamManager.instance.exponential)
-			{
-				speed *= 1f + Time.deltaTime * (TeamManager.instance.runMultiplier - 1f);
-			}
-			else
-			{
-				//linear
-				speed += TeamManager.instance.initialRunSpeed * TeamManager.instance.runMultiplier * Time.deltaTime;
-			}
-		}
+    private void FixedUpdate()
+    {
+        // gyorsulás
+        if (TeamManager.instance.runMultiplier > 0f)
+        {
+            if (TeamManager.instance.exponential)
+            {
+                speed *= 1f + Time.fixedDeltaTime * (TeamManager.instance.runMultiplier - 1f);
+            }
+            else
+            {
+                //linear
+                speed += TeamManager.instance.initialRunSpeed * TeamManager.instance.runMultiplier * Time.fixedDeltaTime;
+            }
+        }
+		rb.linearVelocity = new Vector3(0f, 0f, TeamManager.instance.run ? speed : 0f);
+    }
 
+    private void Update()
+	{
 		// mozgás parancsok végrehajtása
 		while (moveCommands.TryPeek(out Vector2 command) && command.x <= transform.position.z)
 		{
@@ -54,9 +65,10 @@ public class Penguin : MonoBehaviour
         }
 	}
 
-	void Move(float amount)
+	void Move(float x)
 	{
-		transform.position = new Vector3(amount, transform.position.y, transform.position.z);
+		//rb.AddForce(new Vector3((x - transform.position.x) * 100f, 0f, 0f), ForceMode.Impulse);
+		transform.position = new Vector3(x, transform.position.y, transform.position.z);
 	}
 
 

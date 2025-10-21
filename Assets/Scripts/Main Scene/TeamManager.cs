@@ -1,4 +1,5 @@
 using NohaSoftware.Utilities;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,7 @@ public class TeamManager : MonoBehaviour
 	public bool exponential;
 	[SerializeField] public float runLength;
 	public float runStartZ = float.PositiveInfinity;
-	bool run;
+	public bool run;
 	[Tooltip("Milyen gyorsan fog elõreszaladni a pingvin, ha az elõtte lévõ meghal?")] public float penguinCatchUpSpeed = 8f;
 
 	[Header("Controls")]
@@ -44,6 +45,11 @@ public class TeamManager : MonoBehaviour
 	[SerializeField] ProgressBar xpBar;
 	[SerializeField] TextMeshProUGUI xpText;
 	[SerializeField] LocalizedString newLevelString, newCharacterString, upgradePointsString, beatGameString, levelString;
+
+	[Header("Visuals")]
+	[SerializeField] GameObject tomatoPrefab;
+	[SerializeField] float tomatoDuration;
+	[SerializeField] ParticleSystem ketchupParticlePrefab;
 
 	float setRunMultiplierToThis;
 
@@ -64,9 +70,9 @@ public class TeamManager : MonoBehaviour
 		int i = 0;
 		foreach (var c in layout.GetCharacters().Shuffle().Select(x => gameData.GetPenguinData(x)))
 		{
-			GameObject obj = Instantiate(penguinPrefab);
+			GameObject obj = Instantiate(penguinPrefab, new Vector3(0, 0, -i * penguinDistance), Quaternion.identity);
 			obj.name = c.name;
-			obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
+			//obj.transform.position = new Vector3(0, 0, -i * penguinDistance);
 			if (c.slideSprite != null) obj.GetComponentInChildren<SpriteRenderer>().sprite = c.slideSprite;
 
 			if (randomColors)
@@ -145,18 +151,18 @@ public class TeamManager : MonoBehaviour
 		}
 	}
 
-    private void FixedUpdate()
-    {
-        if (run)
-		{
-            // mindegyik pingvin mozgatása elõre
-            foreach (Penguin penguin in penguins)
-            {
-                if (penguin == null) continue;
-                penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.fixedDeltaTime);
-            }
-        }
-    }
+  //  private void FixedUpdate()
+  //  {
+  //      if (run)
+		//{
+  //          // mindegyik pingvin mozgatása elõre
+  //          foreach (Penguin penguin in penguins)
+  //          {
+  //              if (penguin == null) continue;
+  //              penguin.transform.position += new Vector3(0, 0, penguin.speed * Time.fixedDeltaTime);
+  //          }
+  //      }
+  //  }
 
     private void Update()
 	{
@@ -215,6 +221,8 @@ public class TeamManager : MonoBehaviour
 	{
 		float amount = horizontal * horizontalSensitivity * Time.deltaTime;
 		Vector2 moveCommand = new Vector2(penguins.First().transform.position.z, penguins.First().transform.position.x + amount);
+		//Vector2 moveCommand = new Vector2(penguins.First().transform.position.z, amount);
+
 
 		int i = 0;
 		foreach (Penguin penguin in penguins)
@@ -258,12 +266,16 @@ public class TeamManager : MonoBehaviour
 		if (penguins.Count == 0 || !penguins.Contains(penguin)) return;
 		try
 		{
+			StartCoroutine(PlaceTomato(penguin.transform.position));
+			StartCoroutine(PlaceKetchup(penguin.transform.position));
+
 			int idx = penguins.IndexOf(penguin);
 			penguins.Remove(penguin);
 			Destroy(penguin.gameObject);
 			AudioManager.instance.PlaySound("tree hit", AudioManager.instance.Mixer.SFX);
+            AudioManager.instance.PlaySound("splat", AudioManager.instance.Mixer.SFX);
 
-			if (idx == 0 && penguins.Any())
+            if (idx == 0 && penguins.Any())
 			{
 				cameraController.SetTransform(penguins[0].transform, true);
 				foreach (Penguin p in penguins)
@@ -287,5 +299,32 @@ public class TeamManager : MonoBehaviour
 			return;
 		}
 
+	}
+
+	IEnumerator PlaceTomato(Vector3 position)
+	{
+		GameObject tomato = Instantiate(tomatoPrefab);
+		tomato.transform.position = position;
+		SpriteRenderer sr = tomato.GetComponentInChildren<SpriteRenderer>();
+		float t = 0;
+		while (t < tomatoDuration)
+		{
+			t += Time.deltaTime;
+			tomato.transform.localScale = Vector3.Lerp(Vector3.one, 1.2f * Vector3.one, t / tomatoDuration);
+			if (t >= tomatoDuration * 0.8f)
+			{
+				sr.color = Color.Lerp(Color.white, new Color(1, 1, 1, 0), (t - tomatoDuration * 0.8f) / (tomatoDuration * 0.2f));
+			}
+			yield return null;
+		}
+		Destroy(tomato);
+	}
+
+	IEnumerator PlaceKetchup(Vector3 position)
+	{
+		ParticleSystem ketchup = Instantiate(ketchupParticlePrefab);
+		ketchup.transform.position = position;
+		yield return new WaitUntil(() => !ketchup.isPlaying);
+		Destroy(ketchup.gameObject);
 	}
 }
