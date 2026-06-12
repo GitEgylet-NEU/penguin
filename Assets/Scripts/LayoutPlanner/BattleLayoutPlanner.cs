@@ -232,8 +232,9 @@ public class BattleLayoutPlanner : MonoBehaviour
 		}
 		else
 		{
-			SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-		}
+			//SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+			SceneLoader.Instance.LoadScene("SampleScene");
+        }
 	}
 
 	public int Count(string id) => layout.Count(id);
