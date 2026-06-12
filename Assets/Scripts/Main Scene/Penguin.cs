@@ -131,6 +131,7 @@ public class Penguin : MonoBehaviour
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
 		{
 			TeamManager.instance.RemovePenguin(this);
+			enabled = false;
 		}
 	}
 

@@ -45,10 +45,10 @@ public class UIController : MonoBehaviour
 	private void OnEnable()
 	{
 		levelString.Arguments = new object[1];
-		levelString.StringChanged += UpdateLevelText;
+		//levelString.StringChanged += UpdateLevelText;
 
 		upgradePointString.Arguments = new object[1];
-		upgradePointString.StringChanged += UpdateUpgradePointText;
+		//upgradePointString.StringChanged += UpdateUpgradePointText;
 	}
 	private void OnDisable()
 	{
