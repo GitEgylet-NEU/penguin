@@ -64,7 +64,7 @@ public class UIController : MonoBehaviour
 
     public void OnLayoutClicked()
     {
-        SceneManager.LoadScene("LayoutPlanning");
+        SceneLoader.Instance.LoadScene("LayoutPlanning");
     }
     public void OnPlayClicked()
     {
